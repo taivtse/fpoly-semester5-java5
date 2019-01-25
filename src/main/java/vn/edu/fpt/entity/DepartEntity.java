@@ -1,10 +1,11 @@
 package vn.edu.fpt.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class DepartEntity {
+public class DepartEntity implements Serializable {
     @Id
     @Column(name = "id")
     private String id;

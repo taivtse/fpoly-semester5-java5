@@ -1,10 +1,11 @@
 package vn.edu.fpt.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
-public class UserEntity {
+public class UserEntity implements Serializable {
 
     @Id
     @Column(name = "id", unique = true)
