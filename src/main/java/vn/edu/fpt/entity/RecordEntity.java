@@ -11,10 +11,10 @@ public class RecordEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "type", nullable = false)
+    @Column(name = "type", nullable = false, length = 10)
     private String type;
 
-    @Column(name = "reason", nullable = false)
+    @Column(name = "reason", nullable = false, length = 510)
     private String reason;
 
     @Column(name = "submit_date", nullable = false)

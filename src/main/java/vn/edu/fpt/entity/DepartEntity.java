@@ -7,7 +7,7 @@ import java.util.List;
 @Entity
 public class DepartEntity implements Serializable {
     @Id
-    @Column(name = "id")
+    @Column(name = "id", length = 20)
     private String id;
 
     @Column(name = "name", nullable = false)

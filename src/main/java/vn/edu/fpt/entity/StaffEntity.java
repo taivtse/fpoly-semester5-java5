@@ -15,19 +15,19 @@ public class StaffEntity implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "gender")
+    @Column(name = "gender", length = 10)
     private String gender;
 
     @Column(name = "birthday")
     private Date birthday;
 
-    @Column(name = "photo")
+    @Column(name = "photo", length = 100)
     private String photo;
 
-    @Column(name = "email")
+    @Column(name = "email", length = 100)
     private String email;
 
-    @Column(name = "phone")
+    @Column(name = "phone", length = 20)
     private String phone;
 
     @Column(name = "salary")
