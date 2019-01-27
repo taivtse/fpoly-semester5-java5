@@ -16,6 +16,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     @Override
+    @Transactional(readOnly = true)
     public List<UserEntity> findAll() {
         return userDao.findAll();
     }
