@@ -138,7 +138,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
             Criteria cr = session.createCriteria(this.getPersistenceClass());
             cr.add(Restrictions.eq(property, value));
             result = (T) cr.uniqueResult();
-        } catch (HibernateException ex) {
+        } catch (Exception ex) {
             logger.error(ex.getMessage(), ex);
             throw ex;
         } finally {
@@ -148,13 +148,13 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public T save(T entity) throws Exception {
+    public T save(T entity){
         Session session = this.getSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.persist(entity);
             transaction.commit();
-        } catch (HibernateException ex) {
+        } catch (Exception ex) {
             transaction.rollback();
             logger.error(ex.getMessage(), ex);
             throw ex;
@@ -165,14 +165,14 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public T update(T entity) throws Exception {
+    public T update(T entity){
         T result;
         Session session = this.getSession();
         Transaction transaction = session.beginTransaction();
         try {
             result = (T) session.merge(entity);
             transaction.commit();
-        } catch (HibernateException ex) {
+        } catch (Exception ex) {
             transaction.rollback();
             logger.error(ex.getMessage(), ex);
             throw ex;
@@ -184,13 +184,13 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
 
 
     @Override
-    public void delete(T entity) throws Exception {
+    public void delete(T entity){
         Session session = this.getSession();
         Transaction transaction = session.beginTransaction();
         try {
             session.delete(entity);
             transaction.commit();
-        } catch (HibernateException ex) {
+        } catch (Exception ex) {
             transaction.rollback();
             logger.error(ex.getMessage(), ex);
             throw ex;
@@ -200,7 +200,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public void deleteById(ID id) throws Exception {
+    public void deleteById(ID id){
         Session session = this.getSession();
         T entity = (T) session.get(this.getPersistenceClass(), id);
         this.delete(entity);

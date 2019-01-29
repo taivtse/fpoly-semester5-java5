@@ -15,11 +15,11 @@ public interface GenericDao<ID extends Serializable, T> {
 
     T findUniqueEqual(String property, Object value);
 
-    T save(T entity) throws Exception;
+    T save(T entity);
 
-    T update(T entity) throws Exception;
+    T update(T entity);
 
-    void delete(T entity) throws Exception;
+    void delete(T entity);
 
-    void deleteById(ID id) throws Exception;
+    void deleteById(ID id);
 }
