@@ -148,7 +148,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public T save(T entity){
+    public void save(T entity){
         Session session = this.getSession();
         Transaction transaction = session.beginTransaction();
         try {
@@ -161,11 +161,10 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         } finally {
             session.close();
         }
-        return entity;
     }
 
     @Override
-    public T update(T entity){
+    public void update(T entity){
         T result;
         Session session = this.getSession();
         Transaction transaction = session.beginTransaction();
@@ -179,7 +178,6 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         } finally {
             session.close();
         }
-        return result;
     }
 
 

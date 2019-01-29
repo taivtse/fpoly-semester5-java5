@@ -15,9 +15,9 @@ public interface GenericDao<ID extends Serializable, T> {
 
     T findUniqueEqual(String property, Object value);
 
-    T save(T entity);
+    void save(T entity);
 
-    T update(T entity);
+    void update(T entity);
 
     void delete(T entity);
 
