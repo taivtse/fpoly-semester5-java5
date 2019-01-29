@@ -7,7 +7,6 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import vn.edu.fpt.constant.SystemConstant;
 import vn.edu.fpt.dao.GenericDao;
 
@@ -17,8 +16,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-@Repository
-public abstract class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID, T> {
+public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID, T> {
 
     @Autowired
     private SessionFactory sessionFactory;
