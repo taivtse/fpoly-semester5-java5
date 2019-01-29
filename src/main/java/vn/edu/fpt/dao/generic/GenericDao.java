@@ -1,4 +1,4 @@
-package vn.edu.fpt.dao;
+package vn.edu.fpt.dao.generic;
 
 import java.io.Serializable;
 import java.util.List;

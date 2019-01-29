@@ -1,4 +1,4 @@
-package vn.edu.fpt.service;
+package vn.edu.fpt.service.generic;
 
 import java.io.Serializable;
 import java.util.List;

@@ -2,6 +2,7 @@ package vn.edu.fpt.dao.impl;
 
 import org.springframework.stereotype.Repository;
 import vn.edu.fpt.dao.UserDao;
+import vn.edu.fpt.dao.generic.GenericDaoImpl;
 import vn.edu.fpt.entity.UserEntity;
 
 @Repository

@@ -1,14 +1,16 @@
-package vn.edu.fpt.dao.impl;
+package vn.edu.fpt.dao.generic;
 
 import org.apache.log4j.Logger;
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.edu.fpt.constant.SystemConstant;
-import vn.edu.fpt.dao.GenericDao;
+import vn.edu.fpt.dao.generic.GenericDao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
