@@ -44,12 +44,8 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     public List<T> findAll() {
         List list;
         Session session = this.getSession();
-        try {
-            list = session.createCriteria(this.getPersistenceClass()).list();
-        } finally {
-            session.close();
-        }
-
+        list = session.createCriteria(this.getPersistenceClass()).list();
+        session.close();
         return list;
     }
 
@@ -57,15 +53,8 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     public T findById(ID id) {
         T result = null;
         Session session = this.getSession();
-        try {
-            // note: the first parameter is class type, so we pass persistenceClass at this situation
-            result = (T) session.get(this.getPersistenceClass(), id);
-        } catch (HibernateException ex) {
-            logger.error(ex.getMessage(), ex);
-            throw ex;
-        } finally {
-            session.close();
-        }
+        result = (T) session.get(this.getPersistenceClass(), id);
+        session.close();
         return result;
     }
 
@@ -73,49 +62,48 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         List list;
         Long count;
         Session session = this.getSession();
-        try {
-            Criteria cr = session.createCriteria(this.getPersistenceClass());
-            Criteria cr2 = session.createCriteria(this.getPersistenceClass());
+        Criteria cr = session.createCriteria(this.getPersistenceClass());
+        Criteria cr2 = session.createCriteria(this.getPersistenceClass());
 
 //            set condition for query
-            if (properties != null) {
-                for (Map.Entry<String, Object> entry : properties.entrySet()) {
-                    if (isFindApproximate) {
-                        cr.add(Restrictions.like(entry.getKey(), entry.getValue().toString(), MatchMode.ANYWHERE));
-                        cr2.add(Restrictions.like(entry.getKey(), entry.getValue().toString(), MatchMode.ANYWHERE));
-                    } else {
-                        cr.add(Restrictions.eq(entry.getKey(), entry.getValue()));
-                        cr2.add(Restrictions.eq(entry.getKey(), entry.getValue()));
-                    }
+        if (properties != null) {
+            for (Map.Entry<String, Object> entry : properties.entrySet()) {
+                if (isFindApproximate) {
+                    cr.add(Restrictions.like(entry.getKey(), entry.getValue().toString(), MatchMode.ANYWHERE));
+                    cr2.add(Restrictions.like(entry.getKey(), entry.getValue().toString(), MatchMode.ANYWHERE));
+                } else {
+                    cr.add(Restrictions.eq(entry.getKey(), entry.getValue()));
+                    cr2.add(Restrictions.eq(entry.getKey(), entry.getValue()));
                 }
             }
+        }
 
 //            set sort direction
-            if (sortExpression != null && sortDirection != null) {
-                Order order = sortDirection.equals(SystemConstant.SORT_ASC) ?
-                        Order.asc(sortExpression) : Order.desc(sortExpression);
-                cr.addOrder(order);
-            }
+        if (sortExpression != null && sortDirection != null) {
+            Order order = sortDirection.equals(SystemConstant.SORT_ASC) ?
+                    Order.asc(sortExpression) : Order.desc(sortExpression);
+            cr.addOrder(order);
+        }
 
 //            set start position offset
-            if (offset != null && offset >= 0) {
-                cr.setFirstResult(offset);
-            }
+        if (offset != null && offset >= 0) {
+            cr.setFirstResult(offset);
+        }
 
 //            set limit row
-            if (limit != null && limit > 0) {
-                cr.setMaxResults(limit);
-            }
+        if (limit != null && limit > 0) {
+            cr.setMaxResults(limit);
+        }
 
-            list = cr.list();
+        list = cr.list();
 
 //            count total of items
 //            set result is a num row of list
-            cr2.setProjection(Projections.rowCount());
-            count = (Long) cr2.uniqueResult();
-        } finally {
-            session.close();
-        }
+        cr2.setProjection(Projections.rowCount());
+        count = (Long) cr2.uniqueResult();
+
+        session.close();
+
         return new Object[]{count, list};
     }
 
@@ -133,72 +121,37 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     public T findUniqueEqual(String property, Object value) {
         T result;
         Session session = this.getSession();
-        try {
-            // note: the first parameter is class type, so we pass persistenceClass at this situation
-            Criteria cr = session.createCriteria(this.getPersistenceClass());
-            cr.add(Restrictions.eq(property, value));
-            result = (T) cr.uniqueResult();
-        } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
-            throw ex;
-        } finally {
-            session.close();
-        }
+        Criteria cr = session.createCriteria(this.getPersistenceClass());
+        cr.add(Restrictions.eq(property, value));
+        result = (T) cr.uniqueResult();
+        session.close();
         return result;
     }
 
     @Override
-    public void save(T entity){
+    public void save(T entity) {
         Session session = this.getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.persist(entity);
-            transaction.commit();
-        } catch (Exception ex) {
-            transaction.rollback();
-            logger.error(ex.getMessage(), ex);
-            throw ex;
-        } finally {
-            session.close();
-        }
+        session.persist(entity);
+        session.close();
     }
 
     @Override
-    public void update(T entity){
-        T result;
+    public void update(T entity) {
         Session session = this.getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            result = (T) session.merge(entity);
-            transaction.commit();
-        } catch (Exception ex) {
-            transaction.rollback();
-            logger.error(ex.getMessage(), ex);
-            throw ex;
-        } finally {
-            session.close();
-        }
+        session.merge(entity);
+        session.close();
     }
 
 
     @Override
-    public void delete(T entity){
+    public void delete(T entity) {
         Session session = this.getSession();
-        Transaction transaction = session.beginTransaction();
-        try {
-            session.delete(entity);
-            transaction.commit();
-        } catch (Exception ex) {
-            transaction.rollback();
-            logger.error(ex.getMessage(), ex);
-            throw ex;
-        } finally {
-            session.close();
-        }
+        session.delete(entity);
+        session.close();
     }
 
     @Override
-    public void deleteById(ID id){
+    public void deleteById(ID id) {
         Session session = this.getSession();
         T entity = (T) session.get(this.getPersistenceClass(), id);
         this.delete(entity);
