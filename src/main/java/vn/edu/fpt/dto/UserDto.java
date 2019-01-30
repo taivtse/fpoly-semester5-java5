@@ -3,7 +3,7 @@ package vn.edu.fpt.dto;
 import java.io.Serializable;
 
 public class UserDto implements Serializable {
-    private int id;
+    private Integer id;
     private String username;
     private String password;
     private String fullName;

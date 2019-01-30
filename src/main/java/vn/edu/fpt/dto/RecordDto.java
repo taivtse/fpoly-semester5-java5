@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class RecordDto implements Serializable {
-    private int id;
+    private Integer id;
     private String type;
     private String reason;
     private Date submitDate;

@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class StaffDto implements Serializable {
-    private int id;
+    private Integer id;
     private String name;
     private String gender;
     private Date birthday;
     private String photo;
     private String email;
     private String phone;
-    private int salary;
+    private Integer salary;
     private String notes;
     private DepartDto departDto;
 
