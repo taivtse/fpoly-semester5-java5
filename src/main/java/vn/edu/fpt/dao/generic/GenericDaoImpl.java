@@ -10,7 +10,6 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.edu.fpt.constant.SystemConstant;
-import vn.edu.fpt.dao.generic.GenericDao;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;

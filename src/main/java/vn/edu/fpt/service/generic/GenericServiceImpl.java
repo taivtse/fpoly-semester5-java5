@@ -15,7 +15,7 @@ import java.util.List;
 public class GenericServiceImpl<ID extends Serializable, T, M extends AbstractMapper> implements GenericService<ID, T> {
 
     private final Logger logger = Logger.getLogger(this.getClass());
-    private GenericDao<ID, T> genericDao;
+    private GenericDao<ID, Object> genericDao;
     private AbstractMapper mapper;
 
     public GenericServiceImpl(GenericDao genericDao) {
@@ -51,17 +51,20 @@ public class GenericServiceImpl<ID extends Serializable, T, M extends AbstractMa
 
     @Override
     public void save(T dto) {
-        genericDao.save(dto);
+        Object entity = mapper.dtoToEntity(dto);
+        genericDao.save(entity);
     }
 
     @Override
     public void update(T dto) {
-        genericDao.update(dto);
+        Object entity = mapper.dtoToEntity(dto);
+        genericDao.update(entity);
     }
 
     @Override
     public void delete(T dto) {
-        genericDao.delete(dto);
+        Object entity = mapper.dtoToEntity(dto);
+        genericDao.delete(entity);
     }
 
     @Override
