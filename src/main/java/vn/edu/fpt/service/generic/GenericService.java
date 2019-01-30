@@ -8,11 +8,11 @@ public interface GenericService<ID extends Serializable, T> {
 
     T findById(ID id);
 
-    void save(T entity);
+    void save(T dto);
 
-    void update(T entity);
+    void update(T dto);
 
-    void delete(T entity);
+    void delete(T dto);
 
     void deleteById(ID id);
 }
