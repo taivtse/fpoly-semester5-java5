@@ -8,11 +8,11 @@ public class UserDto implements Serializable {
     private String password;
     private String fullName;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

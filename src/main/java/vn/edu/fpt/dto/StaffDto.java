@@ -15,11 +15,11 @@ public class StaffDto implements Serializable {
     private String notes;
     private DepartDto departDto;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -71,11 +71,11 @@ public class StaffDto implements Serializable {
         this.phone = phone;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 
