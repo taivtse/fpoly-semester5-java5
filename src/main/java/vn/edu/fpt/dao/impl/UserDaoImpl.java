@@ -7,5 +7,4 @@ import vn.edu.fpt.entity.UserEntity;
 
 @Repository
 public class UserDaoImpl extends GenericDaoImpl<Integer, UserEntity> implements UserDao {
-
 }
