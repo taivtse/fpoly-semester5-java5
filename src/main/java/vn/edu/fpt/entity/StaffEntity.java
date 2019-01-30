@@ -11,7 +11,7 @@ public class StaffEntity implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "name", nullable = false)
     private String name;
@@ -32,7 +32,7 @@ public class StaffEntity implements Serializable {
     private String phone;
 
     @Column(name = "salary")
-    private int salary;
+    private Integer salary;
 
     @Column(name = "notes")
     private String notes;

@@ -10,7 +10,7 @@ public class UserEntity implements Serializable {
     @Id
     @Column(name = "id", unique = true)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "username", nullable = false, length = 50)
     private String username;

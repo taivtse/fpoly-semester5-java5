@@ -10,7 +10,7 @@ public class RecordEntity implements Serializable {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(name = "type", nullable = false, length = 10)
     private String type;
