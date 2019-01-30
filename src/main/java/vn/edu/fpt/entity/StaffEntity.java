@@ -47,7 +47,7 @@ public class StaffEntity implements Serializable {
     public StaffEntity() {
     }
 
-    public StaffEntity(String name, String gender, Date birthday, String photo, String email, String phone, int salary, String notes, DepartEntity departEntity) {
+    public StaffEntity(String name, String gender, Date birthday, String photo, String email, String phone, Integer salary, String notes, DepartEntity departEntity) {
         this.name = name;
         this.gender = gender;
         this.birthday = birthday;
@@ -59,11 +59,11 @@ public class StaffEntity implements Serializable {
         this.departEntity = departEntity;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -115,11 +115,11 @@ public class StaffEntity implements Serializable {
         this.phone = phone;
     }
 
-    public int getSalary() {
+    public Integer getSalary() {
         return salary;
     }
 
-    public void setSalary(int salary) {
+    public void setSalary(Integer salary) {
         this.salary = salary;
     }
 
