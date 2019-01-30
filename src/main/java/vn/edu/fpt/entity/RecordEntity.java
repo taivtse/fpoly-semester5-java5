@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
+@Table(name = "record")
 public class RecordEntity implements Serializable {
     @Id
     @Column(name = "id")

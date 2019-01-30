@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
+@Table(name = "depart")
 public class DepartEntity implements Serializable {
     @Id
     @Column(name = "id", length = 20)

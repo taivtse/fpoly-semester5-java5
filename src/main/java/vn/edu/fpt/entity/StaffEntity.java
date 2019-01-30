@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "staff")
 public class StaffEntity implements Serializable {
     @Id
     @Column(name = "id")
