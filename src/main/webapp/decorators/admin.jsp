@@ -26,6 +26,9 @@
     <link rel="stylesheet" href="<c:url value='/template/admin/vendor/font-awesome/css/font-awesome.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/template/admin/vendor/magnific-popup/magnific-popup.css'/>"/>
 
+    <!-- Specific Page Vendor CSS -->
+    <decorator:getProperty property="page.specific_css"></decorator:getProperty>
+
     <!-- Theme CSS -->
     <link rel="stylesheet" href="<c:url value='/template/admin/stylesheets/theme.css'/>"/>
 
@@ -52,6 +55,9 @@
         <decorator:body></decorator:body>
 
     </div>
+
+    <decorator:getProperty property="page.specific_html"></decorator:getProperty>
+
     <!-- Vendor -->
     <script src="<c:url value='/template/admin/vendor/jquery/jquery.min.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-browser-mobile/jquery.browser.mobile.js'/>"></script>
@@ -60,6 +66,7 @@
     <script src="<c:url value='/template/admin/vendor/magnific-popup/magnific-popup.js'/>"></script>
 
     <!-- Specific Page Vendor -->
+    <decorator:getProperty property="page.specific_script"></decorator:getProperty>
 
     <!-- Theme Base, Components and Settings -->
     <script src="<c:url value='/template/admin/javascripts/theme.js'/>"></script>
@@ -70,7 +77,6 @@
     <!-- Theme Initialization Files -->
     <script src="<c:url value='/template/admin/javascripts/theme.init.js'/>"></script>
 
-    <decorator:getProperty property="page.local_script"></decorator:getProperty>
 </section>
 </body>
 </html>
