@@ -21,7 +21,7 @@ public class RecordEntity implements Serializable {
     @Column(name = "submit_date", nullable = false)
     private Date submitDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "staff_id", nullable = false)
     private StaffEntity staffEntity;
 

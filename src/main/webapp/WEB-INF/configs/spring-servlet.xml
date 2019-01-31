@@ -12,6 +12,9 @@
     <!-- Add support for component scanning -->
     <context:component-scan base-package="vn.edu.fpt.*"/>
 
+    <!-- Adding static resources -->
+    <mvc:resources mapping="/template/**" location="/template/" />
+
     <!-- Add support for conversion, formatting and validation support -->
     <mvc:annotation-driven/>
 

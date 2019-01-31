@@ -37,7 +37,7 @@ public class StaffEntity implements Serializable {
     @Column(name = "notes")
     private String notes;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "depart_id", nullable = false)
     private DepartEntity departEntity;
 
