@@ -50,25 +50,31 @@ public class GenericServiceImpl<ID extends Serializable, T, M extends AbstractMa
     }
 
     @Override
-    public void save(T dto) {
+    public void save(T dto) throws Exception {
         Object entity = mapper.dtoToEntity(dto);
         genericDao.save(entity);
     }
 
     @Override
-    public void update(T dto) {
+    public void update(T dto) throws Exception {
         Object entity = mapper.dtoToEntity(dto);
         genericDao.update(entity);
     }
 
     @Override
-    public void delete(T dto) {
+    public void saveOrUpdate(T dto) throws Exception {
+        Object entity = mapper.dtoToEntity(dto);
+        genericDao.saveOrUpdate(entity);
+    }
+
+    @Override
+    public void delete(T dto) throws Exception {
         Object entity = mapper.dtoToEntity(dto);
         genericDao.delete(entity);
     }
 
     @Override
-    public void deleteById(ID id) {
+    public void deleteById(ID id) throws Exception {
         genericDao.deleteById(id);
     }
 }

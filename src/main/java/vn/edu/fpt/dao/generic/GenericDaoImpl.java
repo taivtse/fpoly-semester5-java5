@@ -1,9 +1,7 @@
 package vn.edu.fpt.dao.generic;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -130,29 +128,70 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public void save(T entity) {
+    public void save(T entity) throws Exception {
         Session session = this.getSession();
-        session.persist(entity);
-        session.close();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.persist(entity);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            throw ex;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
-    public void update(T entity) {
+    public void update(T entity) throws Exception {
         Session session = this.getSession();
-        session.merge(entity);
-        session.close();
+        Transaction transaction = session.beginTransaction();
+        try {
+            T mappedEntity = (T) session.merge(entity);
+            session.update(mappedEntity);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            throw ex;
+        } finally {
+            session.close();
+        }
+    }
+
+    @Override
+    public void saveOrUpdate(T entity) throws Exception {
+        Session session = this.getSession();
+        Transaction transaction = session.beginTransaction();
+        try {
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            throw ex;
+        } finally {
+            session.close();
+        }
     }
 
 
     @Override
-    public void delete(T entity) {
+    public void delete(T entity) throws Exception {
         Session session = this.getSession();
-        session.delete(entity);
-        session.close();
+        Transaction transaction = session.beginTransaction();
+        try {
+            T mappedEntity = (T) session.merge(entity);
+            session.delete(mappedEntity);
+            transaction.commit();
+        } catch (HibernateException ex) {
+            transaction.rollback();
+            throw ex;
+        } finally {
+            session.close();
+        }
     }
 
     @Override
-    public void deleteById(ID id) {
+    public void deleteById(ID id) throws Exception {
         Session session = this.getSession();
         T entity = (T) session.get(this.getPersistenceClass(), id);
         this.delete(entity);

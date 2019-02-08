@@ -77,6 +77,7 @@
     <!-- Theme Initialization Files -->
     <script src="<c:url value='/template/admin/javascripts/theme.init.js'/>"></script>
 
+    <decorator:getProperty property="page.local_script"></decorator:getProperty>
 </section>
 </body>
 </html>

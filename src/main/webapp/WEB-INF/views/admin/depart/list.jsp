@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="<c:url value='/template/admin/vendor/select2/select2.css'/>"/>
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
+        <link rel="stylesheet" href="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.css'/>"/>
     </content>
 </head>
 <body>
@@ -38,45 +39,26 @@
             <table class="table table-bordered table-striped mb-none" id="datatable-editable">
                 <thead>
                 <tr>
-                    <%--<th><fmt:message key="label.depart.id" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.numerical.order" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.depart.id" bundle="${lang}"/></th>
                     <th><fmt:message key="label.depart.name" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.action" bundle="${lang}"/></th>--%>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Actions</th>
+                    <th><fmt:message key="label.action" bundle="${lang}"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="gradeC">
-                    <td>Misc</td>
-                    <td>IE Mobile</td>
-                    <td class="actions">
-                        <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                        <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                        <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
-                <tr class="gradeC">
-                    <td>Misc</td>
-                    <td>PSP browser</td>
-                    <td class="actions">
-                        <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                        <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                        <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
-                <tr class="gradeU">
-                    <td>Other browsers</td>
-                    <td>All others</td>
-                    <td class="actions">
-                        <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                        <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                        <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                        <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
-                    </td>
-                </tr>
+                <c:forEach var="departDto" items="${departDtoList}" varStatus="loop">
+                    <tr>
+                        <td>${loop.index + 1}</td>
+                        <td>${departDto.id}</td>
+                        <td>${departDto.name}</td>
+                        <td class="actions">
+                            <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
+                            <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
+                            <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                        </td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -114,7 +96,11 @@
     <script src="<c:url value='/template/admin/vendor/select2/select2.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-datatables/jquery.dataTables.min.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/js/datatables.js'/>"></script>
+    <script src="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.js'/>"></script>
+</content>
+<content tag="local_script">
     <script src="<c:url value='/template/admin/javascripts/tables/examples.datatables.editable.js'/>"></script>
+    <script src="<c:url value='/template/admin/javascripts/ui-elements/examples.notifications.js'/>"></script>
 </content>
 </body>
 </html>
