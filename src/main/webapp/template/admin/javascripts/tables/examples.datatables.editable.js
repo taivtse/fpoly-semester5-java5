@@ -41,7 +41,9 @@
                     null,
                     null,
                     {"bSortable": false}
-                ]
+                ],
+                // tai edited here
+                paging: false
             });
 
             window.dt = this.datatable;
@@ -130,8 +132,8 @@
             // Tai edited here
             var nextNo = this.$table.dataTable().fnGetData().length + 1;
             data = this.datatable.row.add([nextNo, '', '', actions]);
-            // data = this.datatable.row.add([ '', '', '', actions ]);
             // end edit here
+
             $row = this.datatable.row(data[0]).nodes().to$();
 
             $row
@@ -207,36 +209,7 @@
             });
 
             // Tai edit here
-            var departDto = {
-                id: values[1],
-                name: values[2]
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "/admin/depart",
-                data: departDto,
-                success: function (data) {
-                    if (data === "success") {
-                        // add new row
-                        _self.datatable.row($row.get(0)).data(values);
-
-                        // set actions button to default
-                        $actions = $row.find('td.actions');
-                        if ($actions.get(0)) {
-                            _self.rowSetActionsDefault($row);
-                        }
-
-                        // remove adding css class
-                        $row.removeClass('adding');
-                    }else{
-
-                    }
-                },
-                error: function (error) {
-                    console.log("ERROR: ", error);
-                }
-            });
+            addNewDepartViaAjax(_self, $row, values);
             // end edited here
 
             this.datatable.draw();

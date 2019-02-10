@@ -1,5 +1,7 @@
 package vn.edu.fpt.controller;
 
+import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,10 +35,13 @@ public class DepartController {
         try {
             departService.save(departDto);
             return "success";
+        } catch (ConstraintViolationException e) {
+            return "fail_duplicate";
+        } catch (DataException e) {
+            return "fail_toolong";
         } catch (Exception e) {
-            e.printStackTrace();
+            return "fail";
         }
-        return "fail";
     }
 
     @RequestMapping(method = RequestMethod.PUT)

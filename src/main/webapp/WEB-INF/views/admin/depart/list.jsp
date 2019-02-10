@@ -4,6 +4,7 @@
   Date: 1/31/19
   Time: 21:18
 --%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <html>
 <head>
@@ -101,6 +102,68 @@
 <content tag="local_script">
     <script src="<c:url value='/template/admin/javascripts/tables/examples.datatables.editable.js'/>"></script>
     <script src="<c:url value='/template/admin/javascripts/ui-elements/examples.notifications.js'/>"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+
+        });
+
+        function addNewDepartViaAjax(_self, $row, values) {
+            var departDto = {
+                id: values[1],
+                name: values[2]
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/depart",
+                data: departDto,
+                success: function (msg) {
+                    var alertType = "success";
+                    var alertTitle = "Thêm mới thành công";
+                    var alertText = "Đã thêm mới 1 phòng ban:\nMã: {0}\nTên: {1}".format(departDto.id, departDto.name);
+
+                    if (msg === "success") {
+                        // add new row
+                        _self.datatable.row($row.get(0)).data(values);
+
+                        // set actions button to default
+                        $actions = $row.find('td.actions');
+                        if ($actions.get(0)) {
+                            _self.rowSetActionsDefault($row);
+                        }
+
+                        // remove adding css class
+                        $row.removeClass('adding');
+
+
+                    } else {
+                        alertType = "error";
+                        alertTitle = "Thêm mới thất bại";
+
+                        switch (msg) {
+                            case "fail_duplicate":
+                                alertText = "Phòng ban có mã: {0} đã tồn tại".format(departDto.id);
+                                break;
+                            case "fail_toolong":
+                                alertText = "Mã hoặc tên phòng ban vượt quá số ký tự quy định";
+                                break;
+                            default:
+                                alertText = "Đã có lỗi xảy ra trong quá trình thêm phòng ban";
+                        }
+                    }
+
+                    new PNotify({
+                        title: alertTitle,
+                        text: alertText,
+                        type: alertType
+                    });
+                },
+                error: function (error) {
+                    console.log("ERROR: ", error);
+                }
+            });
+        }
+    </script>
 </content>
 </body>
 </html>
