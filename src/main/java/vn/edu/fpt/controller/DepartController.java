@@ -1,12 +1,12 @@
 package vn.edu.fpt.controller;
 
+import org.hibernate.StaleStateException;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.exception.DataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.dto.DepartDto;
 import vn.edu.fpt.service.DepartService;
@@ -21,7 +21,7 @@ public class DepartController {
     @Autowired
     private DepartService departService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
     public ModelAndView list() {
         List<DepartDto> departDtoList = departService.findAll();
         ModelAndView modelAndView = new ModelAndView(viewRootPath.concat("list"));
@@ -29,9 +29,9 @@ public class DepartController {
         return modelAndView;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping("/insert")
     @ResponseBody
-    public String add(DepartDto departDto) {
+    public String insert(DepartDto departDto) {
         try {
             departService.save(departDto);
             return "success";
@@ -40,27 +40,36 @@ public class DepartController {
         } catch (DataException e) {
             return "fail_toolong";
         } catch (Exception e) {
+            e.printStackTrace();
             return "fail";
         }
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PostMapping("/update")
     @ResponseBody
-    public void update(DepartDto departDto) {
+    public String update(DepartDto departDto) {
         try {
             departService.update(departDto);
+            return "success";
+        } catch (StaleStateException e) {
+            return "fail_primarykey";
+        } catch (DataException e) {
+            return "fail_toolong";
         } catch (Exception e) {
             e.printStackTrace();
+            return "fail";
         }
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
+    @DeleteMapping("/{departId}")
     @ResponseBody
-    public void delete(DepartDto departDto) {
+    public String delete(@PathVariable("departId") String departId) {
         try {
-            departService.delete(departDto);
+            departService.deleteById(departId);
+            return "success";
         } catch (Exception e) {
             e.printStackTrace();
+            return "fail";
         }
     }
 }

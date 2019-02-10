@@ -86,9 +86,9 @@
                             change: function () {
                                 _self.dialog.$confirm.on('click', function (e) {
                                     e.preventDefault();
-
-                                    _self.rowRemove($row);
                                     $.magnificPopup.close();
+
+                                    deleteDepartViaAjax(_self, $row);
                                 });
                             },
                             close: function () {
@@ -180,8 +180,8 @@
                 if ($this.hasClass('actions')) {
                     _self.rowSetActionsEditing($row);
                     // tai edited here
-                } else if (data[i]) {
-                    $this.html('<input type="text" disabled class="form-control input-block" value="' + data[i] + '"/>');
+                } else if (i == 0 || $this.data("editable") == false) {
+                    $this.html('<input type="text" disabled = "disabled" data-editable = "false" class="form-control input-block" value="' + data[i] + '"/>');
                     // end edit here
                 } else {
                     $this.html('<input type="text" class="form-control input-block" value="' + data[i] + '"/>');
@@ -209,7 +209,11 @@
             });
 
             // Tai edit here
-            addNewDepartViaAjax(_self, $row, values);
+            if ($row.hasClass("adding")) {
+                addNewDepartViaAjax(_self, $row, values);
+            } else {
+                updateDepartViaAjax(_self, $row, values);
+            }
             // end edited here
 
             this.datatable.draw();
@@ -220,7 +224,7 @@
                 this.$addButton.removeAttr('disabled');
             }
 
-            this.datatable.row($row.get(0)).remove().draw();
+            // this.datatable.row($row.get(0)).remove().draw();
         },
 
         rowSetActionsEditing: function ($row) {

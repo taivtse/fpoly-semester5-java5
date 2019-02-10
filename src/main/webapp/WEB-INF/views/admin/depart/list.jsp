@@ -48,9 +48,9 @@
                 </thead>
                 <tbody>
                 <c:forEach var="departDto" items="${departDtoList}" varStatus="loop">
-                    <tr>
-                        <td>${loop.index + 1}</td>
-                        <td>${departDto.id}</td>
+                    <tr data-id= ${departDto.id}>
+                        <td data-editable="false">${loop.index + 1}</td>
+                        <td data-editable="false">${departDto.id}</td>
                         <td>${departDto.name}</td>
                         <td class="actions">
                             <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
@@ -115,15 +115,15 @@
 
             $.ajax({
                 type: "POST",
-                url: "/admin/depart",
+                url: "/admin/depart/insert",
                 data: departDto,
                 success: function (msg) {
                     var alertType = "success";
                     var alertTitle = "Thêm mới thành công";
-                    var alertText = "Đã thêm mới 1 phòng ban:\nMã: {0}\nTên: {1}".format(departDto.id, departDto.name);
+                    var alertText = "Đã thêm mới phòng ban:\nMã: {0}\nTên: {1}".format(departDto.id, departDto.name);
 
                     if (msg === "success") {
-                        // add new row
+                        // add row
                         _self.datatable.row($row.get(0)).data(values);
 
                         // set actions button to default
@@ -135,7 +135,12 @@
                         // remove adding css class
                         $row.removeClass('adding');
 
+                        // set editable td
+                        $row.find("td").eq(0).attr('data-editable', false);
+                        $row.find("td").eq(1).attr('data-editable', false);
 
+                        // add row id
+                        $row.attr('data-id', '222');
                     } else {
                         alertType = "error";
                         alertTitle = "Thêm mới thất bại";
@@ -149,6 +154,95 @@
                                 break;
                             default:
                                 alertText = "Đã có lỗi xảy ra trong quá trình thêm phòng ban";
+                        }
+                    }
+
+                    new PNotify({
+                        title: alertTitle,
+                        text: alertText,
+                        type: alertType
+                    });
+                },
+                error: function (error) {
+                    console.log("ERROR: ", error);
+                }
+            });
+        }
+
+        function updateDepartViaAjax(_self, $row, values) {
+            var departDto = {
+                id: values[1],
+                name: values[2]
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "/admin/depart/update",
+                data: departDto,
+                success: function (msg) {
+                    var alertType = "success";
+                    var alertTitle = "Cập nhật thành công";
+                    var alertText = "Đã cập nhật phòng ban:\nMã: {0}\nTên: {1}".format(departDto.id, departDto.name);
+
+                    if (msg === "success") {
+                        // update row
+                        _self.datatable.row($row.get(0)).data(values);
+
+                        // set actions button to default
+                        $actions = $row.find('td.actions');
+                        if ($actions.get(0)) {
+                            _self.rowSetActionsDefault($row);
+                        }
+                    }
+                    else {
+                        alertType = "error";
+                        alertTitle = "Cập nhật thất bại";
+
+                        switch (msg) {
+                            case "fail_primarykey":
+                                alertText = "Không tồn tại phòng ban có mã: {0}".format(departDto.id);
+                                break;
+                            case "fail_toolong":
+                                alertText = "Mã hoặc tên phòng ban vượt quá số ký tự quy định";
+                                break;
+                            default:
+                                alertText = "Đã có lỗi xảy ra trong quá trình cập nhật phòng ban";
+                        }
+                    }
+
+                    new PNotify({
+                        title: alertTitle,
+                        text: alertText,
+                        type: alertType
+                    });
+                },
+                error: function (error) {
+                    console.log("ERROR: ", error);
+                }
+            });
+        }
+
+        function deleteDepartViaAjax(_self, $row) {
+            $.ajax({
+                type: "DELETE",
+                url: "/admin/depart/{0}".format($row.data("id")),
+                success: function (msg) {
+                    var alertType = "success";
+                    var alertTitle = "Xoá dữ liệu thành công";
+                    var alertText = "Đã xoá phòng ban:\nMã: {0}\nTên: {1}".format($row.data("id"), $row.find("td").eq(2).textContent);
+
+                    if (msg === "success") {
+                        _self.datatable.row($row.get(0)).remove().draw();
+                    } else {
+                        alertType = "error";
+                        alertTitle = "Xoá dữ liệu thất bại";
+
+                        switch (msg) {
+                            case "fail_duplicate":
+                                alertText = "Không tồn tại phòng ban có mã: {0}".format($row.data("id"));
+                                break;
+                            default:
+                                alertText = "Đã có lỗi xảy ra trong quá trình xoá phòng ban";
                         }
                     }
 

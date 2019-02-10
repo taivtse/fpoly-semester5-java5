@@ -147,8 +147,8 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         Session session = this.getSession();
         Transaction transaction = session.beginTransaction();
         try {
-            T mappedEntity = (T) session.merge(entity);
-            session.update(mappedEntity);
+//            T mappedEntity = (T) session.merge(entity);
+            session.update(entity);
             transaction.commit();
         } catch (HibernateException ex) {
             transaction.rollback();
