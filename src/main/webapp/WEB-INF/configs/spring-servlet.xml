@@ -12,14 +12,11 @@
     <!-- Add support for component scanning -->
     <context:component-scan base-package="vn.edu.fpt.*"/>
 
-    <!-- Adding static resources -->
-    <mvc:resources mapping="/template/**" location="/template/" />
-
     <!-- Add support for conversion, formatting and validation support -->
     <mvc:annotation-driven/>
 
     <!-- A handler for serving static resources -->
-    <mvc:resources mapping="/resource/**" location="/resource/"/>
+    <mvc:resources mapping="/**" location="/" />
 
     <!-- Define Spring MVC view resolver -->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
