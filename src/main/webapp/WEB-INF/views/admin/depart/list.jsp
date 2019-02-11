@@ -10,10 +10,8 @@
 <head>
     <title><fmt:message key="label.depart.page.title" bundle="${lang}"/></title>
     <content tag="specific_css">
-        <link rel="stylesheet" href="<c:url value='/template/admin/vendor/select2/select2.css'/>"/>
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
-        <link rel="stylesheet" href="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.css'/>"/>
     </content>
 </head>
 <body>
@@ -94,10 +92,8 @@
 
 
 <content tag="specific_script">
-    <script src="<c:url value='/template/admin/vendor/select2/select2.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-datatables/jquery.dataTables.min.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/js/datatables.js'/>"></script>
-    <script src="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.js'/>"></script>
 </content>
 <content tag="local_script">
     <script src="<c:url value='/template/admin/javascripts/tables/depart.datatables.editable.js'/>"></script>
@@ -140,7 +136,7 @@
                         $row.find("td").eq(1).attr('data-editable', false);
 
                         // add row id
-                        $row.attr('data-id', '222');
+                        $row.attr('data-id', departDto.id);
                     } else {
                         alertType = "error";
                         alertTitle = "Thêm mới thất bại";

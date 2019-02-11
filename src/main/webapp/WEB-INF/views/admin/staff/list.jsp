@@ -10,7 +10,6 @@
 <head>
     <title><fmt:message key="label.staff.page.title" bundle="${lang}"/></title>
     <content tag="specific_css">
-        <link rel="stylesheet" href="<c:url value='/template/admin/vendor/select2/select2.css'/>"/>
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
     </content>
@@ -56,8 +55,10 @@
                         <td>${staffDto.level}</td>
                         <td>${staffDto.departDto.name}</td>
                         <td class="actions">
-                            <a href="${staffDto.code}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                            <a href="${staffDto.code}" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                            <a href="info/${staffDto.code}" class="on-default edit-row"><i
+                                    class="fa fa-pencil"></i></a>
+                            <a href="info/${staffDto.code}" class="on-default remove-row"><i
+                                    class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -94,7 +95,6 @@
 </content>
 
 <content tag="specific_script">
-    <script src="<c:url value='/template/admin/vendor/select2/select2.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-datatables/jquery.dataTables.min.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/js/datatables.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.js'/>"></script>

@@ -28,7 +28,7 @@ public class DepartController {
         return modelAndView;
     }
 
-    @PostMapping("/insert")
+    @PostMapping("insert")
     @ResponseBody
     public String insert(DepartDto departDto) {
         try {
@@ -44,7 +44,7 @@ public class DepartController {
         }
     }
 
-    @PostMapping("/update")
+    @PostMapping("update")
     @ResponseBody
     public String update(DepartDto departDto) {
         try {
@@ -60,7 +60,7 @@ public class DepartController {
         }
     }
 
-    @DeleteMapping("/{departId}")
+    @DeleteMapping("{departId}")
     @ResponseBody
     public String delete(@PathVariable("departId") String departId) {
         try {

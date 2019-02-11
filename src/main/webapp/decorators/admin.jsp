@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="<c:url value='/template/admin/vendor/bootstrap/css/bootstrap.min.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/template/admin/vendor/font-awesome/css/font-awesome.css'/>"/>
     <link rel="stylesheet" href="<c:url value='/template/admin/vendor/magnific-popup/magnific-popup.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.css'/>"/>
+    <link rel="stylesheet" href="<c:url value='/template/admin/vendor/select2/select2.css'/>"/>
 
     <!-- Specific Page Vendor CSS -->
     <decorator:getProperty property="page.specific_css"></decorator:getProperty>
@@ -64,6 +66,8 @@
     <script src="<c:url value='/template/admin/vendor/bootstrap/js/bootstrap.min.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/nanoscroller/nanoscroller.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/magnific-popup/magnific-popup.js'/>"></script>
+    <script src="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.js'/>"></script>
+    <script src="<c:url value='/template/admin/vendor/select2/select2.js'/>"></script>
 
     <!-- Specific Page Vendor -->
     <decorator:getProperty property="page.specific_script"></decorator:getProperty>
