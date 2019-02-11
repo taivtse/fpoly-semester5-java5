@@ -12,6 +12,9 @@ import vn.edu.fpt.mapper.DepartMapper;
 import vn.edu.fpt.service.DepartService;
 import vn.edu.fpt.service.generic.GenericServiceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 public class DepartServiceImpl extends GenericServiceImpl<String, DepartDto, DepartMapper> implements DepartService {
@@ -24,6 +27,15 @@ public class DepartServiceImpl extends GenericServiceImpl<String, DepartDto, Dep
     public DepartServiceImpl(@Qualifier("departDaoImpl") GenericDao genericDao) {
         super(genericDao);
         this.departDao = (DepartDao) genericDao;
+    }
+
+    @Override
+    public List<DepartDto> findAllActive() {
+        List<DepartDto> dtoList = new ArrayList<>();
+        departDao.findAllActive().forEach(departEntity -> {
+            dtoList.add(mapper.entityToDto(departEntity));
+        });
+        return dtoList;
     }
 
     @Override

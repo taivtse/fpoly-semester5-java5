@@ -36,9 +36,9 @@ public class GenericServiceImpl<ID extends Serializable, T, M extends AbstractMa
     @Transactional(readOnly = true)
     public List<T> findAll() {
         List<T> dtoList = new ArrayList<>();
-        for (Object entity : genericDao.findAll()) {
+        genericDao.findAll().forEach(entity -> {
             dtoList.add((T) mapper.entityToDto(entity));
-        }
+        });
         return dtoList;
     }
 
