@@ -100,7 +100,7 @@
     <script src="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.js'/>"></script>
 </content>
 <content tag="local_script">
-    <script src="<c:url value='/template/admin/javascripts/tables/examples.datatables.editable.js'/>"></script>
+    <script src="<c:url value='/template/admin/javascripts/tables/depart.datatables.editable.js'/>"></script>
     <script src="<c:url value='/template/admin/javascripts/ui-elements/examples.notifications.js'/>"></script>
     <script type="application/javascript">
         $(document).ready(function () {
