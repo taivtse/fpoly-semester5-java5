@@ -37,8 +37,14 @@ public class StaffEntity implements Serializable {
     @Column(name = "salary")
     private Integer salary;
 
+    @Column(name = "level")
+    private Integer level;
+
     @Column(name = "notes")
     private String notes;
+
+    @Column(name = "is_active")
+    private Boolean isActive;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "depart_id", nullable = false)
@@ -134,12 +140,28 @@ public class StaffEntity implements Serializable {
         this.salary = salary;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     public String getNotes() {
         return notes;
     }
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public DepartEntity getDepartEntity() {

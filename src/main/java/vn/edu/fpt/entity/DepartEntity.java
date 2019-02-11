@@ -14,6 +14,9 @@ public class DepartEntity implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "is_active")
+    private Boolean isActive;
+
     @OneToMany(mappedBy = "departEntity", fetch = FetchType.LAZY)
     private List<StaffEntity> staffEntityList;
 
@@ -39,6 +42,14 @@ public class DepartEntity implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public List<StaffEntity> getStaffEntityList() {
