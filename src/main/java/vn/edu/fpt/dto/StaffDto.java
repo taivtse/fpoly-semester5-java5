@@ -5,6 +5,7 @@ import java.util.Date;
 
 public class StaffDto implements Serializable {
     private Integer id;
+    private String code;
     private String name;
     private String gender;
     private Date birthday;
@@ -21,6 +22,14 @@ public class StaffDto implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

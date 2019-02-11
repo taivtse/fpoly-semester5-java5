@@ -13,6 +13,9 @@ public class StaffEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "code", nullable = false)
+    private String code;
+
     @Column(name = "name", nullable = false)
     private String name;
 
@@ -65,6 +68,14 @@ public class StaffEntity implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {
