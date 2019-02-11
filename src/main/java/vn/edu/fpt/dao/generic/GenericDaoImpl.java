@@ -128,7 +128,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         try {
             session.save(entity);
         }catch (HibernateException e){
-            throw e;
+            throw new Exception(e);
         }
     }
 
@@ -138,7 +138,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         try {
             session.update(entity);
         }catch (HibernateException e){
-            throw e;
+            throw new Exception(e);
         }
     }
 
@@ -148,7 +148,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         try {
             session.saveOrUpdate(entity);
         }catch (HibernateException e){
-            throw e;
+            throw new Exception(e);
         }
     }
 
@@ -159,7 +159,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         try {
             session.delete(entity);
         }catch (HibernateException e){
-            throw e;
+            throw new Exception(e);
         }
     }
 
