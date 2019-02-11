@@ -1,7 +1,9 @@
 package vn.edu.fpt.dao.generic;
 
-import org.apache.log4j.Logger;
-import org.hibernate.*;
+import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -20,7 +22,6 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     @Autowired
     private SessionFactory sessionFactory;
 
-    private final Logger logger = Logger.getLogger(this.getClass());
     private Class<T> persistenceClass;
 
     public GenericDaoImpl() {
@@ -49,7 +50,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
 
     @Override
     public T findById(ID id) {
-        T result = null;
+        T result;
         Session session = this.getSession();
         result = (T) session.get(this.getPersistenceClass(), id);
         return result;
@@ -136,6 +137,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     public void update(T entity) throws Exception {
         Session session = this.getSession();
         try {
+            entity = (T) session.merge(entity);
             session.update(entity);
         }catch (HibernateException e){
             throw new Exception(e);
@@ -157,6 +159,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     public void delete(T entity) throws Exception {
         Session session = this.getSession();
         try {
+            entity = (T) session.merge(entity);
             session.delete(entity);
         }catch (HibernateException e){
             throw new Exception(e);

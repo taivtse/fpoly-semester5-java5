@@ -64,4 +64,11 @@ public class DepartServiceImpl extends GenericServiceImpl<String, DepartDto, Dep
         DepartEntity entity = mapper.dtoToEntity(dto);
         departDao.update(entity);
     }
+
+    @Override
+    public void deleteById(String id) throws Exception {
+        DepartEntity entity = departDao.findById(id);
+        DepartDto dto = mapper.entityToDto(entity);
+        this.delete(dto);
+    }
 }

@@ -9,6 +9,7 @@ import java.util.List;
 public class DepartEntity implements Serializable {
     @Id
     @Column(name = "id", length = 20)
+
     private String id;
 
     @Column(name = "name", nullable = false)

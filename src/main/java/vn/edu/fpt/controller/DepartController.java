@@ -22,7 +22,7 @@ public class DepartController {
 
     @GetMapping
     public ModelAndView list() {
-        List<DepartDto> departDtoList = departService.findAll();
+        List<DepartDto> departDtoList = departService.findAllActive();
         ModelAndView modelAndView = new ModelAndView(prefixPath.concat("list"));
         modelAndView.addObject("departDtoList", departDtoList);
         return modelAndView;
