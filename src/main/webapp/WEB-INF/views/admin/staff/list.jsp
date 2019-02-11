@@ -8,7 +8,7 @@
 <%@include file="/common/taglib.jsp" %>
 <html>
 <head>
-    <title><fmt:message key="label.depart.page.title" bundle="${lang}"/></title>
+    <title><fmt:message key="label.staff.page.title" bundle="${lang}"/></title>
     <content tag="specific_css">
         <link rel="stylesheet" href="<c:url value='/template/admin/vendor/select2/select2.css'/>"/>
         <link rel="stylesheet"
@@ -18,13 +18,13 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.user.page.title" bundle="${lang}"/></h2>
+        <h2><fmt:message key="label.staff.page.title" bundle="${lang}"/></h2>
     </header>
 
     <!-- start: page -->
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title"><fmt:message key="label.user.list" bundle="${lang}"/></h2>
+            <h2 class="panel-title"><fmt:message key="label.staff.list" bundle="${lang}"/></h2>
         </header>
         <div class="panel-body">
             <div class="row">
@@ -39,50 +39,25 @@
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
                 <thead>
                 <tr>
-                    <th>Rendering engine</th>
-                    <th>Browser</th>
-                    <th>Platform(s)</th>
-                    <th class="hidden-phone">Engine version</th>
-                    <th class="hidden-phone">CSS grade</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="gradeC">
-                    <td>Misc</td>
-                    <td>PSP browser</td>
-                    <td>PSP</td>
-                    <td class="center hidden-phone">-</td>
-                    <td class="center hidden-phone">C</td>
-                </tr>
-                <tr class="gradeU">
-                    <td>Other browsers</td>
-                    <td>All others</td>
-                    <td>-</td>
-                    <td class="center hidden-phone">-</td>
-                    <td class="center hidden-phone">U</td>
-                </tr>
-                </tbody>
-            </table>
-            <table class="table table-bordered table-striped mb-none" id="datatable-editable">
-                <thead>
-                <tr>
-                    <th><fmt:message key="label.numerical.order" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.depart.id" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.depart.name" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.staff.code" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.staff.name" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.staff.email" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.staff.level" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.depart" bundle="${lang}"/></th>
                     <th><fmt:message key="label.action" bundle="${lang}"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="departDto" items="${departDtoList}" varStatus="loop">
-                    <tr data-id= ${departDto.id}>
-                        <td data-editable="false">${loop.index + 1}</td>
-                        <td data-editable="false">${departDto.id}</td>
-                        <td>${departDto.name}</td>
+                <c:forEach var="staffDto" items="${staffDtoList}" varStatus="loop">
+                    <tr>
+                        <td>${staffDto.code}</td>
+                        <td>${staffDto.name}</td>
+                        <td>${staffDto.email}</td>
+                        <td>${staffDto.level}</td>
+                        <td>${staffDto.departDto.name}</td>
                         <td class="actions">
-                            <a href="#" class="hidden on-editing save-row"><i class="fa fa-save"></i></a>
-                            <a href="#" class="hidden on-editing cancel-row"><i class="fa fa-times"></i></a>
-                            <a href="#" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
-                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
+                            <a href="${staffDto.code}" class="on-default edit-row"><i class="fa fa-pencil"></i></a>
+                            <a href="${staffDto.code}" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -123,6 +98,10 @@
     <script src="<c:url value='/template/admin/vendor/jquery-datatables/jquery.dataTables.min.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/js/datatables.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.js'/>"></script>
+</content>
+
+<content tag="local_script">
+    <script src="<c:url value='/template/admin/javascripts/tables/staff.datatables.default.js'/>"></script>
 </content>
 </body>
 </html>

@@ -43,7 +43,8 @@
                     {"bSortable": false}
                 ],
                 // tai edited here
-                paging: false
+                paging: false,
+                bInfo : false
             });
 
             window.dt = this.datatable;

@@ -1,17 +1,20 @@
+(function ($) {
 
+    'use strict';
 
-(function( $ ) {
+    var datatableInit = function () {
 
-	'use strict';
+        $('#datatable-default').DataTable({
+            // tai edited here
+            searching: false,
+            paging: false,
+            info: false
+        });
 
-	var datatableInit = function() {
+    };
 
-		$('#datatable-default').dataTable();
+    $(function () {
+        datatableInit();
+    });
 
-	};
-
-	$(function() {
-		datatableInit();
-	});
-
-}).apply( this, [ jQuery ]);
+}).apply(this, [jQuery]);

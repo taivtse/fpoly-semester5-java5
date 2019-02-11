@@ -28,7 +28,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/depart/">
+                        <a href="/admin/staff/">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             <span><fmt:message key="label.sidebar.staff" bundle="${lang}"/></span>
                         </a>

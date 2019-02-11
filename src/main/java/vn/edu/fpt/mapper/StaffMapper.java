@@ -25,7 +25,9 @@ public class StaffMapper implements AbstractMapper<StaffDto, StaffEntity> {
         ModelMapper modelMapper = new ModelMapper();
         PropertyMap<StaffDto, StaffEntity> orderMap = new PropertyMap<StaffDto, StaffEntity>() {
             protected void configure() {
-                map(source.getDepartDto(), destination.getDepartEntity());
+                if (source.getDepartDto() != null) {
+                    map(source.getDepartDto(), destination.getDepartEntity());
+                }
             }
         };
         modelMapper.addMappings(orderMap);
