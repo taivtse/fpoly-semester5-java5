@@ -15,7 +15,7 @@ import java.util.List;
 @Controller
 @RequestMapping(value = {"/admin/depart"})
 public class DepartController {
-    private String viewRootPath = "admin/depart/";
+    private final String prefixPath = "admin/depart/";
 
     @Autowired
     private DepartService departService;
@@ -23,7 +23,7 @@ public class DepartController {
     @GetMapping
     public ModelAndView list() {
         List<DepartDto> departDtoList = departService.findAll();
-        ModelAndView modelAndView = new ModelAndView(viewRootPath.concat("list"));
+        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("list"));
         modelAndView.addObject("departDtoList", departDtoList);
         return modelAndView;
     }
