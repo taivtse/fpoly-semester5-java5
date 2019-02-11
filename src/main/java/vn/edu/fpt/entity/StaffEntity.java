@@ -28,7 +28,7 @@ public class StaffEntity implements Serializable {
     @Column(name = "photo", length = 100)
     private String photo;
 
-    @Column(name = "email", length = 100)
+    @Column(name = "email", length = 100, nullable = false)
     private String email;
 
     @Column(name = "phone", length = 20)

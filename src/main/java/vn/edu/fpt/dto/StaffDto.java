@@ -13,7 +13,9 @@ public class StaffDto implements Serializable {
     private String email;
     private String phone;
     private Integer salary;
+    private Integer level;
     private String notes;
+    private Boolean isActive;
     private DepartDto departDto;
 
     public Integer getId() {
@@ -88,12 +90,28 @@ public class StaffDto implements Serializable {
         this.salary = salary;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
     public String getNotes() {
         return notes;
     }
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
     }
 
     public DepartDto getDepartDto() {
