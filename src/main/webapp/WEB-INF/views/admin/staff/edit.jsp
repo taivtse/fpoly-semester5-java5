@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>
-        <fmt:message key="label.staff.${staffDto eq null ? 'add' : 'update'}" bundle="${lang}"/>
+        <fmt:message key="label.staff.${command.pojo eq null ? 'add' : 'update'}" bundle="${lang}"/>
     </title>
     <content tag="specific_css">
         <link rel="stylesheet"
@@ -23,7 +23,7 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.staff.${staffDto eq null ? 'add' : 'update'}" bundle="${lang}"/></h2>
+        <h2><fmt:message key="label.staff.${command.pojo eq null ? 'add' : 'update'}" bundle="${lang}"/></h2>
     </header>
 
     <!-- start: page -->
@@ -34,13 +34,13 @@
                     <h2 class="panel-title"><fmt:message key="label.staff.info" bundle="${lang}"/></h2>
                 </header>
                 <div class="panel-body">
-                    <form class="form-horizontal form-bordered" action="${submitFormUrl}" method="post">
+                    <form class="form-horizontal form-bordered" id="command" action="${submitFormUrl}" method="post">
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="name">
                                 <fmt:message key="label.staff.name" bundle="${lang}"/>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" name="name" value="${staffDto.name}" class="form-control" id="name">
+                                <input type="text" name="pojo.name" value="${command.pojo.name}" class="form-control" id="name">
                             </div>
                         </div>
 
@@ -50,22 +50,22 @@
                             </label>
                             <div class="col-md-6">
                                 <div class="radio-custom pr-xl" style="display: inline-block;">
-                                    <input type="radio" value="male" ${staffDto.gender eq 'male' ? 'checked' : ''}
-                                           id="rdo-male" name="gender" checked>
+                                    <input type="radio" value="male" ${command.pojo.gender eq 'male' ? 'checked' : ''}
+                                           id="rdo-male" name="pojo.gender" checked>
                                     <label for="rdo-male">
                                         <fmt:message key="label.staff.gender.male" bundle="${lang}"/>
                                     </label>
                                 </div>
                                 <div class="radio-custom pr-xl" style="display: inline-block;">
-                                    <input type="radio" value="female" ${staffDto.gender eq 'female' ? 'checked' : ''}
-                                           id="rdo-female" name="gender">
+                                    <input type="radio" value="female" ${command.pojo.gender eq 'female' ? 'checked' : ''}
+                                           id="rdo-female" name="pojo.gender">
                                     <label for="rdo-female">
                                         <fmt:message key="label.staff.gender.female" bundle="${lang}"/>
                                     </label>
                                 </div>
                                 <div class="radio-custom" style="display: inline-block;">
-                                    <input type="radio" value="other" ${staffDto.gender eq 'other' ? 'checked' : ''}
-                                           id="orther" name="gender">
+                                    <input type="radio" value="other" ${command.pojo.gender eq 'other' ? 'checked' : ''}
+                                           id="orther" name="pojo.gender">
                                     <label for="orther">
                                         <fmt:message key="label.other" bundle="${lang}"/>
                                     </label>
@@ -90,7 +90,7 @@
                                             <span class="fileupload-new">
                                                 <fmt:message key="label.photo.select" bundle="${lang}"/>
                                             </span>
-                                            <input type="file" name="photo">
+                                            <input type="file" name="pojo.photo">
                                         </span>
                                         <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
                                             <fmt:message key="label.cancel" bundle="${lang}"/>
@@ -109,7 +109,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
-                                    <input type="text" name="birthday" value="${staffDto.birthday}"
+                                    <input type="text" autocomplete="off" name="pojo.birthday" value="${command.pojo.birthday}"
                                            data-plugin-datepicker class="form-control">
                                 </div>
                             </div>
@@ -122,7 +122,7 @@
                             <div class="col-md-6">
                                 <div data-plugin-spinner data-plugin-options='{ "value":1, "min": 1, "max": 10 }'>
                                     <div class="input-group" style="width:50%;">
-                                        <input type="text" name="level" value="${staffDto.level}"
+                                        <input type="text" name="pojo.level" value="${command.pojo.level}"
                                                class="spinner-input form-control"
                                                maxlength="2" readonly>
                                         <div class="spinner-buttons input-group-btn">
@@ -143,7 +143,7 @@
                                 <fmt:message key="label.staff.salary" bundle="${lang}"/>
                             </label>
                             <div class="col-md-6">
-                                <input type="number" name="salary" value="${staffDto.salary}" min="0"
+                                <input type="number" name="pojo.salary" value="${command.pojo.salary}" min="0"
                                        class="form-control" id="salary">
                             </div>
                         </div>
@@ -153,7 +153,7 @@
                                 <fmt:message key="label.staff.email" bundle="${lang}"/>
                             </label>
                             <div class="col-md-6">
-                                <input type="email" name="email" value="${staffDto.email}" class="form-control"
+                                <input type="email" name="pojo.email" value="${command.pojo.email}" class="form-control"
                                        id="email">
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                                 <fmt:message key="label.staff.phone" bundle="${lang}"/>
                             </label>
                             <div class="col-md-6">
-                                <input type="tel" name="phone" value="${staffDto.phone}" class="form-control"
+                                <input type="tel" name="pojo.phone" value="${command.pojo.phone}" class="form-control"
                                        id="phone">
                             </div>
                         </div>
@@ -173,8 +173,8 @@
                                 <fmt:message key="label.staff.notes" bundle="${lang}"/>
                             </label>
                             <div class="col-md-6">
-                                <textarea name="notes" class="form-control" rows="3" id="textareaAutosize"
-                                          data-plugin-textarea-autosize>${staffDto.notes}</textarea>
+                                <textarea name="pojo.notes" class="form-control" rows="3" id="textareaAutosize"
+                                          data-plugin-textarea-autosize>${command.pojo.notes}</textarea>
                             </div>
                         </div>
 
@@ -184,7 +184,7 @@
                             </label>
                             <div class="col-md-6">
                                 <select data-plugin-selectTwo name="departId" class="form-control populate">
-                                    <c:forEach var="departDto" items="${departDtoList}">
+                                    <c:forEach var="departDto" items="${command.departDtoList}">
                                         <option value="${departDto.id}">${departDto.name}</option>
                                     </c:forEach>
                                 </select>

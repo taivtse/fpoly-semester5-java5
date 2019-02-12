@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import vn.edu.fpt.command.StaffCommand;
+import vn.edu.fpt.constant.SystemConstant;
 import vn.edu.fpt.dto.DepartDto;
 import vn.edu.fpt.dto.StaffDto;
 import vn.edu.fpt.service.DepartService;
 import vn.edu.fpt.service.StaffService;
+import vn.edu.fpt.util.FormUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -31,20 +34,23 @@ public class StaffController {
     }
 
     @GetMapping("info/{code}")
-    public ModelAndView update(@PathVariable String code) {
+    public ModelAndView insertOrUpdate(@PathVariable String code) {
         StaffDto staffDto = staffService.getByCode(code);
         List<DepartDto> departDtoList = departService.findAllActive();
         ModelAndView modelAndView = new ModelAndView(prefixPath.concat("edit"));
-        modelAndView.addObject("staffDto", staffDto);
-        modelAndView.addObject("departDtoList", departDtoList);
+
+        StaffCommand command = new StaffCommand();
+        command.setDepartDtoList(departDtoList);
+        command.setPojo(staffDto);
+        modelAndView.addObject(SystemConstant.COMMAND, command);
+
         return modelAndView;
     }
 
     @PostMapping("update")
-    @ResponseBody
-    public String update(HttpServletRequest request) {
+    public String insertOrUpdate(HttpServletRequest request) {
 //        System.out.println(staffDto.getCode());
-        request.getParameter("name");
-        return "redirect:".concat(prefixPath);
+        StaffCommand command = FormUtil.populate(StaffCommand.class, request);
+        return "redirect:/".concat(prefixPath);
     }
 }
