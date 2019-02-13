@@ -1,7 +1,7 @@
 package vn.edu.fpt.dao.generic;
 
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
@@ -126,43 +126,42 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     @Override
     public void save(T entity) throws Exception {
         Session session = this.getSession();
-        try {
-            session.save(entity);
-        }catch (HibernateException e){
-            throw new Exception(e);
-        }
+        session.save(entity);
     }
 
     @Override
     public void update(T entity) throws Exception {
         Session session = this.getSession();
         try {
-            entity = (T) session.merge(entity);
             session.update(entity);
-        }catch (HibernateException e){
-            throw new Exception(e);
+        } catch (Exception e) {
+            if (e instanceof NonUniqueObjectException) {
+                entity = (T) session.merge(entity);
+                session.update(entity);
+                return;
+            }
+            throw e;
         }
     }
 
     @Override
     public void saveOrUpdate(T entity) throws Exception {
         Session session = this.getSession();
-        try {
-            session.saveOrUpdate(entity);
-        }catch (HibernateException e){
-            throw new Exception(e);
-        }
+        session.saveOrUpdate(entity);
     }
-
 
     @Override
     public void delete(T entity) throws Exception {
         Session session = this.getSession();
         try {
-            entity = (T) session.merge(entity);
             session.delete(entity);
-        }catch (HibernateException e){
-            throw new Exception(e);
+        } catch (Exception e) {
+            if (e instanceof NonUniqueObjectException) {
+                entity = (T) session.merge(entity);
+                session.delete(entity);
+                return;
+            }
+            throw e;
         }
     }
 

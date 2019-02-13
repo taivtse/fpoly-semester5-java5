@@ -15,7 +15,7 @@ public interface GenericDao<ID extends Serializable, T> {
 
     T findUniqueEqual(String property, Object value);
 
-    void save(T entity) throws Exception;
+    void save(T entity) throws Exception ;
 
     void update(T entity) throws Exception;
 
