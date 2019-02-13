@@ -39,21 +39,23 @@ public class DepartServiceImpl extends GenericServiceImpl<String, DepartDto, Dep
     }
 
     @Override
-    public void save(DepartDto dto) throws Exception {
+    public DepartDto save(DepartDto dto) throws Exception {
 //        processing before save
         dto.setActive(true);
 
         DepartEntity entity = mapper.dtoToEntity(dto);
         departDao.save(entity);
+        return dto;
     }
 
     @Override
-    public void update(DepartDto dto) throws Exception {
+    public DepartDto update(DepartDto dto) throws Exception {
 //        processing before update
         dto.setActive(true);
 
         DepartEntity entity = mapper.dtoToEntity(dto);
         departDao.update(entity);
+        return dto;
     }
 
     @Override

@@ -50,21 +50,19 @@ public class GenericServiceImpl<ID extends Serializable, T, M extends AbstractMa
     }
 
     @Override
-    public void save(T dto) throws Exception {
+    public T save(T dto) throws Exception {
         Object entity = mapper.dtoToEntity(dto);
         genericDao.save(entity);
+
+        return (T) mapper.entityToDto(entity);
     }
 
     @Override
-    public void update(T dto) throws Exception {
+    public T update(T dto) throws Exception {
         Object entity = mapper.dtoToEntity(dto);
         genericDao.update(entity);
-    }
 
-    @Override
-    public void saveOrUpdate(T dto) throws Exception {
-        Object entity = mapper.dtoToEntity(dto);
-        genericDao.saveOrUpdate(entity);
+        return (T) mapper.entityToDto(entity);
     }
 
     @Override

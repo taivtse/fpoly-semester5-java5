@@ -8,11 +8,9 @@ public interface GenericService<ID extends Serializable, T> {
 
     T findById(ID id);
 
-    void save(T dto) throws Exception;
+    T save(T dto) throws Exception;
 
-    void update(T dto) throws Exception;
-
-    void saveOrUpdate(T dto) throws Exception;
+    T update(T dto) throws Exception;
 
     void delete(T dto) throws Exception;
 
