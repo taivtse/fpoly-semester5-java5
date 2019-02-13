@@ -13,7 +13,7 @@ public class StaffEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "code", nullable = false, unique = true, length = 20)
+    @Column(name = "code", unique = true, length = 20)
     private String code;
 
     @Column(name = "name", nullable = false)
