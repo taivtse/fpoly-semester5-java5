@@ -127,6 +127,8 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     public void save(T entity) throws Exception {
         Session session = this.getSession();
         session.save(entity);
+        session.flush();
+        session.refresh(entity);
     }
 
     @Override
@@ -134,6 +136,8 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         Session session = this.getSession();
         try {
             session.update(entity);
+            session.flush();
+            session.refresh(entity);
         } catch (Exception e) {
             if (e instanceof NonUniqueObjectException) {
                 entity = (T) session.merge(entity);
@@ -145,16 +149,11 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public void saveOrUpdate(T entity) throws Exception {
-        Session session = this.getSession();
-        session.saveOrUpdate(entity);
-    }
-
-    @Override
     public void delete(T entity) throws Exception {
         Session session = this.getSession();
         try {
             session.delete(entity);
+            session.flush();
         } catch (Exception e) {
             if (e instanceof NonUniqueObjectException) {
                 entity = (T) session.merge(entity);
