@@ -2,23 +2,29 @@ package vn.edu.fpt.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.command.StaffCommand;
 import vn.edu.fpt.constant.SystemConstant;
 import vn.edu.fpt.dto.DepartDto;
+import vn.edu.fpt.dto.PNotifyDto;
 import vn.edu.fpt.dto.StaffDto;
 import vn.edu.fpt.service.DepartService;
 import vn.edu.fpt.service.StaffService;
 import vn.edu.fpt.util.FormUtil;
+import vn.edu.fpt.util.MessageBundleUtil;
+import vn.edu.fpt.util.SessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
-@RequestMapping(value = {"/admin/staff/"})
+@RequestMapping(value = {"/admin/staff"})
 public class StaffController {
-    private final String prefixPath = "admin/staff/";
+    private final String prefixPath = "admin/staff";
     @Autowired
     private StaffService staffService;
 
@@ -26,22 +32,41 @@ public class StaffController {
     private DepartService departService;
 
     @GetMapping
-    public ModelAndView list() {
-        List<StaffDto> staffDtoList = staffService.findAll();
-        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("list"));
-        modelAndView.addObject("staffDtoList", staffDtoList);
+    public ModelAndView list(HttpServletRequest request) {
+        StaffCommand command = FormUtil.populate(StaffCommand.class, request);
+        command.setListResult(staffService.findAll());
+
+        PNotifyDto pNotifyDto = (PNotifyDto) SessionUtil.getInstance().get(request, SystemConstant.PNotify);
+        if (pNotifyDto != null) {
+            command.setpNotifyDto(pNotifyDto);
+            SessionUtil.getInstance().remove(request, SystemConstant.PNotify);
+        }
+
+        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("/list"));
+        modelAndView.addObject(SystemConstant.COMMAND, command);
+
         return modelAndView;
     }
 
-    @GetMapping("info/{code}")
-    public ModelAndView insertOrUpdate(@PathVariable String code) {
-        StaffDto staffDto = staffService.getByCode(code);
-        List<DepartDto> departDtoList = departService.findAllActive();
-        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("edit"));
-
+    @GetMapping({"info/{code}", "info/"})
+    public ModelAndView info(@PathVariable(required = false) String code) {
         StaffCommand command = new StaffCommand();
+
+        if (code != null) {
+            StaffDto staffDto = staffService.getByCode(code);
+            if (staffDto != null) {
+                command.setPojo(staffDto);
+            } else {
+                return new ModelAndView(SystemConstant.REDIRECT_URL.concat(prefixPath));
+            }
+        } else {
+            command.setPojo(null);
+        }
+
+        List<DepartDto> departDtoList = departService.findAllActive();
         command.setDepartDtoList(departDtoList);
-        command.setPojo(staffDto);
+
+        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("/edit"));
         modelAndView.addObject(SystemConstant.COMMAND, command);
 
         return modelAndView;
@@ -49,8 +74,32 @@ public class StaffController {
 
     @PostMapping("update")
     public String insertOrUpdate(HttpServletRequest request) {
-//        System.out.println(staffDto.getCode());
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
-        return "redirect:/".concat(prefixPath);
+        PNotifyDto pNotifyDto = new PNotifyDto();
+        StaffDto staffDto;
+        try {
+            DepartDto departDto = departService.findById(command.getDepartId());
+            command.getPojo().setDepartDto(departDto);
+
+            if (command.getPojo().getId() == null) {
+                staffDto = staffService.save(command.getPojo());
+                pNotifyDto.setTitle(MessageBundleUtil.get("label.insert.success"));
+                pNotifyDto.setText(MessageBundleUtil.get("label.staff.insert.success"));
+            } else {
+                staffDto = staffService.update(command.getPojo());
+                pNotifyDto.setTitle(MessageBundleUtil.get("label.update.success"));
+                pNotifyDto.setText(MessageBundleUtil.get("label.staff.update.success"));
+            }
+
+            pNotifyDto.setType(SystemConstant.SUCCESS);
+            pNotifyDto.setText(String.format(pNotifyDto.getText(), staffDto.getCode(), staffDto.getName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            pNotifyDto.setTitle(MessageBundleUtil.get("label.error"));
+            pNotifyDto.setText(MessageBundleUtil.get("label.error.fail"));
+            pNotifyDto.setType(SystemConstant.ERROR);
+        }
+        SessionUtil.getInstance().put(request, SystemConstant.PNotify, pNotifyDto);
+        return SystemConstant.REDIRECT_URL.concat(prefixPath);
     }
 }

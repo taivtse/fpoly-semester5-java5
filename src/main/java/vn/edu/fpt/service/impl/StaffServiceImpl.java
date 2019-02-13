@@ -30,6 +30,46 @@ public class StaffServiceImpl extends GenericServiceImpl<Integer, StaffDto, Staf
     @Override
     public StaffDto getByCode(String code) {
         StaffEntity entity = this.staffDao.findUniqueEqual("code", code);
+        if (entity != null)
+            return mapper.entityToDto(entity);
+        return null;
+    }
+
+    @Override
+    public StaffDto save(StaffDto dto) throws Exception {
+//        processing before save
+        dto.setActive(true);
+
+        StaffEntity entity = mapper.dtoToEntity(dto);
+        staffDao.save(entity);
+
         return mapper.entityToDto(entity);
+    }
+
+    @Override
+    public StaffDto update(StaffDto dto) throws Exception {
+//        processing before update
+        dto.setActive(true);
+
+        StaffEntity entity = mapper.dtoToEntity(dto);
+        staffDao.update(entity);
+
+        return mapper.entityToDto(entity);
+    }
+
+    @Override
+    public void delete(StaffDto dto) throws Exception {
+//        mark as deleted
+        dto.setActive(false);
+
+        StaffEntity entity = mapper.dtoToEntity(dto);
+        staffDao.update(entity);
+    }
+
+    @Override
+    public void deleteById(Integer id) throws Exception {
+        StaffEntity entity = staffDao.findById(id);
+        StaffDto dto = mapper.entityToDto(entity);
+        this.delete(dto);
     }
 }

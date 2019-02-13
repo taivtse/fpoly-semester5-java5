@@ -1,5 +1,7 @@
 package vn.edu.fpt.command;
 
+import vn.edu.fpt.dto.PNotifyDto;
+
 import java.util.List;
 
 public class AbstractCommand<T> {
@@ -8,13 +10,12 @@ public class AbstractCommand<T> {
     private int maxPageItems = 5;
     private int totalItems = 0;
     private int firstItem = 0;
+    private int page = 1;
+    private int totalPages;
     private String sortExpression;
     private String sortDirection;
     private String[] checkList;
-    private String messageResponse;
-    private String notifyType;
-    private int page = 1;
-    private int totalPages;
+    private PNotifyDto pNotifyDto;
 
     public T getPojo() {
         return pojo;
@@ -80,22 +81,6 @@ public class AbstractCommand<T> {
         this.checkList = checkList;
     }
 
-    public String getMessageResponse() {
-        return messageResponse;
-    }
-
-    public void setMessageResponse(String messageResponse) {
-        this.messageResponse = messageResponse;
-    }
-
-    public String getNotifyType() {
-        return notifyType;
-    }
-
-    public void setNotifyType(String notifyType) {
-        this.notifyType = notifyType;
-    }
-
     public int getPage() {
         return page;
     }
@@ -110,5 +95,13 @@ public class AbstractCommand<T> {
 
     public void setTotalPages(int totalPages) {
         this.totalPages = totalPages;
+    }
+
+    public PNotifyDto getpNotifyDto() {
+        return pNotifyDto;
+    }
+
+    public void setpNotifyDto(PNotifyDto pNotifyDto) {
+        this.pNotifyDto = pNotifyDto;
     }
 }

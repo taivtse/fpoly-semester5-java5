@@ -6,11 +6,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="submitFormUrl" value="/admin/staff/update"></c:url>
+<c:set var="submitFormUrl" value="/admin/staff/update"></c:set>
+
 <html>
 <head>
     <title>
-        <fmt:message key="label.staff.${command.pojo eq null ? 'add' : 'update'}" bundle="${lang}"/>
+        <fmt:message key="label.staff.${empty command.pojo ? 'add' : 'update'}" bundle="${lang}"/>
     </title>
     <content tag="specific_css">
         <link rel="stylesheet"
@@ -23,7 +24,7 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.staff.${command.pojo eq null ? 'add' : 'update'}" bundle="${lang}"/></h2>
+        <h2><fmt:message key="label.staff.${empty command.pojo ? 'add' : 'update'}" bundle="${lang}"/></h2>
     </header>
 
     <!-- start: page -->
@@ -35,12 +36,27 @@
                 </header>
                 <div class="panel-body">
                     <form class="form-horizontal form-bordered" id="command" action="${submitFormUrl}" method="post">
+                        <c:if test="${not empty command.pojo}">
+                            <input type="hidden" name="pojo.id" value="${command.pojo.id}">
+                            <input type="hidden" name="pojo.code" value="${command.pojo.code}">
+                            <div class="form-group">
+                                <label class="col-md-3 control-label" for="code">
+                                    <fmt:message key="label.staff.code" bundle="${lang}"/>
+                                </label>
+                                <div class="col-md-6">
+                                    <input type="text" readonly disabled value="${command.pojo.code}"
+                                           class="form-control"
+                                           id="code">
+                                </div>
+                            </div>
+                        </c:if>
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="name">
                                 <fmt:message key="label.staff.name" bundle="${lang}"/>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" name="pojo.name" value="${command.pojo.name}" class="form-control" id="name">
+                                <input type="text" name="pojo.name" value="${command.pojo.name}" class="form-control"
+                                       id="name">
                             </div>
                         </div>
 
@@ -57,7 +73,8 @@
                                     </label>
                                 </div>
                                 <div class="radio-custom pr-xl" style="display: inline-block;">
-                                    <input type="radio" value="female" ${command.pojo.gender eq 'female' ? 'checked' : ''}
+                                    <input type="radio"
+                                           value="female" ${command.pojo.gender eq 'female' ? 'checked' : ''}
                                            id="rdo-female" name="pojo.gender">
                                     <label for="rdo-female">
                                         <fmt:message key="label.staff.gender.female" bundle="${lang}"/>
@@ -109,7 +126,8 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
-                                    <input type="text" autocomplete="off" name="pojo.birthday" value="${command.pojo.birthday}"
+                                    <input type="text" autocomplete="off" name="pojo.birthday"
+                                           value="<fmt:formatDate value="${command.pojo.birthday}" pattern="dd/MM/yyyy"/>"
                                            data-plugin-datepicker class="form-control">
                                 </div>
                             </div>
@@ -144,6 +162,7 @@
                             </label>
                             <div class="col-md-6">
                                 <input type="number" name="pojo.salary" value="${command.pojo.salary}" min="0"
+                                       pattern="([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3}),([0-9]{1,3})"
                                        class="form-control" id="salary">
                             </div>
                         </div>
@@ -185,7 +204,7 @@
                             <div class="col-md-6">
                                 <select data-plugin-selectTwo name="departId" class="form-control populate">
                                     <c:forEach var="departDto" items="${command.departDtoList}">
-                                        <option value="${departDto.id}">${departDto.name}</option>
+                                        <option value="${departDto.id}" ${departDto.id eq command.pojo.departDto.id ? 'selected' : ''}>${departDto.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>

@@ -29,9 +29,9 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-md">
-                        <button id="addToTable" class="btn btn-primary">
-                            <fmt:message key="label.add" bundle="${lang}"/>
-                            <i class="fa fa-plus"></i></button>
+                        <a href="/admin/staff/info/" id="addToTable" class="btn btn-primary">
+                            <fmt:message key="label.insert" bundle="${lang}"/>
+                            <i class="fa fa-plus"></i></a>
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="staffDto" items="${staffDtoList}" varStatus="loop">
+                <c:forEach var="staffDto" items="${command.listResult}" varStatus="loop">
                     <tr>
                         <td>${staffDto.code}</td>
                         <td>${staffDto.name}</td>
@@ -55,7 +55,7 @@
                         <td>${staffDto.level}</td>
                         <td>${staffDto.departDto.name}</td>
                         <td class="actions">
-                            <a href="info/${staffDto.code}" class="on-default edit-row"><i
+                            <a href="<c:url value='/admin/staff/info/${staffDto.code}'/>" class="on-default edit-row"><i
                                     class="fa fa-pencil"></i></a>
                             <a href="info/${staffDto.code}" class="on-default remove-row"><i
                                     class="fa fa-trash-o"></i></a>
@@ -73,20 +73,28 @@
     <div id="dialog" class="modal-block mfp-hide">
         <section class="panel">
             <header class="panel-heading">
-                <h2 class="panel-title">Are you sure?</h2>
+                <h2 class="panel-title">
+                    <fmt:message key="label.delete.ask.title" bundle="${lang}"></fmt:message>
+                </h2>
             </header>
             <div class="panel-body">
                 <div class="modal-wrapper">
                     <div class="modal-text">
-                        <p>Are you sure that you want to delete this row?</p>
+                        <p>
+                            <fmt:message key="label.delete.ask.text" bundle="${lang}"></fmt:message>
+                        </p>
                     </div>
                 </div>
             </div>
             <footer class="panel-footer">
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <button id="dialogConfirm" class="btn btn-primary">Confirm</button>
-                        <button id="dialogCancel" class="btn btn-default">Cancel</button>
+                        <button id="dialogConfirm" class="btn btn-primary">
+                            <fmt:message key="label.confirm" bundle="${lang}"></fmt:message>
+                        </button>
+                        <button id="dialogCancel" class="btn btn-default">
+                            <fmt:message key="label.cancel" bundle="${lang}"></fmt:message>
+                        </button>
                     </div>
                 </div>
             </footer>
@@ -102,6 +110,21 @@
 
 <content tag="local_script">
     <script src="<c:url value='/template/admin/javascripts/tables/staff.datatables.default.js'/>"></script>
+    <script type="application/javascript">
+        $(document).ready(function () {
+            function showPNotify() {
+                <c:if test="${not empty command.pNotifyDto}">
+                new PNotify({
+                    title: '${command.pNotifyDto.title}',
+                    text: '${command.pNotifyDto.text}  ',
+                    type: '${command.pNotifyDto.type}'
+                });
+                </c:if>
+            }
+
+            showPNotify();
+        });
+    </script>
 </content>
 </body>
 </html>

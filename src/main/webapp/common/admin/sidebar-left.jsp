@@ -22,13 +22,13 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/depart/">
+                        <a href="<c:url value='/admin/depart'/>">
                             <i class="fa fa-building" aria-hidden="true"></i>
                             <span><fmt:message key="label.sidebar.depart" bundle="${lang}"/></span>
                         </a>
                     </li>
                     <li>
-                        <a href="/admin/staff/">
+                        <a href="<c:url value='/admin/staff'/>">
                             <i class="fa fa-users" aria-hidden="true"></i>
                             <span><fmt:message key="label.sidebar.staff" bundle="${lang}"/></span>
                         </a>
