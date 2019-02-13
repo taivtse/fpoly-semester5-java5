@@ -30,7 +30,7 @@
                 <div class="col-sm-6">
                     <div class="mb-md">
                         <button id="addToTable" class="btn btn-primary">
-                            <fmt:message key="label.add" bundle="${lang}"/>
+                            <fmt:message key="label.insert" bundle="${lang}"/>
                             <i class="fa fa-plus"></i></button>
                     </div>
                 </div>
@@ -69,20 +69,28 @@
     <div id="dialog" class="modal-block mfp-hide">
         <section class="panel">
             <header class="panel-heading">
-                <h2 class="panel-title">Are you sure?</h2>
+                <h2 class="panel-title">
+                    <fmt:message key="label.delete.ask.title" bundle="${lang}"></fmt:message>
+                </h2>
             </header>
             <div class="panel-body">
                 <div class="modal-wrapper">
                     <div class="modal-text">
-                        <p>Are you sure that you want to delete this row?</p>
+                        <p>
+                            <fmt:message key="label.delete.ask.text" bundle="${lang}"></fmt:message>
+                        </p>
                     </div>
                 </div>
             </div>
             <footer class="panel-footer">
                 <div class="row">
                     <div class="col-md-12 text-right">
-                        <button id="dialogConfirm" class="btn btn-primary">Confirm</button>
-                        <button id="dialogCancel" class="btn btn-default">Cancel</button>
+                        <button id="dialogConfirm" class="btn btn-primary">
+                            <fmt:message key="label.confirm" bundle="${lang}"></fmt:message>
+                        </button>
+                        <button id="dialogCancel" class="btn btn-default">
+                            <fmt:message key="label.cancel" bundle="${lang}"></fmt:message>
+                        </button>
                     </div>
                 </div>
             </footer>
@@ -99,10 +107,6 @@
     <script src="<c:url value='/template/admin/javascripts/tables/depart.datatables.editable.js'/>"></script>
     <script src="<c:url value='/template/admin/javascripts/ui-elements/examples.notifications.js'/>"></script>
     <script type="application/javascript">
-        $(document).ready(function () {
-
-        });
-
         function addNewDepartViaAjax(_self, $row, values) {
             var departDto = {
                 id: values[1],
@@ -114,11 +118,11 @@
                 url: "/admin/depart/insert",
                 data: departDto,
                 success: function (msg) {
-                    var alertType = "success";
-                    var alertTitle = "Thêm mới thành công";
-                    var alertText = "Đã thêm mới phòng ban:\nMã: {0}\nTên: {1}".format(departDto.id, departDto.name);
+                    var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
+                    var alertTitle = '<fmt:message key="label.insert.success" bundle="${lang}"></fmt:message>';
+                    var alertText = '<fmt:message key="label.depart.insert.success" bundle="${lang}"></fmt:message>'.format(departDto.id, departDto.name);
 
-                    if (msg === "success") {
+                    if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
                         // add row
                         _self.datatable.row($row.get(0)).data(values);
 
@@ -138,18 +142,18 @@
                         // add row id
                         $row.attr('data-id', departDto.id);
                     } else {
-                        alertType = "error";
-                        alertTitle = "Thêm mới thất bại";
+                        alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
+                        alertTitle = '<fmt:message key="label.insert.error" bundle="${lang}"></fmt:message>';
 
                         switch (msg) {
-                            case "fail_duplicate":
-                                alertText = "Phòng ban có mã: {0} đã tồn tại".format(departDto.id);
+                            case '<fmt:message key="label.response.duplicate" bundle="${lang}"></fmt:message>':
+                                alertText = '<fmt:message key="label.depart.error.duplicate" bundle="${lang}"></fmt:message>'.format(departDto.id);
                                 break;
-                            case "fail_toolong":
-                                alertText = "Mã hoặc tên phòng ban vượt quá số ký tự quy định";
+                            case '<fmt:message key="label.response.too_long" bundle="${lang}"></fmt:message>':
+                                alertText = '<fmt:message key="label.depart.error.too_long" bundle="${lang}"></fmt:message>';
                                 break;
                             default:
-                                alertText = "Đã có lỗi xảy ra trong quá trình thêm phòng ban";
+                                alertText = '<fmt:message key="label.msg.error" bundle="${lang}"></fmt:message>';
                         }
                     }
 
@@ -176,11 +180,11 @@
                 url: "/admin/depart/update",
                 data: departDto,
                 success: function (msg) {
-                    var alertType = "success";
-                    var alertTitle = "Cập nhật thành công";
-                    var alertText = "Đã cập nhật phòng ban:\nMã: {0}\nTên: {1}".format(departDto.id, departDto.name);
+                    var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
+                    var alertTitle = '<fmt:message key="label.update.success" bundle="${lang}"></fmt:message>';
+                    var alertText = '<fmt:message key="label.depart.update.success" bundle="${lang}"></fmt:message>'.format(departDto.id, departDto.name);
 
-                    if (msg === "success") {
+                    if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
                         // update row
                         _self.datatable.row($row.get(0)).data(values);
 
@@ -191,18 +195,18 @@
                         }
                     }
                     else {
-                        alertType = "error";
-                        alertTitle = "Cập nhật thất bại";
+                        alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
+                        alertTitle = '<fmt:message key="label.update.error" bundle="${lang}"></fmt:message>';
 
                         switch (msg) {
-                            case "fail_primarykey":
-                                alertText = "Không tồn tại phòng ban có mã: {0}".format(departDto.id);
+                            case '<fmt:message key="label.response.primary_key" bundle="${lang}"></fmt:message>':
+                                alertText = '<fmt:message key="label.depart.error.primary_key" bundle="${lang}"></fmt:message>'.format(departDto.id);
                                 break;
-                            case "fail_toolong":
-                                alertText = "Mã hoặc tên phòng ban vượt quá số ký tự quy định";
+                            case '<fmt:message key="label.response.too_long" bundle="${lang}"></fmt:message>':
+                                alertText = '<fmt:message key="label.depart.error.too_long" bundle="${lang}"></fmt:message>';
                                 break;
                             default:
-                                alertText = "Đã có lỗi xảy ra trong quá trình cập nhật phòng ban";
+                                alertText = '<fmt:message key="label.msg.error" bundle="${lang}"></fmt:message>';
                         }
                     }
 
@@ -223,22 +227,22 @@
                 type: "DELETE",
                 url: "/admin/depart/{0}".format($row.data("id")),
                 success: function (msg) {
-                    var alertType = "success";
-                    var alertTitle = "Xoá dữ liệu thành công";
-                    var alertText = "Đã xoá phòng ban:\nMã: {0}\nTên: {1}".format($row.data("id"), $row.find("td").eq(2).textContent);
+                    var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
+                    var alertTitle = '<fmt:message key="label.delete.success" bundle="${lang}"></fmt:message>';
+                    var alertText = '<fmt:message key="label.depart.delete.success" bundle="${lang}"></fmt:message>'.format($row.data("id"), $row.find("td").eq(2).text());
 
-                    if (msg === "success") {
+                    if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
                         _self.datatable.row($row.get(0)).remove().draw();
                     } else {
-                        alertType = "error";
-                        alertTitle = "Xoá dữ liệu thất bại";
+                        alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
+                        alertTitle = '<fmt:message key="label.delete.error" bundle="${lang}"></fmt:message>';
 
                         switch (msg) {
-                            case "fail_duplicate":
-                                alertText = "Không tồn tại phòng ban có mã: {0}".format($row.data("id"));
+                            case '<fmt:message key="label.response.primary_key" bundle="${lang}"></fmt:message>':
+                                alertText = '<fmt:message key="label.depart.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
                                 break;
                             default:
-                                alertText = "Đã có lỗi xảy ra trong quá trình xoá phòng ban";
+                                alertText = '<fmt:message key="label.msg.error" bundle="${lang}"></fmt:message>';
                         }
                     }
 

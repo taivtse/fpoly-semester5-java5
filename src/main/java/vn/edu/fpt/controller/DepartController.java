@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.dto.DepartDto;
 import vn.edu.fpt.service.DepartService;
+import vn.edu.fpt.util.MessageBundleUtil;
 
 import java.util.List;
 
@@ -33,14 +34,15 @@ public class DepartController {
     public String insert(DepartDto departDto) {
         try {
             departService.save(departDto);
-            return "success";
-        } catch (ConstraintViolationException e) {
-            return "fail_duplicate";
-        } catch (DataException e) {
-            return "fail_toolong";
+            return MessageBundleUtil.get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();
-            return "fail";
+            if (e.getCause() instanceof ConstraintViolationException) {
+                return MessageBundleUtil.get("label.response.duplicate");
+            } else if (e.getCause() instanceof DataException) {
+                return MessageBundleUtil.get("label.response.too_long");
+            }
+            return MessageBundleUtil.get("label.response.error");
         }
     }
 
@@ -49,14 +51,15 @@ public class DepartController {
     public String update(DepartDto departDto) {
         try {
             departService.update(departDto);
-            return "success";
-        } catch (StaleStateException e) {
-            return "fail_primarykey";
-        } catch (DataException e) {
-            return "fail_toolong";
+            return MessageBundleUtil.get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();
-            return "fail";
+            if (e.getCause() instanceof StaleStateException) {
+                return MessageBundleUtil.get("label.response.primary_key");
+            } else if (e.getCause() instanceof DataException) {
+                return MessageBundleUtil.get("label.response.too_long");
+            }
+            return MessageBundleUtil.get("label.response.error");
         }
     }
 
@@ -65,10 +68,13 @@ public class DepartController {
     public String delete(@PathVariable("departId") String departId) {
         try {
             departService.deleteById(departId);
-            return "success";
+            return MessageBundleUtil.get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();
-            return "fail";
+            if (e.getCause() instanceof StaleStateException) {
+                return MessageBundleUtil.get("label.response.primary_key");
+            }
+            return MessageBundleUtil.get("label.response.error");
         }
     }
 }
