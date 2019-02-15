@@ -1,8 +1,10 @@
 package vn.edu.fpt.dto;
 
+import vn.edu.fpt.dto.generic.ActiveGenericDto;
+
 import java.io.Serializable;
 
-public class DepartDto implements Serializable {
+public class DepartDto implements Serializable, ActiveGenericDto {
     private String id;
     private String name;
     private Boolean isActive;
@@ -23,10 +25,12 @@ public class DepartDto implements Serializable {
         this.name = name;
     }
 
+    @Override
     public Boolean getActive() {
         return isActive;
     }
 
+    @Override
     public void setActive(Boolean active) {
         isActive = active;
     }

@@ -1,35 +1,30 @@
 package vn.edu.fpt.service.generic;
 
-import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fpt.dao.generic.GenericDao;
 import vn.edu.fpt.mapper.AbstractMapper;
 
 import java.io.Serializable;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-public class GenericServiceImpl<ID extends Serializable, T, M extends AbstractMapper> implements GenericService<ID, T> {
+public class GenericServiceImpl<ID extends Serializable, T> implements GenericService<ID, T> {
 
-    private final Logger logger = Logger.getLogger(this.getClass());
-    private GenericDao<ID, Object> genericDao;
     private AbstractMapper mapper;
+    private GenericDao<ID, Object> genericDao;
 
-    public GenericServiceImpl(GenericDao genericDao) {
+    public GenericServiceImpl(GenericDao genericDao, AbstractMapper abstractMapper) {
+        this.mapper = abstractMapper;
         this.genericDao = genericDao;
+    }
 
-        Type type = getClass().getGenericSuperclass();
-        ParameterizedType parameterizedType = (ParameterizedType) type;
+    protected GenericDao<ID, Object> getGenericDao() {
+        return genericDao;
+    }
 
-        Class<M> mapperClass = (Class) parameterizedType.getActualTypeArguments()[2];
-        try {
-            mapper = mapperClass.newInstance();
-        } catch (Exception ex) {
-            logger.error(ex.getMessage(), ex);
-        }
+    protected AbstractMapper getMapper() {
+        return mapper;
     }
 
     @Override
