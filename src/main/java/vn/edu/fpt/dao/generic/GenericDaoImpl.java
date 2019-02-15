@@ -32,7 +32,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         persistenceClass = (Class) parameterizedType.getActualTypeArguments()[1];
     }
 
-    protected Class<T> getPersistenceClass() {
+    final protected Class<T> getPersistenceClass() {
         return this.persistenceClass;
     }
 
@@ -41,7 +41,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public List<T> findAll() {
+    final public List<T> findAll() {
         List list;
         Session session = this.getSession();
         list = session.createCriteria(this.getPersistenceClass()).list();
@@ -49,14 +49,14 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public T findById(ID id) {
+    final public T findById(ID id) {
         T result;
         Session session = this.getSession();
         result = (T) session.get(this.getPersistenceClass(), id);
         return result;
     }
 
-    private Object[] findByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit, boolean isFindApproximate) {
+    final private Object[] findByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit, boolean isFindApproximate) {
         List list;
         Long count;
         Session session = this.getSession();
@@ -104,17 +104,17 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public Object[] findApproximateByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit) {
+    final public Object[] findApproximateByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit) {
         return this.findByProperties(properties, sortExpression, sortDirection, offset, limit, true);
     }
 
     @Override
-    public Object[] findExactlyByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit) {
+    final public Object[] findExactlyByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit) {
         return this.findByProperties(properties, sortExpression, sortDirection, offset, limit, false);
     }
 
     @Override
-    public T findUniqueEqual(String property, Object value) {
+    final public T findUniqueEqual(String property, Object value) {
         T result;
         Session session = this.getSession();
         Criteria cr = session.createCriteria(this.getPersistenceClass());
@@ -124,7 +124,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public void save(T entity) throws Exception {
+    final public void save(T entity) throws Exception {
         Session session = this.getSession();
         session.save(entity);
         session.flush();
@@ -132,7 +132,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public void update(T entity) throws Exception {
+    final public void update(T entity) throws Exception {
         Session session = this.getSession();
         try {
             session.update(entity);
@@ -149,7 +149,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public void delete(T entity) throws Exception {
+    final public void delete(T entity) throws Exception {
         Session session = this.getSession();
         try {
             session.delete(entity);
@@ -165,7 +165,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public void deleteById(ID id) throws Exception {
+    final public void deleteById(ID id) throws Exception {
         Session session = this.getSession();
         T entity = (T) session.get(this.getPersistenceClass(), id);
         this.delete(entity);
