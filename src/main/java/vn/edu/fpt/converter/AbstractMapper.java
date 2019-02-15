@@ -1,4 +1,4 @@
-package vn.edu.fpt.mapper;
+package vn.edu.fpt.converter;
 
 public interface AbstractMapper<D, E> {
     D entityToDto(E entity);
