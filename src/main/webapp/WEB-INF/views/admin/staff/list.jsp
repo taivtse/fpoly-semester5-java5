@@ -34,6 +34,13 @@
                             <i class="fa fa-plus"></i></a>
                     </div>
                 </div>
+                <div class="col-sm-6">
+                    <form action="" method="get">
+                        <div class="pull-right col-sm-8">
+                            <input type="text" name="search" value="${param.search}" class="form-control" placeholder="Search">
+                        </div>
+                    </form>
+                </div>
             </div>
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
                 <thead>

@@ -30,9 +30,14 @@ public class StaffController {
     private DepartService departService;
 
     @GetMapping
-    public ModelAndView list(HttpServletRequest request) {
+    public ModelAndView list(@RequestParam(value = "search", required = false) String search, HttpServletRequest request) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
-        command.setListResult(staffService.findAllActive());
+
+        if (search != null) {
+            command.setListResult(staffService.findAllByName(search));
+        } else {
+            command.setListResult(staffService.findAllActive());
+        }
 
         PNotifyDto pNotifyDto = (PNotifyDto) SessionUtil.getInstance().get(request, SystemConstant.PNotify);
         if (pNotifyDto != null) {
@@ -47,11 +52,11 @@ public class StaffController {
     }
 
     @GetMapping({"info/{code}", "info/"})
-    public ModelAndView info(@PathVariable(required = false) String code) {
+    public ModelAndView info(@PathVariable(value = "code", required = false) String code) {
         StaffCommand command = new StaffCommand();
 
         if (code != null) {
-            StaffDto staffDto = staffService.getByCode(code);
+            StaffDto staffDto = staffService.findByCode(code);
             if (staffDto != null) {
                 command.setPojo(staffDto);
             } else {

@@ -214,6 +214,9 @@
                             <button type="submit" class="mb-xs mt-xs mr-xs btn btn-primary">
                                 <fmt:message key="label.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/>
                             </button>
+                            <button type="reset" class="mb-xs mt-xs mr-xs btn btn-default">
+                                <fmt:message key="label.reset" bundle="${lang}"/>
+                            </button>
                         </div>
                     </form>
                 </div>
