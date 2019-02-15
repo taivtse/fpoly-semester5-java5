@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import vn.edu.fpt.command.DepartCommand;
 import vn.edu.fpt.dto.DepartDto;
 import vn.edu.fpt.service.DepartService;
 import vn.edu.fpt.util.MessageBundleUtil;
@@ -23,9 +24,12 @@ public class DepartController {
 
     @GetMapping
     public ModelAndView list() {
+        DepartCommand command = new DepartCommand();
         List<DepartDto> departDtoList = departService.findAllActive();
+        command.setListResult(departDtoList);
+
         ModelAndView modelAndView = new ModelAndView(prefixPath.concat("list"));
-        modelAndView.addObject("departDtoList", departDtoList);
+        modelAndView.addObject("command", command);
         return modelAndView;
     }
 
@@ -33,7 +37,7 @@ public class DepartController {
     @ResponseBody
     public String insert(DepartDto departDto) {
         try {
-            departService.save(departDto);
+            departService.saveWithActiveStatus(departDto);
             return MessageBundleUtil.get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +54,7 @@ public class DepartController {
     @ResponseBody
     public String update(DepartDto departDto) {
         try {
-            departService.update(departDto);
+            departService.updateWithActiveStatus(departDto);
             return MessageBundleUtil.get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();

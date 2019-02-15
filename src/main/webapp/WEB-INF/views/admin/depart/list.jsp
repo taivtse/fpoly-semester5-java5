@@ -45,7 +45,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="departDto" items="${departDtoList}" varStatus="loop">
+                <c:forEach var="departDto" items="${command.listResult}" varStatus="loop">
                     <tr data-id= ${departDto.id}>
                         <td data-editable="false">${loop.index + 1}</td>
                         <td data-editable="false">${departDto.id}</td>
