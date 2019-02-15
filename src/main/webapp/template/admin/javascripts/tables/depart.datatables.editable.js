@@ -225,7 +225,7 @@
                 this.$addButton.removeAttr('disabled');
             }
 
-            // this.datatable.row($row.get(0)).remove().draw();
+            this.datatable.row($row.get(0)).remove().draw();
         },
 
         rowSetActionsEditing: function ($row) {

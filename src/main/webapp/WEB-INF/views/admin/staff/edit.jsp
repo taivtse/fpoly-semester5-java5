@@ -24,7 +24,7 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.staff.${empty command.pojo ? 'add' : 'update'}" bundle="${lang}"/></h2>
+        <h2><fmt:message key="label.staff.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/></h2>
     </header>
 
     <!-- start: page -->
@@ -210,9 +210,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-primary">Primary</button>
-                            <button type="button" class="mb-xs mt-xs mr-xs btn btn-warning">Warning</button>
+                        <div class="form-group text-center">
+                            <button type="submit" class="mb-xs mt-xs mr-xs btn btn-primary">
+                                <fmt:message key="label.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/>
+                            </button>
                         </div>
                     </form>
                 </div>

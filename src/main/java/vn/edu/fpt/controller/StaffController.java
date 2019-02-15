@@ -1,11 +1,9 @@
 package vn.edu.fpt.controller;
 
+import org.hibernate.StaleStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.command.StaffCommand;
 import vn.edu.fpt.constant.SystemConstant;
@@ -34,7 +32,7 @@ public class StaffController {
     @GetMapping
     public ModelAndView list(HttpServletRequest request) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
-        command.setListResult(staffService.findAll());
+        command.setListResult(staffService.findAllActive());
 
         PNotifyDto pNotifyDto = (PNotifyDto) SessionUtil.getInstance().get(request, SystemConstant.PNotify);
         if (pNotifyDto != null) {
@@ -82,11 +80,11 @@ public class StaffController {
             command.getPojo().setDepartDto(departDto);
 
             if (command.getPojo().getId() == null) {
-                staffDto = staffService.save(command.getPojo());
+                staffDto = staffService.saveWithActiveStatus(command.getPojo());
                 pNotifyDto.setTitle(MessageBundleUtil.get("label.insert.success"));
                 pNotifyDto.setText(MessageBundleUtil.get("label.staff.insert.success"));
             } else {
-                staffDto = staffService.update(command.getPojo());
+                staffDto = staffService.updateWithActiveStatus(command.getPojo());
                 pNotifyDto.setTitle(MessageBundleUtil.get("label.update.success"));
                 pNotifyDto.setText(MessageBundleUtil.get("label.staff.update.success"));
             }
@@ -101,5 +99,20 @@ public class StaffController {
         }
         SessionUtil.getInstance().put(request, SystemConstant.PNotify, pNotifyDto);
         return SystemConstant.REDIRECT_URL.concat(prefixPath);
+    }
+
+    @DeleteMapping("{staffId}")
+    @ResponseBody
+    public String delete(@PathVariable("staffId") Integer staffId) {
+        try {
+            staffService.updateToUnActiveById(staffId);
+            return MessageBundleUtil.get("label.response.success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e.getCause() instanceof StaleStateException) {
+                return MessageBundleUtil.get("label.response.primary_key");
+            }
+            return MessageBundleUtil.get("label.response.error");
+        }
     }
 }

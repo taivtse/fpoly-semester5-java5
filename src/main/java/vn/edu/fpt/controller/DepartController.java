@@ -67,7 +67,7 @@ public class DepartController {
     @ResponseBody
     public String delete(@PathVariable("departId") String departId) {
         try {
-            departService.deleteById(departId);
+            departService.updateToUnActiveById(departId);
             return MessageBundleUtil.get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();

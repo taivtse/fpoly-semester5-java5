@@ -87,7 +87,10 @@ a:active {
 	display: table-cell;
 	position: relative;
 	vertical-align: top;
-	width: 300px;
+    /*Tai edited here*/
+    /*defaul: width: 300px;*/
+	width: 250px;
+    /*end edit*/
 	z-index: 1010;
 }
 
@@ -181,7 +184,10 @@ a:active {
 
 	/* Layout Fixed - Content Body */
 	html.fixed .content-body {
-		margin-left: 300px;
+        /*Tai edit here*/
+        /*default: 300px*/
+		margin-left: 250px;
+        /*end edit*/
 	}
 
 	html.fixed .content-body.has-toolbar {
@@ -190,7 +196,10 @@ a:active {
 
 	/* Layout Fixed - Page header */
 	html.fixed .page-header {
-		left: 300px;
+        /*Tai edited here*/
+        /*defaul: 300px*/
+		left: 250px;
+        /*end edit*/
 		margin: 0;
 		position: fixed;
 		right: 0;

@@ -38,6 +38,7 @@
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
                 <thead>
                 <tr>
+                    <th><fmt:message key="label.numerical.order" bundle="${lang}"/></th>
                     <th><fmt:message key="label.staff.code" bundle="${lang}"/></th>
                     <th><fmt:message key="label.staff.name" bundle="${lang}"/></th>
                     <th><fmt:message key="label.staff.email" bundle="${lang}"/></th>
@@ -48,7 +49,8 @@
                 </thead>
                 <tbody>
                 <c:forEach var="staffDto" items="${command.listResult}" varStatus="loop">
-                    <tr>
+                    <tr data-id="${staffDto.id}" data-code="${staffDto.code}">
+                        <td>${loop.index + 1}</td>
                         <td>${staffDto.code}</td>
                         <td>${staffDto.name}</td>
                         <td>${staffDto.email}</td>
@@ -57,8 +59,7 @@
                         <td class="actions">
                             <a href="<c:url value='/admin/staff/info/${staffDto.code}'/>" class="on-default edit-row"><i
                                     class="fa fa-pencil"></i></a>
-                            <a href="info/${staffDto.code}" class="on-default remove-row"><i
-                                    class="fa fa-trash-o"></i></a>
+                            <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                         </td>
                     </tr>
                 </c:forEach>
@@ -112,18 +113,98 @@
     <script src="<c:url value='/template/admin/javascripts/tables/staff.datatables.default.js'/>"></script>
     <script type="application/javascript">
         $(document).ready(function () {
-            function showPNotify() {
-                <c:if test="${not empty command.pNotifyDto}">
-                new PNotify({
-                    title: '${command.pNotifyDto.title}',
-                    text: '${command.pNotifyDto.text}  ',
-                    type: '${command.pNotifyDto.type}'
-                });
-                </c:if>
-            }
+            <c:if test="${not empty command.pNotifyDto}">
+            new PNotify({
+                title: '${command.pNotifyDto.title}',
+                text: '${command.pNotifyDto.text}  ',
+                type: '${command.pNotifyDto.type}'
+            });
+            </c:if>
 
-            showPNotify();
+            addEventDeleteButton();
         });
+
+        function addEventDeleteButton() {
+            $('.remove-row').on('click', function (e) {
+                e.preventDefault();
+
+                var $row = $(this).closest('tr');
+
+                $.magnificPopup.open({
+                    items: {
+                        src: '#dialog',
+                        type: 'inline'
+                    },
+                    preloader: false,
+                    modal: true,
+                    callbacks: {
+                        open: function () {
+                            $('#dialogConfirm').on('click', function (e) {
+                                e.preventDefault();
+                                $.magnificPopup.close();
+
+                                deleteStaffViaAjax($row);
+                            });
+
+                            $('#dialogCancel').on('click', function (e) {
+                                $.magnificPopup.close();
+
+                            });
+
+                        },
+                        close: function () {
+                            $('#dialogConfirm').off('click');
+                            $('#dialogCancel').off('click');
+                        }
+                    }
+                });
+            })
+        }
+
+        function deleteStaffViaAjax($row) {
+            $.ajax({
+                type: "DELETE",
+                url: "/admin/staff/{0}".format($row.data("id")),
+                success: function (msg) {
+                    var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
+                    var alertTitle = '<fmt:message key="label.delete.success" bundle="${lang}"></fmt:message>';
+                    var alertText = '<fmt:message key="label.staff.delete.success" bundle="${lang}"></fmt:message>'.format($row.data("code"), $row.find("td").eq(2).text());
+
+                    if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
+                        $('#datatable-default').DataTable().row($row).remove().draw();
+
+                        var index = 1;
+                        var trList = $("#datatable-default").find('tbody').find('tr');
+                        if (trList.eq(0).find("td").length > 1) {
+                            trList.each(function () {
+                                $(this).find("td").eq(0).text(index);
+                                index++;
+                            });
+                        }
+                    } else {
+                        alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
+                        alertTitle = '<fmt:message key="label.delete.error" bundle="${lang}"></fmt:message>';
+
+                        switch (msg) {
+                            case '<fmt:message key="label.response.primary_key" bundle="${lang}"></fmt:message>':
+                                alertText = '<fmt:message key="label.staff.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
+                                break;
+                            default:
+                                alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
+                        }
+                    }
+
+                    new PNotify({
+                        title: alertTitle,
+                        text: alertText,
+                        type: alertType
+                    });
+                },
+                error: function (error) {
+                    console.log("ERROR: ", error);
+                }
+            });
+        }
     </script>
 </content>
 </body>

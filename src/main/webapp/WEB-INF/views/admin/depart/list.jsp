@@ -105,7 +105,6 @@
 </content>
 <content tag="local_script">
     <script src="<c:url value='/template/admin/javascripts/tables/depart.datatables.editable.js'/>"></script>
-    <script src="<c:url value='/template/admin/javascripts/ui-elements/examples.notifications.js'/>"></script>
     <script type="application/javascript">
         function addNewDepartViaAjax(_self, $row, values) {
             var departDto = {
@@ -153,7 +152,7 @@
                                 alertText = '<fmt:message key="label.depart.error.too_long" bundle="${lang}"></fmt:message>';
                                 break;
                             default:
-                                alertText = '<fmt:message key="label.msg.error" bundle="${lang}"></fmt:message>';
+                                alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
                         }
                     }
 
@@ -206,7 +205,7 @@
                                 alertText = '<fmt:message key="label.depart.error.too_long" bundle="${lang}"></fmt:message>';
                                 break;
                             default:
-                                alertText = '<fmt:message key="label.msg.error" bundle="${lang}"></fmt:message>';
+                                alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
                         }
                     }
 
@@ -233,6 +232,15 @@
 
                     if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
                         _self.datatable.row($row.get(0)).remove().draw();
+
+                        var index = 1;
+                        var trList = $("#datatable-editable").find('tbody').find('tr');
+                        if (trList.eq(0).find("td").length > 1) {
+                            trList.each(function () {
+                                $(this).find("td").eq(0).text(index);
+                                index++;
+                            });
+                        }
                     } else {
                         alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
                         alertTitle = '<fmt:message key="label.delete.error" bundle="${lang}"></fmt:message>';
@@ -242,7 +250,7 @@
                                 alertText = '<fmt:message key="label.depart.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
                                 break;
                             default:
-                                alertText = '<fmt:message key="label.msg.error" bundle="${lang}"></fmt:message>';
+                                alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
                         }
                     }
 
