@@ -4,18 +4,16 @@ import org.hibernate.Criteria;
 import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.MatchMode;
-import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
-import vn.edu.fpt.constant.SystemConstant;
+import vn.edu.fpt.common.paging.Pageable;
+import vn.edu.fpt.common.paging.SearchProperty;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Map;
 
 public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID, T> {
 
@@ -56,61 +54,65 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
         return result;
     }
 
-    final private Object[] findByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit, boolean isFindApproximate) {
-        List list;
-        Long count;
+    @Override
+    public List<T> findByProperties(Pageable pageable, List<SearchProperty> properties) {
         Session session = this.getSession();
         Criteria cr = session.createCriteria(this.getPersistenceClass());
-        Criteria cr2 = session.createCriteria(this.getPersistenceClass());
 
-//            set condition for query
-        if (properties != null) {
-            for (Map.Entry<String, Object> entry : properties.entrySet()) {
-                if (isFindApproximate) {
-                    cr.add(Restrictions.like(entry.getKey(), entry.getValue().toString(), MatchMode.ANYWHERE));
-                    cr2.add(Restrictions.like(entry.getKey(), entry.getValue().toString(), MatchMode.ANYWHERE));
-                } else {
-                    cr.add(Restrictions.eq(entry.getKey(), entry.getValue()));
-                    cr2.add(Restrictions.eq(entry.getKey(), entry.getValue()));
-                }
+        if (pageable != null) {
+//            set start position offset
+            if (pageable.getOffset() != null && pageable.getOffset() >= 0) {
+                cr.setFirstResult(pageable.getOffset());
+            }
+
+//            set limit row
+            if (pageable.getLimit() != null && pageable.getLimit() >= 0) {
+                cr.setMaxResults(pageable.getLimit());
+            }
+
+//            set sorter
+            if (pageable.getSorter() != null) {
+                cr.addOrder(pageable.getSorter().getOrder());
             }
         }
 
-//            set sort direction
-        if (sortExpression != null && sortDirection != null) {
-            Order order = sortDirection.equals(SystemConstant.SORT_ASC) ?
-                    Order.asc(sortExpression) : Order.desc(sortExpression);
-            cr.addOrder(order);
+//        set properties search
+        if (properties != null) {
+            properties.forEach(searchProperty -> cr.add(searchProperty.getCriterion()));
         }
 
+        return cr.list();
+    }
+
+    @Override
+    public Long countByProperties(Pageable pageable, List<SearchProperty> properties) {
+        Session session = this.getSession();
+        Criteria cr = session.createCriteria(this.getPersistenceClass());
+
+        if (pageable != null) {
 //            set start position offset
-        if (offset != null && offset >= 0) {
-            cr.setFirstResult(offset);
-        }
+            if (pageable.getOffset() != null && pageable.getOffset() >= 0) {
+                cr.setFirstResult(pageable.getOffset());
+            }
 
 //            set limit row
-        if (limit != null && limit > 0) {
-            cr.setMaxResults(limit);
+            if (pageable.getLimit() != null && pageable.getLimit() >= 0) {
+                cr.setMaxResults(pageable.getLimit());
+            }
+
+//            set sorter
+            if (pageable.getSorter() != null) {
+                cr.addOrder(pageable.getSorter().getOrder());
+            }
         }
 
-        list = cr.list();
+//        set properties search
+        if (properties != null) {
+            properties.forEach(searchProperty -> cr.add(searchProperty.getCriterion()));
+        }
 
-//            count total of items
-//            set result is a num row of list
-        cr2.setProjection(Projections.rowCount());
-        count = (Long) cr2.uniqueResult();
-
-        return new Object[]{count, list};
-    }
-
-    @Override
-    final public Object[] findApproximateByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit) {
-        return this.findByProperties(properties, sortExpression, sortDirection, offset, limit, true);
-    }
-
-    @Override
-    final public Object[] findExactlyByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit) {
-        return this.findByProperties(properties, sortExpression, sortDirection, offset, limit, false);
+        cr.setProjection(Projections.rowCount());
+        return (Long) cr.uniqueResult();
     }
 
     @Override

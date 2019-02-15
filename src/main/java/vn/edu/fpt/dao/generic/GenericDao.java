@@ -1,17 +1,19 @@
 package vn.edu.fpt.dao.generic;
 
+import vn.edu.fpt.common.paging.Pageable;
+import vn.edu.fpt.common.paging.SearchProperty;
+
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 public interface GenericDao<ID extends Serializable, T> {
     List<T> findAll();
 
     T findById(ID id);
 
-    Object[] findApproximateByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit);
+    List<T> findByProperties(Pageable pageable, List<SearchProperty> properties);
 
-    Object[] findExactlyByProperties(Map<String, Object> properties, String sortExpression, String sortDirection, Integer offset, Integer limit);
+    Long countByProperties(Pageable pageable, List<SearchProperty> properties);
 
     T findUniqueEqual(String property, Object value);
 

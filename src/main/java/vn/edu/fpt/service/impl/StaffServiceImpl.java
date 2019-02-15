@@ -13,6 +13,9 @@ import vn.edu.fpt.mapper.StaffMapper;
 import vn.edu.fpt.service.StaffService;
 import vn.edu.fpt.service.generic.ActiveEntityServiceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 public class StaffServiceImpl extends ActiveEntityServiceImpl<Integer, StaffDto> implements StaffService {
@@ -29,10 +32,17 @@ public class StaffServiceImpl extends ActiveEntityServiceImpl<Integer, StaffDto>
     }
 
     @Override
-    public StaffDto getByCode(String code) {
-        StaffEntity entity = staffDao.getByCode(code);
+    public StaffDto findByCode(String code) {
+        StaffEntity entity = staffDao.findByCode(code);
         if (entity != null)
             return mapper.entityToDto(entity);
         return null;
+    }
+
+    @Override
+    public List<StaffDto> findAllByName(String name) {
+        List<StaffDto> dtoList = new ArrayList<>();
+        staffDao.findAllByName(name).forEach(staffEntity -> dtoList.add(mapper.entityToDto(staffEntity)));
+        return dtoList;
     }
 }
