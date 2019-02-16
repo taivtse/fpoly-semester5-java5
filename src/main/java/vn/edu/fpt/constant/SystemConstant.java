@@ -7,5 +7,5 @@ public class SystemConstant {
     public static final String SORT_DESC = "2";
     public static final String SUCCESS = "success";
     public static final String ERROR = "error";
-    public static final String PNotify = "pNotify";
+    public static final String PNOTIFY = "pNotify";
 }
