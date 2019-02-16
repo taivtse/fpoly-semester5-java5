@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-public class ActiveEntityServiceImpl<ID extends Serializable, T extends ActiveGenericDto> extends GenericServiceImpl<ID, T> implements ActiveEntityService<ID, T> {
+public class ActiveEntityServiceImpl<ID extends Serializable, T extends ActiveGenericDto<ID>> extends GenericServiceImpl<ID, T> implements ActiveEntityService<ID, T> {
 
     public ActiveEntityServiceImpl(ActiveEntityDao activeEntityDao, AbstractMapper abstractMapper) {
         super(activeEntityDao, abstractMapper);

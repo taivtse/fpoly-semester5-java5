@@ -2,6 +2,7 @@ package vn.edu.fpt.service.generic.impl;
 
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fpt.dao.generic.GenericDao;
+import vn.edu.fpt.dto.DtoMarker;
 import vn.edu.fpt.mapper.AbstractMapper;
 import vn.edu.fpt.common.paging.Pageable;
 import vn.edu.fpt.common.paging.SearchProperty;
@@ -12,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Transactional
-public class GenericServiceImpl<ID extends Serializable, T> implements GenericService<ID, T> {
+public class GenericServiceImpl<ID extends Serializable, T extends DtoMarker<ID>> implements GenericService<ID, T> {
 
     private AbstractMapper mapper;
     private GenericDao<ID, Object> genericDao;
@@ -57,7 +58,9 @@ public class GenericServiceImpl<ID extends Serializable, T> implements GenericSe
         Object entity = mapper.dtoToEntity(dto);
         genericDao.save(entity);
 
-        return (T) mapper.entityToDto(entity);
+        dto = this.findById((ID) dto.getId());
+
+        return dto;
     }
 
     @Override
@@ -65,7 +68,9 @@ public class GenericServiceImpl<ID extends Serializable, T> implements GenericSe
         Object entity = mapper.dtoToEntity(dto);
         genericDao.update(entity);
 
-        return (T) mapper.entityToDto(entity);
+        dto = this.findById((ID) dto.getId());
+
+        return dto;
     }
 
     @Override

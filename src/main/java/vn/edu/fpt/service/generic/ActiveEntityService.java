@@ -1,9 +1,11 @@
 package vn.edu.fpt.service.generic;
 
+import vn.edu.fpt.dto.DtoMarker;
+
 import java.io.Serializable;
 import java.util.List;
 
-public interface ActiveEntityService<ID extends Serializable, T> extends GenericService<ID, T> {
+public interface ActiveEntityService<ID extends Serializable, T extends DtoMarker<ID>> extends GenericService<ID, T> {
     List<T> findAllActive();
 
     void updateToUnActive(T dto) throws Exception;

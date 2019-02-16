@@ -12,6 +12,8 @@ import vn.edu.fpt.mapper.RecordMapper;
 import vn.edu.fpt.service.extend.RecordService;
 import vn.edu.fpt.service.generic.impl.GenericServiceImpl;
 
+import java.util.Date;
+
 @Service
 @Transactional
 public class RecordServiceImpl extends GenericServiceImpl<Integer, RecordDto> implements RecordService {
@@ -25,5 +27,18 @@ public class RecordServiceImpl extends GenericServiceImpl<Integer, RecordDto> im
         super(genericDao, abstractMapper);
         this.mapper = (RecordMapper) abstractMapper;
         this.recordDao = (RecordDao) genericDao;
+    }
+
+    @Override
+    public RecordDto save(RecordDto dto) throws Exception {
+        dto.setSubmitDate(new Date());
+        return super.save(dto);
+    }
+
+    @Override
+    public RecordDto update(RecordDto dto) throws Exception {
+        RecordDto oldDto = this.findById(dto.getId());
+        dto.setSubmitDate(oldDto.getSubmitDate());
+        return super.update(dto);
     }
 }
