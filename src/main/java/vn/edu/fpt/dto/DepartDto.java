@@ -4,11 +4,12 @@ import vn.edu.fpt.dto.generic.ActiveGenericDto;
 
 import java.io.Serializable;
 
-public class DepartDto implements Serializable, ActiveGenericDto {
+public class DepartDto implements Serializable, ActiveGenericDto<String>, DtoMarker<String> {
     private String id;
     private String name;
     private Boolean isActive;
 
+    @Override
     public String getId() {
         return id;
     }

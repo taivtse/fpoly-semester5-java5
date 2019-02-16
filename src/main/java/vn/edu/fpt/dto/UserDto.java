@@ -2,12 +2,13 @@ package vn.edu.fpt.dto;
 
 import java.io.Serializable;
 
-public class UserDto implements Serializable {
+public class UserDto implements Serializable, DtoMarker<Integer> {
     private Integer id;
     private String username;
     private String password;
     private String fullName;
 
+    @Override
     public Integer getId() {
         return id;
     }

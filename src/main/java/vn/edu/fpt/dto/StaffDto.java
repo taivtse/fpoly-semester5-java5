@@ -5,7 +5,7 @@ import vn.edu.fpt.dto.generic.ActiveGenericDto;
 import java.io.Serializable;
 import java.util.Date;
 
-public class StaffDto implements Serializable, ActiveGenericDto {
+public class StaffDto implements Serializable, ActiveGenericDto<Integer>, DtoMarker<Integer> {
     private Integer id;
     private String code;
     private String name;
@@ -20,6 +20,7 @@ public class StaffDto implements Serializable, ActiveGenericDto {
     private Boolean isActive;
     private DepartDto departDto;
 
+    @Override
     public Integer getId() {
         return id;
     }

@@ -3,13 +3,16 @@ package vn.edu.fpt.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-public class RecordDto implements Serializable {
+public class RecordDto implements Serializable, DtoMarker<Integer> {
     private Integer id;
     private String type;
     private String reason;
     private Date submitDate;
     private StaffDto staffDto;
+//    staffDepartName auto mapping by ObjectMapper
+    private String staffDepartName;
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -49,4 +52,13 @@ public class RecordDto implements Serializable {
     public void setStaffDto(StaffDto staffDto) {
         this.staffDto = staffDto;
     }
+
+    public String getStaffDepartName() {
+        return staffDepartName;
+    }
+
+    public void setStaffDepartName(String staffDepartName) {
+        this.staffDepartName = staffDepartName;
+    }
+
 }
