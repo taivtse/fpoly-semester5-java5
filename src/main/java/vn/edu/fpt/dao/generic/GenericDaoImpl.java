@@ -71,7 +71,9 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
             }
 
 //            set sorter
-            if (pageable.getSorter() != null) {
+            if (pageable.getSorter() != null
+                    && !pageable.getSorter().getPropertyName().isEmpty()
+                    && !pageable.getSorter().getDirection().isEmpty()) {
                 cr.addOrder(pageable.getSorter().getOrder());
             }
         }

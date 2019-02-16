@@ -1,7 +1,7 @@
 package vn.edu.fpt.dto.generic;
 
 public interface ActiveGenericDto {
-    public Boolean getActive();
+    Boolean getActive();
 
-    public void setActive(Boolean active);
+    void setActive(Boolean active);
 }
