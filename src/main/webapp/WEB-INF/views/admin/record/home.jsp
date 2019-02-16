@@ -33,7 +33,7 @@
                         <fmt:message key="label.staff.code" bundle="${lang}"/>
                     </label>
                     <div class="col-md-6">
-                        <input type="text" id="staffCode" name="pojo.code" class="form-control">
+                        <input type="text" id="staffCode" class="form-control">
                     </div>
                 </div>
 

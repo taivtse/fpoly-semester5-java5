@@ -19,7 +19,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
-    public ModelAndView list() {
+    public ModelAndView home() {
         List<UserDto> userDtoList = userService.findAll();
         ModelAndView modelAndView = new ModelAndView(prefixPath.concat("list"));
         modelAndView.addObject("userDtoList", userDtoList);

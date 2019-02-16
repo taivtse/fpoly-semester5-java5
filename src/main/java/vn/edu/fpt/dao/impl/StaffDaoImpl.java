@@ -1,6 +1,7 @@
 package vn.edu.fpt.dao.impl;
 
 import org.springframework.stereotype.Repository;
+import vn.edu.fpt.common.paging.Pageable;
 import vn.edu.fpt.common.paging.SearchProperty;
 import vn.edu.fpt.dao.StaffDao;
 import vn.edu.fpt.dao.generic.ActiveEntityDaoImpl;
@@ -11,6 +12,12 @@ import java.util.List;
 
 @Repository
 public class StaffDaoImpl extends ActiveEntityDaoImpl<Integer, StaffEntity> implements StaffDao {
+    @Override
+    public List<StaffEntity> findAllByCode(Pageable pageable, String name) {
+        SearchProperty property = new SearchProperty("code", name, SearchProperty.MatchType.START);
+        return this.findByProperties(pageable, Arrays.asList((property)));
+    }
+
     @Override
     public StaffEntity findByCode(String code) {
         return this.findUniqueEqual("code", code);

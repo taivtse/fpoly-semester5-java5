@@ -4,9 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vn.edu.fpt.common.paging.PageRequest;
+import vn.edu.fpt.common.paging.Pageable;
 import vn.edu.fpt.dao.StaffDao;
 import vn.edu.fpt.dao.generic.ActiveEntityDao;
 import vn.edu.fpt.dto.StaffDto;
+import vn.edu.fpt.dto.StaffLiveSearchDto;
 import vn.edu.fpt.entity.StaffEntity;
 import vn.edu.fpt.mapper.AbstractMapper;
 import vn.edu.fpt.mapper.StaffMapper;
@@ -44,5 +47,34 @@ public class StaffServiceImpl extends ActiveEntityServiceImpl<Integer, StaffDto>
         List<StaffDto> dtoList = new ArrayList<>();
         staffDao.findAllByName(name).forEach(staffEntity -> dtoList.add(mapper.entityToDto(staffEntity)));
         return dtoList;
+    }
+
+    @Override
+    public List<StaffLiveSearchDto> findAllNameByCodeInLiveSearch(String staffCode) {
+        List<StaffLiveSearchDto> dtoList = new ArrayList<>();
+        Pageable pageable = new PageRequest(1, 5, null);
+        staffDao.findAllByCode(pageable, staffCode).forEach(staffEntity -> {
+            StaffLiveSearchDto staffLiveSearchDto = new StaffLiveSearchDto();
+            staffLiveSearchDto.setId(staffEntity.getId());
+            staffLiveSearchDto.setCode(staffEntity.getCode());
+            staffLiveSearchDto.setName(staffEntity.getName());
+
+            dtoList.add(staffLiveSearchDto);
+        });
+        return dtoList;
+    }
+
+    @Override
+    public StaffLiveSearchDto findByIdInLiveSearch(Integer id) {
+        StaffEntity entity = staffDao.findById(id);
+        StaffLiveSearchDto staffLiveSearchDto = null;
+        if (entity != null) {
+            staffLiveSearchDto = new StaffLiveSearchDto();
+            staffLiveSearchDto.setId(entity.getId());
+            staffLiveSearchDto.setCode(entity.getCode());
+            staffLiveSearchDto.setName(entity.getName());
+            staffLiveSearchDto.setDepartName(entity.getDepartEntity().getName());
+        }
+        return staffLiveSearchDto;
     }
 }

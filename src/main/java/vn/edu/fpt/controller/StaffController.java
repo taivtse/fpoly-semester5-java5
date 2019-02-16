@@ -10,6 +10,7 @@ import vn.edu.fpt.constant.SystemConstant;
 import vn.edu.fpt.dto.DepartDto;
 import vn.edu.fpt.dto.PNotifyDto;
 import vn.edu.fpt.dto.StaffDto;
+import vn.edu.fpt.dto.StaffLiveSearchDto;
 import vn.edu.fpt.service.DepartService;
 import vn.edu.fpt.service.StaffService;
 import vn.edu.fpt.util.FormUtil;
@@ -30,7 +31,7 @@ public class StaffController {
     private DepartService departService;
 
     @GetMapping
-    public ModelAndView list(@RequestParam(value = "search", required = false) String search, HttpServletRequest request) {
+    public ModelAndView home(@RequestParam(value = "search", required = false) String search, HttpServletRequest request) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
 
         if (search != null) {
@@ -73,6 +74,19 @@ public class StaffController {
         modelAndView.addObject(SystemConstant.COMMAND, command);
 
         return modelAndView;
+    }
+
+    @GetMapping("live-search/info/{id}")
+    @ResponseBody
+    public StaffLiveSearchDto info(@PathVariable("id") Integer id) {
+        return staffService.findByIdInLiveSearch(id);
+    }
+
+    @GetMapping("live-search")
+    @ResponseBody
+    public List<StaffLiveSearchDto> getStaffByCodeInLiveSearch(@RequestParam("staffCode") String staffCode) {
+        List<StaffLiveSearchDto> liveSearchNameList = staffService.findAllNameByCodeInLiveSearch(staffCode);
+        return liveSearchNameList;
     }
 
     @PostMapping("update")

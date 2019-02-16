@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>
-        <fmt:message key="label.staff.${empty command.pojo ? 'add' : 'update'}" bundle="${lang}"/>
+        <fmt:message key="label.staff.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/>
     </title>
     <content tag="specific_css">
         <link rel="stylesheet"
@@ -82,8 +82,8 @@
                                 </div>
                                 <div class="radio-custom" style="display: inline-block;">
                                     <input type="radio" value="other" ${command.pojo.gender eq 'other' ? 'checked' : ''}
-                                           id="orther" name="pojo.gender">
-                                    <label for="orther">
+                                           id="rdo-other" name="pojo.gender">
+                                    <label for="rdo-other">
                                         <fmt:message key="label.other" bundle="${lang}"/>
                                     </label>
                                 </div>
