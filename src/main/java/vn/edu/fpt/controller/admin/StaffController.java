@@ -23,19 +23,19 @@ import java.util.List;
 @Controller
 @RequestMapping(value = {"/admin/staff"})
 public class StaffController {
-    private final String prefixPath = "admin/staff";
+    private final String prefixPath = "admin/staff/";
     @Autowired
     private StaffService staffService;
 
     @Autowired
     private DepartService departService;
 
-    @GetMapping
-    public ModelAndView home(@RequestParam(value = "search", required = false) String search, HttpServletRequest request) {
+    @GetMapping({"", "search"})
+    public ModelAndView home(@RequestParam(value = "name", required = false) String searchName, HttpServletRequest request) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
 
-        if (search != null) {
-            command.setListResult(staffService.findAllByName(search));
+        if (searchName != null) {
+            command.setListResult(staffService.findAllByName(searchName));
         } else {
             command.setListResult(staffService.findAllActive());
         }
@@ -46,7 +46,7 @@ public class StaffController {
             SessionUtil.getInstance().remove(request, SystemConstant.PNotify);
         }
 
-        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("/list"));
+        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("list"));
         modelAndView.addObject(SystemConstant.COMMAND, command);
 
         return modelAndView;
@@ -70,7 +70,7 @@ public class StaffController {
         List<DepartDto> departDtoList = departService.findAllActive();
         command.setDepartDtoList(departDtoList);
 
-        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("/edit"));
+        ModelAndView modelAndView = new ModelAndView(prefixPath.concat("edit"));
         modelAndView.addObject(SystemConstant.COMMAND, command);
 
         return modelAndView;

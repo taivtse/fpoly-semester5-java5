@@ -6,6 +6,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var="searchUrl" value="/admin/staff/search"></c:url>
+<c:url var="infoUrl" value="/admin/staff/info/"></c:url>
 <html>
 <head>
     <title><fmt:message key="label.staff.page.title" bundle="${lang}"/></title>
@@ -29,15 +31,15 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-md">
-                        <a href="/admin/staff/info/" id="addToTable" class="btn btn-primary">
+                        <a href="${infoUrl}" id="addToTable" class="btn btn-primary">
                             <fmt:message key="label.insert" bundle="${lang}"/>
                             <i class="fa fa-plus"></i></a>
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <form action="" method="get">
+                    <form action="${searchUrl}" method="get">
                         <div class="pull-right col-sm-8" style="padding: 0;">
-                            <input type="text" name="search" value="${param.search}" class="form-control" placeholder="Search">
+                            <input type="text" name="name" value="${param.search}" class="form-control" placeholder="Search">
                         </div>
                     </form>
                 </div>
@@ -64,7 +66,7 @@
                         <td>${staffDto.level}</td>
                         <td>${staffDto.departDto.name}</td>
                         <td class="actions">
-                            <a href="<c:url value='/admin/staff/info/${staffDto.code}'/>" class="on-default edit-row"><i
+                            <a href="<c:url value='${infoUrl}${staffDto.code}'/>" class="on-default edit-row"><i
                                     class="fa fa-pencil"></i></a>
                             <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                         </td>
