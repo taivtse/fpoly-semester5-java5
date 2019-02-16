@@ -23,7 +23,7 @@ public class DepartController {
     private DepartService departService;
 
     @GetMapping
-    public ModelAndView list() {
+    public ModelAndView home() {
         DepartCommand command = new DepartCommand();
         List<DepartDto> departDtoList = departService.findAllActive();
         command.setListResult(departDtoList);
