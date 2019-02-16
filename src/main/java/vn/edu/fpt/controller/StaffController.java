@@ -95,7 +95,8 @@ public class StaffController {
         PNotifyDto pNotifyDto = new PNotifyDto();
         StaffDto staffDto;
         try {
-            DepartDto departDto = departService.findById(command.getDepartId());
+            DepartDto departDto = new DepartDto();
+            departDto.setId(command.getDepartId().trim());
             command.getPojo().setDepartDto(departDto);
 
             if (command.getPojo().getId() == null) {
