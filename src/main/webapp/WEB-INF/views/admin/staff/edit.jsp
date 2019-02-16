@@ -6,7 +6,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-<c:set var="submitFormUrl" value="/admin/staff/update"></c:set>
+<c:url var="submitFormUrl" value="/admin/staff"></c:url>
 
 <html>
 <head>

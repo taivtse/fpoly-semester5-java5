@@ -115,7 +115,6 @@
 <content tag="specific_script">
     <script src="<c:url value='/template/admin/vendor/jquery-datatables/jquery.dataTables.min.js'/>"></script>
     <script src="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/js/datatables.js'/>"></script>
-    <script src="<c:url value='/template/admin/vendor/pnotify/pnotify.custom.js'/>"></script>
 </content>
 
 <content tag="local_script">
@@ -157,7 +156,6 @@
 
                             $('#dialogCancel').on('click', function (e) {
                                 $.magnificPopup.close();
-
                             });
 
                         },

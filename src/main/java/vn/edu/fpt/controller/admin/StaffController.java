@@ -31,7 +31,7 @@ public class StaffController {
     private DepartService departService;
 
     @GetMapping({"", "search"})
-    public ModelAndView home(@RequestParam(value = "name", required = false) String searchName, HttpServletRequest request) {
+    public ModelAndView list(@RequestParam(value = "name", required = false) String searchName, HttpServletRequest request) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
 
         if (searchName != null) {
@@ -40,10 +40,10 @@ public class StaffController {
             command.setListResult(staffService.findAllActive());
         }
 
-        PNotifyDto pNotifyDto = (PNotifyDto) SessionUtil.getInstance().get(request, SystemConstant.PNotify);
+        PNotifyDto pNotifyDto = (PNotifyDto) SessionUtil.getInstance().get(request, SystemConstant.PNOTIFY);
         if (pNotifyDto != null) {
             command.setpNotifyDto(pNotifyDto);
-            SessionUtil.getInstance().remove(request, SystemConstant.PNotify);
+            SessionUtil.getInstance().remove(request, SystemConstant.PNOTIFY);
         }
 
         ModelAndView modelAndView = new ModelAndView(prefixPath.concat("list"));
@@ -89,8 +89,8 @@ public class StaffController {
         return liveSearchNameList;
     }
 
-    @PostMapping("update")
-    public String insertOrUpdate(HttpServletRequest request) {
+    @PostMapping
+    public ModelAndView insertOrUpdate(HttpServletRequest request) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
         PNotifyDto pNotifyDto = new PNotifyDto();
         StaffDto staffDto;
@@ -117,8 +117,10 @@ public class StaffController {
             pNotifyDto.setText(MessageBundleUtil.get("label.error.fail"));
             pNotifyDto.setType(SystemConstant.ERROR);
         }
-        SessionUtil.getInstance().put(request, SystemConstant.PNotify, pNotifyDto);
-        return SystemConstant.REDIRECT_URL.concat(prefixPath);
+        SessionUtil.getInstance().put(request, SystemConstant.PNOTIFY, pNotifyDto);
+
+        ModelAndView modelAndView = new ModelAndView(SystemConstant.REDIRECT_URL.concat(prefixPath));
+        return modelAndView;
     }
 
     @DeleteMapping("{staffId}")
