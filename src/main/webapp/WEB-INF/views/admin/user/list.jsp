@@ -55,7 +55,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="userDto" items="${command.listResult}" varStatus="loop">
-                    <tr data-id="${userDto.id}" data-code="${userDto.username}">
+                    <tr data-id="${userDto.id}" data-username="${userDto.username}">
                         <td>${loop.index + 1}</td>
                         <td>${userDto.username}</td>
                         <td>${userDto.fullName}</td>
@@ -165,11 +165,11 @@
         function deleteStaffViaAjax($row) {
             $.ajax({
                 type: "DELETE",
-                url: "/admin/staff/{0}".format($row.data("id")),
+                url: "/admin/user/{0}".format($row.data("id")),
                 success: function (msg) {
                     var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
                     var alertTitle = '<fmt:message key="label.delete.success" bundle="${lang}"></fmt:message>';
-                    var alertText = '<fmt:message key="label.staff.delete.success" bundle="${lang}"></fmt:message>'.format($row.data("code"), $row.find("td").eq(2).text());
+                    var alertText = '<fmt:message key="label.user.delete.success" bundle="${lang}"></fmt:message>'.format($row.data("username"), $row.find("td").eq(2).text());
 
                     if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
                         $('#datatable-default').DataTable().row($row).remove().draw();
@@ -188,7 +188,7 @@
 
                         switch (msg) {
                             case '<fmt:message key="label.response.primary_key" bundle="${lang}"></fmt:message>':
-                                alertText = '<fmt:message key="label.staff.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
+                                alertText = '<fmt:message key="label.user.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
                                 break;
                             default:
                                 alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
