@@ -47,7 +47,7 @@
                 </thead>
                 <tbody>
                 <c:forEach var="recordDto" items="${command.listResult}" varStatus="loop">
-                    <tr data-id=${recordDto.id}>
+                    <tr data-id=${recordDto.id} data-code=${recordDto.staffDto.code}>
                         <td>${loop.index + 1}</td>
                         <td>${recordDto.staffDto.code}</td>
                         <td>${recordDto.staffDto.name}</td>
@@ -121,7 +121,7 @@
             <c:if test="${not empty command.pNotifyDto}">
             new PNotify({
                 title: '${command.pNotifyDto.title}',
-                text: '${command.pNotifyDto.text}  ',
+                text: '${command.pNotifyDto.text}',
                 type: '${command.pNotifyDto.type}'
             });
             </c:if>
@@ -168,11 +168,11 @@
         function deleteStaffViaAjax($row) {
             $.ajax({
                 type: "DELETE",
-                url: "/admin/staff/{0}".format($row.data("id")),
+                url: "/admin/record/{0}".format($row.data("id")),
                 success: function (msg) {
                     var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
                     var alertTitle = '<fmt:message key="label.delete.success" bundle="${lang}"></fmt:message>';
-                    var alertText = '<fmt:message key="label.staff.delete.success" bundle="${lang}"></fmt:message>'.format($row.data("code"), $row.find("td").eq(2).text());
+                    var alertText = '<fmt:message key="label.record.delete.success" bundle="${lang}"></fmt:message>'.format($row.data("code"), $row.find("td").eq(2).text().trim(), $row.find("td").eq(4).text().trim());
 
                     if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
                         $('#datatable-default').DataTable().row($row).remove().draw();
@@ -191,7 +191,7 @@
 
                         switch (msg) {
                             case '<fmt:message key="label.response.primary_key" bundle="${lang}"></fmt:message>':
-                                alertText = '<fmt:message key="label.staff.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
+                                alertText = '<fmt:message key="label.record.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
                                 break;
                             default:
                                 alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';

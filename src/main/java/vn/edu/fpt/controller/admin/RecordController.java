@@ -1,11 +1,9 @@
 package vn.edu.fpt.controller.admin;
 
+import org.hibernate.StaleStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.command.RecordCommand;
 import vn.edu.fpt.constant.SystemConstant;
@@ -72,7 +70,7 @@ public class RecordController {
             staffDto.setId(command.getStaffId());
             command.getPojo().setStaffDto(staffDto);
 
-            if (command.getStaffId() == null) {
+            if (command.getPojo().getId() == null) {
                 recordDto = recordService.save(command.getPojo());
                 pNotifyDto.setTitle(MessageBundleUtil.get("label.insert.success"));
                 pNotifyDto.setText(MessageBundleUtil.get("label.record.insert.success"));
@@ -83,8 +81,8 @@ public class RecordController {
             }
 
             pNotifyDto.setType(SystemConstant.SUCCESS);
-            pNotifyDto.setText(String.format(pNotifyDto.getText(), recordDto.getStaffDto().getName(), recordDto.getType()));
-        }catch (Exception e){
+            pNotifyDto.setText(String.format(pNotifyDto.getText(), recordDto.getStaffDto().getCode(), recordDto.getStaffDto().getName(), MessageBundleUtil.get("label.record." + recordDto.getType())));
+        } catch (Exception e) {
             e.printStackTrace();
             pNotifyDto.setTitle(MessageBundleUtil.get("label.error"));
             pNotifyDto.setText(MessageBundleUtil.get("label.error.fail"));
@@ -94,5 +92,20 @@ public class RecordController {
 
         ModelAndView modelAndView = new ModelAndView(SystemConstant.REDIRECT_URL.concat(prefixPath));
         return modelAndView;
+    }
+
+    @DeleteMapping("{recordId}")
+    @ResponseBody
+    public String delete(@PathVariable("recordId") Integer recordId) {
+        try {
+            recordService.deleteById(recordId);
+            return MessageBundleUtil.get("label.response.success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e.getCause() instanceof StaleStateException) {
+                return MessageBundleUtil.get("label.response.primary_key");
+            }
+            return MessageBundleUtil.get("label.response.error");
+        }
     }
 }

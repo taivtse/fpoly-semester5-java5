@@ -58,9 +58,7 @@ public class GenericServiceImpl<ID extends Serializable, T extends DtoMarker<ID>
         Object entity = mapper.dtoToEntity(dto);
         genericDao.save(entity);
 
-        dto = this.findOneById((ID) dto.getId());
-
-        return dto;
+        return (T) mapper.entityToDto(entity);
     }
 
     @Override
@@ -68,7 +66,7 @@ public class GenericServiceImpl<ID extends Serializable, T extends DtoMarker<ID>
         Object entity = mapper.dtoToEntity(dto);
         genericDao.update(entity);
 
-        dto = this.findOneById((ID) dto.getId());
+        dto = this.findOneById(dto.getId());
 
         return dto;
     }
