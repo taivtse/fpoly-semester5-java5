@@ -1,17 +1,17 @@
 package vn.edu.fpt.controller.admin;
 
+import org.hibernate.StaleStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.command.UserCommand;
 import vn.edu.fpt.constant.SystemConstant;
 import vn.edu.fpt.dto.PNotifyDto;
 import vn.edu.fpt.dto.UserDto;
 import vn.edu.fpt.service.extend.UserService;
+import vn.edu.fpt.util.FormUtil;
+import vn.edu.fpt.util.MessageBundleUtil;
 import vn.edu.fpt.util.SessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -64,5 +64,50 @@ public class UserController {
         modelAndView.addObject(SystemConstant.COMMAND, command);
 
         return modelAndView;
+    }
+
+    @PostMapping
+    public ModelAndView insertOrUpdate(HttpServletRequest request) {
+        UserCommand command = FormUtil.populate(UserCommand.class, request);
+        PNotifyDto pNotifyDto = new PNotifyDto();
+        UserDto userDto;
+        try {
+            if (command.getPojo().getId() == null) {
+                userDto = userService.save(command.getPojo());
+                pNotifyDto.setTitle(MessageBundleUtil.get("label.insert.success"));
+                pNotifyDto.setText(MessageBundleUtil.get("label.user.insert.success"));
+            } else {
+                userDto = userService.update(command.getPojo());
+                pNotifyDto.setTitle(MessageBundleUtil.get("label.update.success"));
+                pNotifyDto.setText(MessageBundleUtil.get("label.user.update.success"));
+            }
+
+            pNotifyDto.setType(SystemConstant.SUCCESS);
+            pNotifyDto.setText(String.format(pNotifyDto.getText(), userDto.getUsername(), userDto.getFullName()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            pNotifyDto.setTitle(MessageBundleUtil.get("label.error"));
+            pNotifyDto.setText(MessageBundleUtil.get("label.error.fail"));
+            pNotifyDto.setType(SystemConstant.ERROR);
+        }
+        SessionUtil.getInstance().put(request, SystemConstant.PNOTIFY, pNotifyDto);
+
+        ModelAndView modelAndView = new ModelAndView(SystemConstant.REDIRECT_URL.concat(prefixPath));
+        return modelAndView;
+    }
+
+    @DeleteMapping("{userId}")
+    @ResponseBody
+    public String delete(@PathVariable("userId") Integer userId) {
+        try {
+            userService.deleteById(userId);
+            return MessageBundleUtil.get("label.response.success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (e.getCause() instanceof StaleStateException) {
+                return MessageBundleUtil.get("label.response.primary_key");
+            }
+            return MessageBundleUtil.get("label.response.error");
+        }
     }
 }

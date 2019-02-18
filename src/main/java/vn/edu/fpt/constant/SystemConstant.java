@@ -8,4 +8,5 @@ public class SystemConstant {
     public static final String SUCCESS = "success";
     public static final String ERROR = "error";
     public static final String PNOTIFY = "pNotify";
+    public static final Integer PASSWORD_GENERATE_LENGTH = 10;
 }

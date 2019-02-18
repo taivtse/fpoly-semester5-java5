@@ -16,9 +16,6 @@
     <content tag="specific_css">
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
-        <link rel="stylesheet"
-              href="<c:url value='/template/admin/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css'/>"/>
-        <link rel="stylesheet" href="<c:url value='/template/admin/vendor/bootstrap-datepicker/css/datepicker3.css'/>"/>
     </content>
 </head>
 <body>
@@ -39,23 +36,26 @@
                         <c:if test="${not empty command.pojo}">
                             <input type="hidden" name="pojo.id" value="${command.pojo.id}">
                             <input type="hidden" name="pojo.username" value="${command.pojo.username}">
-                            <div class="form-group">
-                                <label class="col-md-3 control-label" for="code">
-                                    <fmt:message key="label.user.username" bundle="${lang}"/>
-                                </label>
-                                <div class="col-md-6">
-                                    <input type="text" readonly disabled value="${command.pojo.username}"
-                                           class="form-control"
-                                           id="code">
-                                </div>
-                            </div>
                         </c:if>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label" for="code">
+                                <fmt:message key="label.user.username" bundle="${lang}"/>
+                            </label>
+                            <div class="col-md-6">
+                                <input type="text" name="pojo.username"
+                                       <c:if test="${not empty command.pojo}">readonly disabled</c:if>
+                                       value="${command.pojo.username}"
+                                       class="form-control"
+                                       id="code">
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="name">
                                 <fmt:message key="label.user.fullName" bundle="${lang}"/>
                             </label>
                             <div class="col-md-6">
-                                <input type="text" name="pojo.fullName" value="${command.pojo.fullName}" class="form-control"
+                                <input type="text" name="pojo.fullName" value="${command.pojo.fullName}"
+                                       class="form-control"
                                        id="name">
                             </div>
                         </div>
@@ -75,9 +75,7 @@
     <!-- end: page -->
 </section>
 <content tag="specific_script">
-    <script src="<c:url value='/template/admin/vendor/bootstrap-fileupload/bootstrap-fileupload.min.js'/>"></script>
-    <script src="<c:url value='/template/admin/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js'/>"></script>
-    <script src="<c:url value='/template/admin/vendor/fuelux/js/spinner.js'/>"></script>
+
 </content>
 
 <content tag="local_script">
