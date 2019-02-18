@@ -6,11 +6,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-<c:url var="searchUrl" value="/admin/staff/search"></c:url>
-<c:url var="infoUrl" value="/admin/staff/info/"></c:url>
+<c:url var="searchUrl" value="/admin/user/search"></c:url>
+<c:url var="infoUrl" value="/admin/user/info/"></c:url>
 <html>
 <head>
-    <title><fmt:message key="label.staff.page.title" bundle="${lang}"/></title>
+    <title><fmt:message key="label.user.page.title" bundle="${lang}"/></title>
     <content tag="specific_css">
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
@@ -19,13 +19,13 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.staff.page.title" bundle="${lang}"/></h2>
+        <h2><fmt:message key="label.user.page.title" bundle="${lang}"/></h2>
     </header>
 
     <!-- start: page -->
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title"><fmt:message key="label.staff.list" bundle="${lang}"/></h2>
+            <h2 class="panel-title"><fmt:message key="label.user.list" bundle="${lang}"/></h2>
         </header>
         <div class="panel-body">
             <div class="row">
@@ -48,25 +48,19 @@
                 <thead>
                 <tr>
                     <th><fmt:message key="label.numerical.order" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.staff.code" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.staff.name" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.staff.email" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.staff.level" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.depart" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.user.username" bundle="${lang}"/></th>
+                    <th><fmt:message key="label.user.fullName" bundle="${lang}"/></th>
                     <th><fmt:message key="label.action" bundle="${lang}"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="staffDto" items="${command.listResult}" varStatus="loop">
-                    <tr data-id="${staffDto.id}" data-code="${staffDto.code}">
+                <c:forEach var="userDto" items="${command.listResult}" varStatus="loop">
+                    <tr data-id="${userDto.id}" data-code="${userDto.username}">
                         <td>${loop.index + 1}</td>
-                        <td>${staffDto.code}</td>
-                        <td>${staffDto.name}</td>
-                        <td>${staffDto.email}</td>
-                        <td>${staffDto.level}</td>
-                        <td>${staffDto.departDto.name}</td>
+                        <td>${userDto.username}</td>
+                        <td>${userDto.fullName}</td>
                         <td class="actions">
-                            <a href="<c:url value='${infoUrl}${staffDto.code}'/>" class="on-default edit-row"><i
+                            <a href="<c:url value='${infoUrl}${userDto.username}'/>" class="on-default edit-row"><i
                                     class="fa fa-pencil"></i></a>
                             <a href="#" class="on-default remove-row"><i class="fa fa-trash-o"></i></a>
                         </td>

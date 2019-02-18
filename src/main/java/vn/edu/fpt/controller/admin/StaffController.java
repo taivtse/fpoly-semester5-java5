@@ -32,7 +32,7 @@ public class StaffController {
 
     @GetMapping({"", "search"})
     public ModelAndView list(@RequestParam(value = "name", required = false) String searchName, HttpServletRequest request) {
-        StaffCommand command = FormUtil.populate(StaffCommand.class, request);
+        StaffCommand command = new StaffCommand();
 
         if (searchName != null) {
             command.setListResult(staffService.findAllActiveByName(searchName));

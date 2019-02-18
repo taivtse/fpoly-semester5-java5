@@ -24,19 +24,25 @@
                     <li ${fn:startsWith(pageContext.request.requestURI, '/admin/depart') ? 'class="nav-expanded nav-active"':''}>
                         <a href="<c:url value='/admin/depart'/>">
                             <i class="fa fa-building" aria-hidden="true"></i>
-                            <span><fmt:message key="label.sidebar.depart" bundle="${lang}"/></span>
+                            <span><fmt:message key="label.depart.page.title" bundle="${lang}"/></span>
                         </a>
                     </li>
                     <li ${fn:startsWith(pageContext.request.requestURI, '/admin/staff') ? 'class="nav-expanded nav-active"':''}>
                         <a href="<c:url value='/admin/staff'/>">
+                            <i class="fa fa-briefcase" aria-hidden="true"></i>
+                            <span><fmt:message key="label.staff.page.title" bundle="${lang}"/></span>
+                        </a>
+                    </li>
+                    <li ${fn:startsWith(pageContext.request.requestURI, '/admin/user') ? 'class="nav-expanded nav-active"':''}>
+                        <a href="<c:url value='/admin/user'/>">
                             <i class="fa fa-users" aria-hidden="true"></i>
-                            <span><fmt:message key="label.sidebar.staff" bundle="${lang}"/></span>
+                            <span><fmt:message key="label.user.page.title" bundle="${lang}"/></span>
                         </a>
                     </li>
                     <li ${fn:startsWith(pageContext.request.requestURI, '/admin/record') ? 'class="nav-expanded nav-active"':''}>
                         <a href="<c:url value='/admin/record'/>">
                             <i class="fa fa-edit" aria-hidden="true"></i>
-                            <span><fmt:message key="label.sidebar.record" bundle="${lang}"/></span>
+                            <span><fmt:message key="label.record.page.title" bundle="${lang}"/></span>
                         </a>
                     </li>
                 </ul>
