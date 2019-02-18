@@ -98,7 +98,7 @@
                 </div>
 
                 <div class="form-group text-center">
-                    <button type="submit" class="mb-xs mt-xs mr-xs btn btn-primary">
+                    <button type="submit" class="mb-xs mt-xs mr-xs btn btn-primary" id="submitButton" ${empty command.pojo.id ? 'disabled' : ''}>
                         <fmt:message key="label.${empty command.pojo.id ? 'insert' : 'update'}" bundle="${lang}"/>
                     </button>
                     <button type="reset" class="mb-xs mt-xs mr-xs btn btn-default">
@@ -138,7 +138,13 @@
                         $("#staffName").val(result.name);
                         $("#staffDepartName").val(result.departName);
                     });
+
+                    $("#submitButton").prop('disabled', false);
                 }
+            });
+
+            $('#staffCode').on('input',function(e){
+                $("#submitButton").prop('disabled', true);
             });
             </c:if>
         });
