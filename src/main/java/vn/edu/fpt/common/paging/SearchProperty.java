@@ -10,7 +10,7 @@ public class SearchProperty {
     private MatchType matchMode;
 
     public enum MatchType {
-        EXACT, START, END, ANYWHERE;
+        LIKE_EXACT, LIKE_START, LIKE_END, LIKE_ANYWHERE, EQUAL;
 
         private MatchType() {
         }
@@ -25,17 +25,23 @@ public class SearchProperty {
     public Criterion getCriterion() {
         Criterion criterion;
         switch (matchMode) {
-            case ANYWHERE:
+            case LIKE_ANYWHERE:
                 criterion = Restrictions.like(propertyName, value.toString(), MatchMode.ANYWHERE);
                 break;
-            case END:
+            case LIKE_END:
                 criterion = Restrictions.like(propertyName, value.toString(), MatchMode.END);
                 break;
-            case START:
+            case LIKE_START:
                 criterion = Restrictions.like(propertyName, value.toString(), MatchMode.START);
                 break;
+            case LIKE_EXACT:
+                criterion = Restrictions.like(propertyName, value);
+                break;
+            case EQUAL:
+                criterion = Restrictions.eq(propertyName, value);
+                break;
             default:
-                criterion = Restrictions.like(propertyName, value.toString());
+                criterion = Restrictions.eq(propertyName, value);
         }
 
         return criterion;

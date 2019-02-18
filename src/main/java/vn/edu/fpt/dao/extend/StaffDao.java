@@ -7,7 +7,7 @@ import vn.edu.fpt.entity.StaffEntity;
 import java.util.List;
 
 public interface StaffDao extends ActiveEntityDao<Integer, StaffEntity> {
-    List<StaffEntity> findAllByCode(Pageable pageable, String name);
-    StaffEntity findByCode(String code);
-    List<StaffEntity> findAllByName(String name);
+    List<StaffEntity> findAllActiveByCode(Pageable pageable, String code);
+    StaffEntity findOneActiveByCode(String code);
+    List<StaffEntity> findAllActiveByName(String name);
 }

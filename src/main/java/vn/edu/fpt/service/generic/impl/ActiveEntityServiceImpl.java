@@ -39,7 +39,7 @@ public class ActiveEntityServiceImpl<ID extends Serializable, T extends ActiveGe
 
     @Override
     public void updateToUnActiveById(ID id) throws Exception {
-        Object entity = this.getGenericDao().findById(id);
+        Object entity = this.getGenericDao().findOneById(id);
 
         this.updateToUnActive((T) this.getMapper().entityToDto(entity));
     }

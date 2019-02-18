@@ -35,25 +35,25 @@ public class StaffServiceImpl extends ActiveEntityServiceImpl<Integer, StaffDto>
     }
 
     @Override
-    public StaffDto findByCode(String code) {
-        StaffEntity entity = staffDao.findByCode(code);
+    public StaffDto findOneActiveByCode(String code) {
+        StaffEntity entity = staffDao.findOneActiveByCode(code);
         if (entity != null)
             return mapper.entityToDto(entity);
         return null;
     }
 
     @Override
-    public List<StaffDto> findAllByName(String name) {
+    public List<StaffDto> findAllActiveByName(String name) {
         List<StaffDto> dtoList = new ArrayList<>();
-        staffDao.findAllByName(name).forEach(staffEntity -> dtoList.add(mapper.entityToDto(staffEntity)));
+        staffDao.findAllActiveByName(name).forEach(staffEntity -> dtoList.add(mapper.entityToDto(staffEntity)));
         return dtoList;
     }
 
     @Override
-    public List<StaffLiveSearchDto> findAllNameByCodeInLiveSearch(String staffCode) {
+    public List<StaffLiveSearchDto> findAllActiveByCodeInLiveSearch(String staffCode) {
         List<StaffLiveSearchDto> dtoList = new ArrayList<>();
         Pageable pageable = new PageRequest(1, 5, null);
-        staffDao.findAllByCode(pageable, staffCode).forEach(staffEntity -> {
+        staffDao.findAllActiveByCode(pageable, staffCode).forEach(staffEntity -> {
             StaffLiveSearchDto staffLiveSearchDto = new StaffLiveSearchDto();
             staffLiveSearchDto.setId(staffEntity.getId());
             staffLiveSearchDto.setCode(staffEntity.getCode());
@@ -65,8 +65,8 @@ public class StaffServiceImpl extends ActiveEntityServiceImpl<Integer, StaffDto>
     }
 
     @Override
-    public StaffLiveSearchDto findByIdInLiveSearch(Integer id) {
-        StaffEntity entity = staffDao.findById(id);
+    public StaffLiveSearchDto findOneActiveByIdInLiveSearch(Integer id) {
+        StaffEntity entity = staffDao.findOneById(id);
         StaffLiveSearchDto staffLiveSearchDto = null;
         if (entity != null) {
             staffLiveSearchDto = new StaffLiveSearchDto();

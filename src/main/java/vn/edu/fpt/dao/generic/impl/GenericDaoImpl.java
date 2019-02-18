@@ -5,7 +5,6 @@ import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import vn.edu.fpt.common.paging.Pageable;
 import vn.edu.fpt.common.paging.SearchProperty;
@@ -48,7 +47,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    final public T findById(ID id) {
+    final public T findOneById(ID id) {
         T result;
         Session session = this.getSession();
         result = (T) session.get(this.getPersistenceClass(), id);
@@ -56,7 +55,7 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public List<T> findByProperties(Pageable pageable, List<SearchProperty> properties) {
+    public List<T> findAllByProperties(Pageable pageable, List<SearchProperty> properties) {
         Session session = this.getSession();
         Criteria cr = session.createCriteria(this.getPersistenceClass());
 
@@ -88,26 +87,9 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    public Long countByProperties(Pageable pageable, List<SearchProperty> properties) {
+    public Long countByProperties(List<SearchProperty> properties) {
         Session session = this.getSession();
         Criteria cr = session.createCriteria(this.getPersistenceClass());
-
-        if (pageable != null) {
-//            set start position offset
-            if (pageable.getOffset() != null && pageable.getOffset() >= 0) {
-                cr.setFirstResult(pageable.getOffset());
-            }
-
-//            set limit row
-            if (pageable.getLimit() != null && pageable.getLimit() >= 0) {
-                cr.setMaxResults(pageable.getLimit());
-            }
-
-//            set sorter
-            if (pageable.getSorter() != null) {
-                cr.addOrder(pageable.getSorter().getOrder());
-            }
-        }
 
 //        set properties search
         if (properties != null) {
@@ -119,13 +101,13 @@ public class GenericDaoImpl<ID extends Serializable, T> implements GenericDao<ID
     }
 
     @Override
-    final public T findUniqueEqual(String property, Object value) {
-        T result;
+    final public T findOneByProperties(List<SearchProperty> properties) {
         Session session = this.getSession();
         Criteria cr = session.createCriteria(this.getPersistenceClass());
-        cr.add(Restrictions.eq(property, value));
-        result = (T) cr.uniqueResult();
-        return result;
+        if (properties != null) {
+            properties.forEach(searchProperty -> cr.add(searchProperty.getCriterion()));
+        }
+        return (T) cr.uniqueResult();
     }
 
     @Override

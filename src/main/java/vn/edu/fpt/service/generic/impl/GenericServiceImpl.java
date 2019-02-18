@@ -40,16 +40,16 @@ public class GenericServiceImpl<ID extends Serializable, T extends DtoMarker<ID>
     }
 
     @Override
-    public List<T> findByProperties(Pageable pageable, List<SearchProperty> properties) {
+    public List<T> findAllByProperties(Pageable pageable, List<SearchProperty> properties) {
         List<T> dtoList = new ArrayList<>();
-        genericDao.findByProperties(pageable, properties).forEach(entity -> dtoList.add((T) mapper.entityToDto(entity)));
+        genericDao.findAllByProperties(pageable, properties).forEach(entity -> dtoList.add((T) mapper.entityToDto(entity)));
         return dtoList;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public T findById(ID id) {
-        Object entity = genericDao.findById(id);
+    public T findOneById(ID id) {
+        Object entity = genericDao.findOneById(id);
         return (T) mapper.entityToDto(entity);
     }
 
@@ -58,7 +58,7 @@ public class GenericServiceImpl<ID extends Serializable, T extends DtoMarker<ID>
         Object entity = mapper.dtoToEntity(dto);
         genericDao.save(entity);
 
-        dto = this.findById((ID) dto.getId());
+        dto = this.findOneById((ID) dto.getId());
 
         return dto;
     }
@@ -68,7 +68,7 @@ public class GenericServiceImpl<ID extends Serializable, T extends DtoMarker<ID>
         Object entity = mapper.dtoToEntity(dto);
         genericDao.update(entity);
 
-        dto = this.findById((ID) dto.getId());
+        dto = this.findOneById((ID) dto.getId());
 
         return dto;
     }

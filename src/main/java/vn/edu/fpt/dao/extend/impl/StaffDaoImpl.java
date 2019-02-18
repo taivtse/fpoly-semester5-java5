@@ -13,19 +13,23 @@ import java.util.List;
 @Repository
 public class StaffDaoImpl extends ActiveEntityDaoImpl<Integer, StaffEntity> implements StaffDao {
     @Override
-    public List<StaffEntity> findAllByCode(Pageable pageable, String name) {
-        SearchProperty property = new SearchProperty("code", name, SearchProperty.MatchType.START);
-        return this.findByProperties(pageable, Arrays.asList((property)));
+    public List<StaffEntity> findAllActiveByCode(Pageable pageable, String code) {
+        SearchProperty property = new SearchProperty("code", code, SearchProperty.MatchType.LIKE_START);
+        SearchProperty property1 = new SearchProperty("isActive", true, SearchProperty.MatchType.EQUAL);
+        return this.findAllByProperties(pageable, Arrays.asList(property, property1));
     }
 
     @Override
-    public StaffEntity findByCode(String code) {
-        return this.findUniqueEqual("code", code);
+    public StaffEntity findOneActiveByCode(String code) {
+        SearchProperty property = new SearchProperty("code", code, SearchProperty.MatchType.EQUAL);
+        SearchProperty property1 = new SearchProperty("isActive", true, SearchProperty.MatchType.EQUAL);
+        return this.findOneByProperties(Arrays.asList(property, property1));
     }
 
     @Override
-    public List<StaffEntity> findAllByName(String name) {
-        SearchProperty property = new SearchProperty("name", name, SearchProperty.MatchType.ANYWHERE);
-        return this.findByProperties(null, Arrays.asList((property)));
+    public List<StaffEntity> findAllActiveByName(String name) {
+        SearchProperty property = new SearchProperty("name", name, SearchProperty.MatchType.LIKE_ANYWHERE);
+        SearchProperty property1 = new SearchProperty("isActive", true, SearchProperty.MatchType.EQUAL);
+        return this.findAllByProperties(null, Arrays.asList(property, property1));
     }
 }

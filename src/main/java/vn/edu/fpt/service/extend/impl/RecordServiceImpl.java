@@ -37,7 +37,7 @@ public class RecordServiceImpl extends GenericServiceImpl<Integer, RecordDto> im
 
     @Override
     public RecordDto update(RecordDto dto) throws Exception {
-        RecordDto oldDto = this.findById(dto.getId());
+        RecordDto oldDto = this.findOneById(dto.getId());
         dto.setSubmitDate(oldDto.getSubmitDate());
         return super.update(dto);
     }

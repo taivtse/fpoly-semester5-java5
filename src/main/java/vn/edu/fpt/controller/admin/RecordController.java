@@ -47,7 +47,7 @@ public class RecordController {
     public ModelAndView info(@PathVariable(value = "id", required = false) Integer id) {
         RecordCommand command = new RecordCommand();
         if (id != null) {
-            RecordDto recordDto = recordService.findById(id);
+            RecordDto recordDto = recordService.findOneById(id);
             if (recordDto != null) {
                 command.setPojo(recordDto);
             } else {

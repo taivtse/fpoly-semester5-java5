@@ -10,9 +10,9 @@ import java.util.List;
 public interface GenericService<ID extends Serializable, T extends DtoMarker<ID>> {
     List<T> findAll();
 
-    List<T> findByProperties(Pageable pageable, List<SearchProperty> properties);
+    List<T> findAllByProperties(Pageable pageable, List<SearchProperty> properties);
 
-    T findById(ID id);
+    T findOneById(ID id);
 
     T save(T dto) throws Exception;
 

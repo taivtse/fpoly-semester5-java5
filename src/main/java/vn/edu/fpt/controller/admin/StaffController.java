@@ -35,7 +35,7 @@ public class StaffController {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
 
         if (searchName != null) {
-            command.setListResult(staffService.findAllByName(searchName));
+            command.setListResult(staffService.findAllActiveByName(searchName));
         } else {
             command.setListResult(staffService.findAllActive());
         }
@@ -57,7 +57,7 @@ public class StaffController {
         StaffCommand command = new StaffCommand();
 
         if (code != null) {
-            StaffDto staffDto = staffService.findByCode(code);
+            StaffDto staffDto = staffService.findOneActiveByCode(code);
             if (staffDto != null) {
                 command.setPojo(staffDto);
             } else {
@@ -79,13 +79,13 @@ public class StaffController {
     @GetMapping("live-search/info/{id}")
     @ResponseBody
     public StaffLiveSearchDto info(@PathVariable("id") Integer id) {
-        return staffService.findByIdInLiveSearch(id);
+        return staffService.findOneActiveByIdInLiveSearch(id);
     }
 
     @GetMapping("live-search")
     @ResponseBody
     public List<StaffLiveSearchDto> getStaffByCodeInLiveSearch(@RequestParam("staffCode") String staffCode) {
-        List<StaffLiveSearchDto> liveSearchNameList = staffService.findAllNameByCodeInLiveSearch(staffCode);
+        List<StaffLiveSearchDto> liveSearchNameList = staffService.findAllActiveByCodeInLiveSearch(staffCode);
         return liveSearchNameList;
     }
 

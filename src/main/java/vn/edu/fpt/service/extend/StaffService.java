@@ -7,8 +7,8 @@ import vn.edu.fpt.service.generic.ActiveEntityService;
 import java.util.List;
 
 public interface StaffService extends ActiveEntityService<Integer, StaffDto> {
-    StaffDto findByCode(String code);
-    List<StaffDto> findAllByName(String name);
-    List<StaffLiveSearchDto> findAllNameByCodeInLiveSearch(String staffCode);
-    StaffLiveSearchDto findByIdInLiveSearch(Integer id);
+    StaffDto findOneActiveByCode(String code);
+    List<StaffDto> findAllActiveByName(String name);
+    List<StaffLiveSearchDto> findAllActiveByCodeInLiveSearch(String staffCode);
+    StaffLiveSearchDto findOneActiveByIdInLiveSearch(Integer id);
 }

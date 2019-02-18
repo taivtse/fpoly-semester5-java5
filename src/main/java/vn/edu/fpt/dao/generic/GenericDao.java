@@ -9,13 +9,13 @@ import java.util.List;
 public interface GenericDao<ID extends Serializable, T> {
     List<T> findAll();
 
-    T findById(ID id);
+    T findOneById(ID id);
 
-    List<T> findByProperties(Pageable pageable, List<SearchProperty> properties);
+    List<T> findAllByProperties(Pageable pageable, List<SearchProperty> properties);
 
-    Long countByProperties(Pageable pageable, List<SearchProperty> properties);
+    Long countByProperties(List<SearchProperty> properties);
 
-    T findUniqueEqual(String property, Object value);
+    T findOneByProperties(List<SearchProperty> properties);
 
     void save(T entity) throws Exception ;
 
