@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.command.DepartCommand;
 import vn.edu.fpt.dto.DepartDto;
-import vn.edu.fpt.service.extend.DepartService;
+import vn.edu.fpt.service.generic.extend.DepartService;
 import vn.edu.fpt.util.MessageBundleUtil;
 
 import java.util.List;

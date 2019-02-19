@@ -1,4 +1,4 @@
-package vn.edu.fpt.dao.extend;
+package vn.edu.fpt.dao.generic.extend;
 
 import vn.edu.fpt.dao.generic.ActiveEntityDao;
 import vn.edu.fpt.entity.DepartEntity;

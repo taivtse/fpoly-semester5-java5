@@ -9,7 +9,7 @@ import vn.edu.fpt.command.UserCommand;
 import vn.edu.fpt.constant.SystemConstant;
 import vn.edu.fpt.dto.PNotifyDto;
 import vn.edu.fpt.dto.UserDto;
-import vn.edu.fpt.service.extend.UserService;
+import vn.edu.fpt.service.generic.extend.UserService;
 import vn.edu.fpt.util.FormUtil;
 import vn.edu.fpt.util.MessageBundleUtil;
 import vn.edu.fpt.util.SessionUtil;

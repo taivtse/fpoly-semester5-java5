@@ -1,17 +1,17 @@
-package vn.edu.fpt.service.extend.impl;
+package vn.edu.fpt.service.generic.extend.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fpt.constant.SystemConstant;
-import vn.edu.fpt.dao.extend.UserDao;
+import vn.edu.fpt.dao.generic.extend.UserDao;
 import vn.edu.fpt.dao.generic.GenericDao;
 import vn.edu.fpt.dto.UserDto;
 import vn.edu.fpt.entity.UserEntity;
 import vn.edu.fpt.mapper.AbstractMapper;
 import vn.edu.fpt.mapper.UserMapper;
-import vn.edu.fpt.service.extend.UserService;
+import vn.edu.fpt.service.generic.extend.UserService;
 import vn.edu.fpt.service.generic.impl.GenericServiceImpl;
 import vn.edu.fpt.util.StringUtil;
 

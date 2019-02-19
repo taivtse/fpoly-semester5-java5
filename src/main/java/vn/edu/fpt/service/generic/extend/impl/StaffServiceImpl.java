@@ -1,4 +1,4 @@
-package vn.edu.fpt.service.extend.impl;
+package vn.edu.fpt.service.generic.extend.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fpt.common.paging.PageRequest;
 import vn.edu.fpt.common.paging.Pageable;
-import vn.edu.fpt.dao.extend.StaffDao;
+import vn.edu.fpt.dao.generic.extend.StaffDao;
 import vn.edu.fpt.dao.generic.ActiveEntityDao;
 import vn.edu.fpt.dto.StaffDto;
 import vn.edu.fpt.dto.StaffLiveSearchDto;
 import vn.edu.fpt.entity.StaffEntity;
 import vn.edu.fpt.mapper.AbstractMapper;
 import vn.edu.fpt.mapper.StaffMapper;
-import vn.edu.fpt.service.extend.StaffService;
+import vn.edu.fpt.service.generic.extend.StaffService;
 import vn.edu.fpt.service.generic.impl.ActiveEntityServiceImpl;
 
 import java.util.ArrayList;

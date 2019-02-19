@@ -1,9 +1,9 @@
-package vn.edu.fpt.dao.extend.impl;
+package vn.edu.fpt.dao.generic.extend.impl;
 
 import org.springframework.stereotype.Repository;
 import vn.edu.fpt.common.paging.Pageable;
 import vn.edu.fpt.common.paging.SearchProperty;
-import vn.edu.fpt.dao.extend.StaffDao;
+import vn.edu.fpt.dao.generic.extend.StaffDao;
 import vn.edu.fpt.dao.generic.impl.ActiveEntityDaoImpl;
 import vn.edu.fpt.entity.StaffEntity;
 

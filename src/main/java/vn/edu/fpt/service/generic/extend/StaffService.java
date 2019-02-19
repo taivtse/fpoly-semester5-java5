@@ -1,4 +1,4 @@
-package vn.edu.fpt.service.extend;
+package vn.edu.fpt.service.generic.extend;
 
 import vn.edu.fpt.dto.StaffDto;
 import vn.edu.fpt.dto.StaffLiveSearchDto;

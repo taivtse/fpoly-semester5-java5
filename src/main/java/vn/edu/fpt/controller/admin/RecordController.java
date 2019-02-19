@@ -10,7 +10,7 @@ import vn.edu.fpt.constant.SystemConstant;
 import vn.edu.fpt.dto.PNotifyDto;
 import vn.edu.fpt.dto.RecordDto;
 import vn.edu.fpt.dto.StaffDto;
-import vn.edu.fpt.service.extend.RecordService;
+import vn.edu.fpt.service.generic.extend.RecordService;
 import vn.edu.fpt.util.FormUtil;
 import vn.edu.fpt.util.MessageBundleUtil;
 import vn.edu.fpt.util.SessionUtil;

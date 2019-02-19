@@ -1,7 +1,7 @@
-package vn.edu.fpt.dao.extend.impl;
+package vn.edu.fpt.dao.generic.extend.impl;
 
 import org.springframework.stereotype.Repository;
-import vn.edu.fpt.dao.extend.DepartDao;
+import vn.edu.fpt.dao.generic.extend.DepartDao;
 import vn.edu.fpt.dao.generic.impl.ActiveEntityDaoImpl;
 import vn.edu.fpt.entity.DepartEntity;
 
