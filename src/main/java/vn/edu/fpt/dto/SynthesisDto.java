@@ -2,9 +2,9 @@ package vn.edu.fpt.dto;
 
 public class SynthesisDto {
     private String staffCode;
-    private Integer totalReward;
-    private Integer totalPunishment;
-    private Integer totalResult;
+    private Long totalReward;
+    private Long totalPunishment;
+    private Long totalResult;
 
     public String getStaffCode() {
         return staffCode;
@@ -14,27 +14,27 @@ public class SynthesisDto {
         this.staffCode = staffCode;
     }
 
-    public Integer getTotalReward() {
+    public Long getTotalReward() {
         return totalReward;
     }
 
-    public void setTotalReward(Integer totalReward) {
+    public void setTotalReward(Long totalReward) {
         this.totalReward = totalReward;
     }
 
-    public Integer getTotalPunishment() {
+    public Long getTotalPunishment() {
         return totalPunishment;
     }
 
-    public void setTotalPunishment(Integer totalPunishment) {
+    public void setTotalPunishment(Long totalPunishment) {
         this.totalPunishment = totalPunishment;
     }
 
-    public Integer getTotalResult() {
+    public Long getTotalResult() {
         return totalResult;
     }
 
-    public void setTotalResult(Integer totalResult) {
+    public void setTotalResult(Long totalResult) {
         this.totalResult = totalResult;
     }
 }

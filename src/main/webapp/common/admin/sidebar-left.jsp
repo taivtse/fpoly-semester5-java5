@@ -47,7 +47,7 @@
                     </li>
                     <li ${fn:startsWith(pageContext.request.requestURI, '/admin/synthesis') ? 'class="nav-expanded nav-active"':''}>
                         <a href="<c:url value='/admin/synthesis'/>">
-                            <i class="fa fa-edit" aria-hidden="true"></i>
+                            <i class="fa fa-bar-chart-o" aria-hidden="true"></i>
                             <span><fmt:message key="label.synthesis.page.title" bundle="${lang}"/></span>
                         </a>
                     </li>

@@ -23,12 +23,26 @@ public class SynthesisServiceImpl implements SynthesisService {
         staffSynthesis.forEach(synthesis -> {
             SynthesisDto synthesisDto = new SynthesisDto();
             synthesisDto.setStaffCode(String.valueOf(synthesis[0]));
-            synthesisDto.setTotalReward((Integer) synthesis[1]);
-            synthesisDto.setTotalPunishment((Integer) synthesis[2]);
-            synthesisDto.setTotalPunishment(synthesisDto.getTotalReward() - synthesisDto.getTotalPunishment());
+            synthesisDto.setTotalReward((Long) synthesis[1]);
+            synthesisDto.setTotalPunishment((Long) synthesis[2]);
+            synthesisDto.setTotalResult(synthesisDto.getTotalReward() - synthesisDto.getTotalPunishment());
 
             synthesisDtoList.add(synthesisDto);
         });
         return synthesisDtoList;
+    }
+
+    @Override
+    public SynthesisDto getStaffSynthesisByCode(String staffCode) {
+        Object[] staffSynthesis = synthesisDao.getStaffSynthesisByCode(staffCode);
+        if (staffSynthesis == null) {
+            return null;
+        }
+        SynthesisDto synthesisDto = new SynthesisDto();
+        synthesisDto.setStaffCode(String.valueOf(staffSynthesis[0]));
+        synthesisDto.setTotalReward((Long) staffSynthesis[1]);
+        synthesisDto.setTotalPunishment((Long) staffSynthesis[2]);
+        synthesisDto.setTotalResult(synthesisDto.getTotalReward() - synthesisDto.getTotalPunishment());
+        return synthesisDto;
     }
 }

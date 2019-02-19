@@ -6,6 +6,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
+<c:url var="searchUrl" value="/admin/synthesis/search"></c:url>
 <html>
 <head>
     <title><fmt:message key="label.synthesis.page.title" bundle="${lang}"/></title>
@@ -28,11 +29,16 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-6">
+                    <div class="mb-md">
+                        <a href="/admin/record/info/" id="addToTable" class="btn btn-primary">
+                            Thêm mới
+                            <i class="fa fa-plus"></i></a>
+                    </div>
                 </div>
                 <div class="col-sm-6">
                     <form action="${searchUrl}" method="get">
-                        <div class="pull-right col-sm-8" style="padding: 0;">
-                            <input type="text" name="name" value="${param.name}" class="form-control"
+                        <div class="pull-right col-sm-8 " style="padding: 0;">
+                            <input type="text" name="staff-code" value="${param.staff-code}" class="form-control"
                                    placeholder="Search">
                         </div>
                     </form>
@@ -71,7 +77,7 @@
 </content>
 
 <content tag="local_script">
-    
+    <script src="<c:url value='/template/admin/javascripts/tables/staff.datatables.default.js'/>"></script>
 </content>
 </body>
 </html>
