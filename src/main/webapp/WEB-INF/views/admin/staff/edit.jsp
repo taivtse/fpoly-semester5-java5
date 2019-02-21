@@ -7,7 +7,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <c:url var="submitFormUrl" value="/admin/staff"></c:url>
-
 <html>
 <head>
     <title>
@@ -64,7 +63,7 @@
                                     <input type="file" id="staffPhoto" name="pojo.photo">
                                     <div class="imagePreviewWrapper">
                                         <c:if test="${not empty command.pojo.photo}">
-                                            <c:url value="/repository/${command.pojo.photo}"
+                                            <c:url value="/resource/${command.pojo.photo}"
                                                    var="imageUrl"></c:url>
                                         </c:if>
                                         <img src="${imageUrl}" alt="" id="imagePreview">
@@ -81,7 +80,7 @@
                                     <span class="input-group-addon">
                                         <i class="fa fa-file-image-o"></i>
                                     </span>
-                                            <input type="text" value="${command.pojo.photo}" readonly disabled
+                                            <input type="text" value="${fn:substring(command.pojo.photo, fn:indexOf(command.pojo.photo, "/") + 1, fn:length(command.pojo.photo))}" readonly disabled
                                                    class="form-control" id="staffPhotoName">
                                         </div>
                                     </div>

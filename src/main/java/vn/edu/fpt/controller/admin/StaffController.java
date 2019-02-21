@@ -19,7 +19,6 @@ import vn.edu.fpt.util.MessageBundleUtil;
 import vn.edu.fpt.util.SessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.List;
 
 @Controller
@@ -62,10 +61,6 @@ public class StaffController {
         if (code != null) {
             StaffDto staffDto = staffService.findOneActiveByCode(code);
             if (staffDto != null) {
-                String staffPhoto = staffDto.getPhoto();
-                staffPhoto = staffPhoto.substring(staffPhoto.indexOf(File.separator) + 1);
-                staffDto.setPhoto(staffPhoto);
-
                 command.setPojo(staffDto);
             } else {
                 return new ModelAndView(SystemConstant.REDIRECT_URL.concat(prefixPath));
