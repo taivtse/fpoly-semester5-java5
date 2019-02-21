@@ -38,7 +38,8 @@
                 <div class="col-sm-6">
                     <form action="${searchUrl}" method="get">
                         <div class="pull-right col-sm-8 " style="padding: 0;">
-                            <input type="text" name="staff-code" value="${param.staff-code}" class="form-control"
+                            <input type="text" name="staff-code"
+                                   value="${empty param['staff-code'] ? "" : param['staff-code']}" class="form-control"
                                    placeholder="Search">
                         </div>
                     </form>

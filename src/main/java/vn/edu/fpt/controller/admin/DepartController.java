@@ -39,13 +39,12 @@ public class DepartController {
         try {
             departService.saveWithActiveStatus(departDto);
             return ResourceBundleUtil.getCommonBundle().get("label.response.success");
+        } catch (ConstraintViolationException e) {
+            return ResourceBundleUtil.getCommonBundle().get("label.response.duplicate");
+        } catch (DataException e) {
+            return ResourceBundleUtil.getCommonBundle().get("label.response.too_long");
         } catch (Exception e) {
             e.printStackTrace();
-            if (e instanceof ConstraintViolationException) {
-                return ResourceBundleUtil.getCommonBundle().get("label.response.duplicate");
-            } else if (e.getCause() instanceof DataException) {
-                return ResourceBundleUtil.getCommonBundle().get("label.response.too_long");
-            }
             return ResourceBundleUtil.getCommonBundle().get("label.response.error");
         }
     }
@@ -56,13 +55,13 @@ public class DepartController {
         try {
             departService.updateWithActiveStatus(departDto);
             return ResourceBundleUtil.getCommonBundle().get("label.response.success");
+        } catch (StaleStateException e) {
+            e.printStackTrace();
+            return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
+        } catch (DataException e) {
+            return ResourceBundleUtil.getCommonBundle().get("label.response.too_long");
         } catch (Exception e) {
             e.printStackTrace();
-            if (e.getCause() instanceof StaleStateException) {
-                return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
-            } else if (e.getCause() instanceof DataException) {
-                return ResourceBundleUtil.getCommonBundle().get("label.response.too_long");
-            }
             return ResourceBundleUtil.getCommonBundle().get("label.response.error");
         }
     }
@@ -73,11 +72,11 @@ public class DepartController {
         try {
             departService.updateToUnActiveById(departId);
             return ResourceBundleUtil.getCommonBundle().get("label.response.success");
+        } catch (StaleStateException e) {
+            e.printStackTrace();
+            return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
         } catch (Exception e) {
             e.printStackTrace();
-            if (e.getCause() instanceof StaleStateException) {
-                return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
-            }
             return ResourceBundleUtil.getCommonBundle().get("label.response.error");
         }
     }

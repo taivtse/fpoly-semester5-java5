@@ -107,11 +107,11 @@ public class UserController {
         try {
             userService.deleteById(userId);
             return ResourceBundleUtil.getCommonBundle().get("label.response.success");
+        } catch (StaleStateException e) {
+            e.printStackTrace();
+            return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
         } catch (Exception e) {
             e.printStackTrace();
-            if (e.getCause() instanceof StaleStateException) {
-                return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
-            }
             return ResourceBundleUtil.getCommonBundle().get("label.response.error");
         }
     }

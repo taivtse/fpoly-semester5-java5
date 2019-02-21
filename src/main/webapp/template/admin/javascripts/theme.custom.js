@@ -1,6 +1,6 @@
 /* Add here all your JS customizations */
 
-PNotify.prototype.options.delay = 3000;
+PNotify.prototype.options.delay = 5000;
 
 String.prototype.format = function() {
     var formatted = this;

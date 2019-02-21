@@ -86,7 +86,10 @@ public class RecordController {
             }
 
             pNotifyDto.setType(SystemConstant.SUCCESS);
-            pNotifyDto.setText(String.format(pNotifyDto.getText(), recordDto.getStaffDto().getCode(), recordDto.getStaffDto().getName(), ResourceBundleUtil.getCommonBundle().get("label.record." + recordDto.getType())));
+            pNotifyDto.setText(String.format(pNotifyDto.getText(),
+                    recordDto.getStaffDto().getCode(),
+                    recordDto.getStaffDto().getName(),
+                    messageSource.getMessage("label.record." + recordDto.getType(), null, locale)));
         } catch (Exception e) {
             e.printStackTrace();
             pNotifyDto.setTitle(messageSource.getMessage("label.error", null, locale));
@@ -105,11 +108,11 @@ public class RecordController {
         try {
             recordService.deleteById(recordId);
             return ResourceBundleUtil.getCommonBundle().get("label.response.success");
+        } catch (StaleStateException e) {
+            e.printStackTrace();
+            return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
         } catch (Exception e) {
             e.printStackTrace();
-            if (e.getCause() instanceof StaleStateException) {
-                return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
-            }
             return ResourceBundleUtil.getCommonBundle().get("label.response.error");
         }
     }
