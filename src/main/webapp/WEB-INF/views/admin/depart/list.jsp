@@ -8,7 +8,7 @@
 <%@include file="/common/taglib.jsp" %>
 <html>
 <head>
-    <title><fmt:message key="label.depart.page.title" bundle="${lang}"/></title>
+    <title><spring:message code="label.depart.page.title"/></title>
     <content tag="specific_css">
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
@@ -17,20 +17,20 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.depart.page.title" bundle="${lang}"/></h2>
+        <h2><spring:message code="label.depart.page.title"/></h2>
     </header>
 
     <!-- start: page -->
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title"><fmt:message key="label.depart.list" bundle="${lang}"/></h2>
+            <h2 class="panel-title"><spring:message code="label.depart.list"/></h2>
         </header>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-md">
                         <button id="addToTable" class="btn btn-primary">
-                            <fmt:message key="label.insert" bundle="${lang}"/>
+                            <spring:message code="label.insert"/>
                             <i class="fa fa-plus"></i></button>
                     </div>
                 </div>
@@ -38,10 +38,10 @@
             <table class="table table-bordered table-striped mb-none" id="datatable-editable">
                 <thead>
                 <tr>
-                    <th><fmt:message key="label.numerical.order" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.depart.id" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.depart.name" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.action" bundle="${lang}"/></th>
+                    <th><spring:message code="label.numerical.order"/></th>
+                    <th><spring:message code="label.depart.id"/></th>
+                    <th><spring:message code="label.depart.name"/></th>
+                    <th><spring:message code="label.action"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -70,14 +70,14 @@
         <section class="panel">
             <header class="panel-heading">
                 <h2 class="panel-title">
-                    <fmt:message key="label.delete.ask.title" bundle="${lang}"></fmt:message>
+                    <spring:message code="label.delete.ask.title"/>
                 </h2>
             </header>
             <div class="panel-body">
                 <div class="modal-wrapper">
                     <div class="modal-text">
                         <p>
-                            <fmt:message key="label.delete.ask.text" bundle="${lang}"></fmt:message>
+                            <spring:message code="label.delete.ask.text"/>
                         </p>
                     </div>
                 </div>
@@ -86,10 +86,10 @@
                 <div class="row">
                     <div class="col-md-12 text-right">
                         <button id="dialogConfirm" class="btn btn-primary">
-                            <fmt:message key="label.confirm" bundle="${lang}"></fmt:message>
+                            <spring:message code="label.confirm"/>
                         </button>
                         <button id="dialogCancel" class="btn btn-default">
-                            <fmt:message key="label.cancel" bundle="${lang}"></fmt:message>
+                            <spring:message code="label.cancel"/>
                         </button>
                     </div>
                 </div>
@@ -117,11 +117,11 @@
                 url: "/admin/depart/insert",
                 data: departDto,
                 success: function (msg) {
-                    var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
-                    var alertTitle = '<fmt:message key="label.insert.success" bundle="${lang}"></fmt:message>';
-                    var alertText = '<fmt:message key="label.depart.insert.success" bundle="${lang}"></fmt:message>'.format(departDto.id, departDto.name);
+                    var alertType = '<spring:message code="label.response.success"/>';
+                    var alertTitle = '<spring:message code="label.insert.success"/>';
+                    var alertText = '<spring:message code="label.depart.insert.success"/>'.format(departDto.id, departDto.name);
 
-                    if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
+                    if (msg === '<spring:message code="label.response.success"/>') {
                         // add row
                         _self.datatable.row($row.get(0)).data(values);
 
@@ -141,18 +141,18 @@
                         // add row id
                         $row.attr('data-id', departDto.id);
                     } else {
-                        alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
-                        alertTitle = '<fmt:message key="label.insert.error" bundle="${lang}"></fmt:message>';
+                        alertType = '<spring:message code="label.response.error"/>';
+                        alertTitle = '<spring:message code="label.insert.error"/>';
 
                         switch (msg) {
-                            case '<fmt:message key="label.response.duplicate" bundle="${lang}"></fmt:message>':
-                                alertText = '<fmt:message key="label.depart.error.duplicate" bundle="${lang}"></fmt:message>'.format(departDto.id);
+                            case '<spring:message code="label.response.duplicate"/>':
+                                alertText = '<spring:message code="label.depart.error.duplicate"/>'.format(departDto.id);
                                 break;
-                            case '<fmt:message key="label.response.too_long" bundle="${lang}"></fmt:message>':
-                                alertText = '<fmt:message key="label.depart.error.too_long" bundle="${lang}"></fmt:message>';
+                            case '<spring:message code="label.response.too_long"/>':
+                                alertText = '<spring:message code="label.depart.error.too_long"/>';
                                 break;
                             default:
-                                alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
+                                alertText = '<spring:message code="label.error"/>';
                         }
                     }
 
@@ -179,11 +179,11 @@
                 url: "/admin/depart/update",
                 data: departDto,
                 success: function (msg) {
-                    var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
-                    var alertTitle = '<fmt:message key="label.update.success" bundle="${lang}"></fmt:message>';
-                    var alertText = '<fmt:message key="label.depart.update.success" bundle="${lang}"></fmt:message>'.format(departDto.id, departDto.name);
+                    var alertType = '<spring:message code="label.response.success"/>';
+                    var alertTitle = '<spring:message code="label.update.success"/>';
+                    var alertText = '<spring:message code="label.depart.update.success"/>'.format(departDto.id, departDto.name);
 
-                    if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
+                    if (msg === '<spring:message code="label.response.success"/>') {
                         // update row
                         _self.datatable.row($row.get(0)).data(values);
 
@@ -194,18 +194,18 @@
                         }
                     }
                     else {
-                        alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
-                        alertTitle = '<fmt:message key="label.update.error" bundle="${lang}"></fmt:message>';
+                        alertType = '<spring:message code="label.response.error"/>';
+                        alertTitle = '<spring:message code="label.update.error"/>';
 
                         switch (msg) {
-                            case '<fmt:message key="label.response.primary_key" bundle="${lang}"></fmt:message>':
-                                alertText = '<fmt:message key="label.depart.error.primary_key" bundle="${lang}"></fmt:message>'.format(departDto.id);
+                            case '<spring:message code="label.response.primary_key"/>':
+                                alertText = '<spring:message code="label.depart.error.primary_key"/>'.format(departDto.id);
                                 break;
-                            case '<fmt:message key="label.response.too_long" bundle="${lang}"></fmt:message>':
-                                alertText = '<fmt:message key="label.depart.error.too_long" bundle="${lang}"></fmt:message>';
+                            case '<spring:message code="label.response.too_long"/>':
+                                alertText = '<spring:message code="label.depart.error.too_long"/>';
                                 break;
                             default:
-                                alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
+                                alertText = '<spring:message code="label.error"/>';
                         }
                     }
 
@@ -226,11 +226,11 @@
                 type: "DELETE",
                 url: "/admin/depart/{0}".format($row.data("id")),
                 success: function (msg) {
-                    var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
-                    var alertTitle = '<fmt:message key="label.delete.success" bundle="${lang}"></fmt:message>';
-                    var alertText = '<fmt:message key="label.depart.delete.success" bundle="${lang}"></fmt:message>'.format($row.data("id"), $row.find("td").eq(2).text());
+                    var alertType = '<spring:message code="label.response.success"/>';
+                    var alertTitle = '<spring:message code="label.delete.success"/>';
+                    var alertText = '<spring:message code="label.depart.delete.success"/>'.format($row.data("id"), $row.find("td").eq(2).text());
 
-                    if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
+                    if (msg === '<spring:message code="label.response.success"/>') {
                         _self.datatable.row($row.get(0)).remove().draw();
 
                         var index = 1;
@@ -242,15 +242,15 @@
                             });
                         }
                     } else {
-                        alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
-                        alertTitle = '<fmt:message key="label.delete.error" bundle="${lang}"></fmt:message>';
+                        alertType = '<spring:message code="label.response.error"/>';
+                        alertTitle = '<spring:message code="label.delete.error"/>';
 
                         switch (msg) {
-                            case '<fmt:message key="label.response.primary_key" bundle="${lang}"></fmt:message>':
-                                alertText = '<fmt:message key="label.depart.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
+                            case '<spring:message code="label.response.primary_key"/>':
+                                alertText = '<spring:message code="label.depart.error.primary_key"/>'.format($row.data("id"));
                                 break;
                             default:
-                                alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
+                                alertText = '<spring:message code="label.error"/>';
                         }
                     }
 

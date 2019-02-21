@@ -82,6 +82,17 @@
     <script src="<c:url value='/template/admin/javascripts/theme.init.js'/>"></script>
 
     <decorator:getProperty property="page.local_script"></decorator:getProperty>
+
+    <%-- change language script --%>
+    <script type="application/javascript">
+        $(".language-change").click(function (e) {
+            e.preventDefault();
+
+            $.get("?language=" + $(this).data("language"), function () {
+                location.reload();
+            })
+        })
+    </script>
 </section>
 </body>
 </html>

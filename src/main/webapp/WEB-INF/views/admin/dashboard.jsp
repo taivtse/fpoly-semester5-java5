@@ -7,12 +7,12 @@
 <%@include file="/common/taglib.jsp" %>
 <html>
 <head>
-    <title><fmt:message key="label.index.title" bundle="${lang}"/></title>
+    <title><spring:message code="label.index.title"/></title>
 </head>
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.index.title" bundle="${lang}"/></h2>
+        <h2><spring:message code="label.index.title"/></h2>
     </header>
 
     <!-- start: page -->

@@ -89,7 +89,8 @@
                             <li>
                                 <a href="#" class="clearfix">
                                     <figure class="image">
-                                        <img src="<c:url value='/template/admin/images/!sample-user.jpg'/>" alt="Joseph Doe Junior"
+                                        <img src="<c:url value='/template/admin/images/!sample-user.jpg'/>"
+                                             alt="Joseph Doe Junior"
                                              class="img-circle">
                                     </figure>
                                     <span class="title">Joseph Doe</span>
@@ -99,7 +100,8 @@
                             <li>
                                 <a href="#" class="clearfix">
                                     <figure class="image">
-                                        <img src="<c:url value='/template/admin/images/!sample-user.jpg'/>" alt="Joseph Junior"
+                                        <img src="<c:url value='/template/admin/images/!sample-user.jpg'/>"
+                                             alt="Joseph Junior"
                                              class="img-circle">
                                     </figure>
                                     <span class="title">Joseph Junior</span>
@@ -109,7 +111,8 @@
                             <li>
                                 <a href="#" class="clearfix">
                                     <figure class="image">
-                                        <img src="<c:url value='/template/admin/images/!sample-user.jpg'/>" alt="Joe Junior" class="img-circle">
+                                        <img src="<c:url value='/template/admin/images/!sample-user.jpg'/>"
+                                             alt="Joe Junior" class="img-circle">
                                     </figure>
                                     <span class="title">Joe Junior</span>
                                     <span class="message">Lorem ipsum dolor sit.</span>
@@ -118,7 +121,8 @@
                             <li>
                                 <a href="#" class="clearfix">
                                     <figure class="image">
-                                        <img src="<c:url value='/template/admin/images/!sample-user.jpg'/>" alt="Joseph Junior"
+                                        <img src="<c:url value='/template/admin/images/!sample-user.jpg'/>"
+                                             alt="Joseph Junior"
                                              class="img-circle">
                                     </figure>
                                     <span class="title">Joseph Junior</span>
@@ -187,6 +191,34 @@
                 </div>
             </li>
         </ul>
+        <span class="separator"></span>
+        <div class="userbox">
+            <a href="#" data-toggle="dropdown">
+                <figure class="profile-picture">
+                    <img src="<c:url value='/template/admin/images/flag/flag_${cookie.AppLocale.value}.png'/>"/>
+                </figure>
+                <div class="profile-info">
+                    <span class="name"><spring:message code="label.language"/></span>
+                </div>
+                <i class="fa custom-caret"></i>
+            </a>
+
+            <div class="dropdown-menu">
+                <ul class="list-unstyled">
+                    <li class="divider"></li>
+                    <li>
+                        <a class="language-change" data-language="en" href="#"role="menuitem" tabindex="-1" style="display: flex; align-items: center;">
+                            <img class="mr-xs" height="20px" src="<c:url value='/template/admin/images/flag/flag_en.png'/>"/>
+                            <spring:message code="label.language.en"/></a>
+                    </li>
+                    <li>
+                        <a class="language-change" data-language="vi" href="#"role="menuitem" tabindex="-1" style="display: flex; align-items: center;">
+                            <img class="mr-xs" height="20px" src="<c:url value='/template/admin/images/flag/flag_vi.png'/>"/>
+                            <spring:message code="label.language.vi"/></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
         <span class="separator"></span>
         <div id="userbox" class="userbox">
             <a href="#" data-toggle="dropdown">

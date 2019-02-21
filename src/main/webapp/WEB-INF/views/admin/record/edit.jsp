@@ -8,7 +8,7 @@
 <c:url var="liveSearchUrl" value="/admin/staff/live-search"></c:url>
 <html>
 <head>
-    <title><fmt:message key="label.record.page.title" bundle="${lang}"/></title>
+    <title><spring:message code="label.record.page.title"/></title>
     <content tag="specific_css">
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-ui/jquery-ui.min.css'/>"/>
@@ -17,13 +17,13 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.record.page.title" bundle="${lang}"/></h2>
+        <h2><spring:message code="label.record.page.title"/></h2>
     </header>
 
     <!-- start: page -->
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title"><fmt:message key="label.record.${empty command.pojo.id ? 'insert' : 'update'}" bundle="${lang}"/></h2>
+            <h2 class="panel-title"><spring:message code="label.record.${empty command.pojo.id ? 'insert' : 'update'}"/></h2>
         </header>
         <div class="panel-body">
             <form class="form-horizontal form-bordered" id="command" action="${submitFormUrl}" method="post">
@@ -33,7 +33,7 @@
                 </c:if>
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="staffCode">
-                        <fmt:message key="label.staff.code" bundle="${lang}"/>
+                        <spring:message code="label.staff.code"/>
                     </label>
                     <div class="col-md-6">
                         <input type="text" id="staffCode" class="form-control" value="${command.pojo.staffDto.code}"
@@ -43,7 +43,7 @@
 
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="staffName">
-                        <fmt:message key="label.staff.name" bundle="${lang}"/>
+                        <spring:message code="label.staff.name"/>
                     </label>
                     <div class="col-md-6">
                         <input type="text" id="staffName" readonly class="form-control"
@@ -53,7 +53,7 @@
 
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="staffDepartName">
-                        <fmt:message key="label.depart" bundle="${lang}"/>
+                        <spring:message code="label.depart"/>
                     </label>
                     <div class="col-md-6">
                         <input type="text" id="staffDepartName" readonly class="form-control"
@@ -63,7 +63,7 @@
 
                 <div class="form-group">
                     <label class="col-md-3 text-right">
-                        <fmt:message key="label.record" bundle="${lang}"/>
+                        <spring:message code="label.record"/>
                     </label>
                     <div class="col-md-6">
                         <div class="radio-custom pr-xl" style="display: inline-block;">
@@ -72,7 +72,7 @@
                                    id="rdo-reward" name="pojo.type"
                             ${command.pojo.type eq 'reward' ? 'checked': ''}>
                             <label for="rdo-reward">
-                                <fmt:message key="label.record.reward" bundle="${lang}"/>
+                                <spring:message code="label.record.reward"/>
                             </label>
                         </div>
                         <div class="radio-custom" style="display: inline-block;">
@@ -81,7 +81,7 @@
                                    id="rdo-punishment" name="pojo.type"
                             ${command.pojo.type eq 'punishment' ? 'checked': ''}>
                             <label for="rdo-punishment">
-                                <fmt:message key="label.record.punishment" bundle="${lang}"/>
+                                <spring:message code="label.record.punishment"/>
                             </label>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
 
                 <div class="form-group">
                     <label class="col-md-3 control-label" for="textareaAutosize">
-                        <fmt:message key="label.record.reason" bundle="${lang}"/>
+                        <spring:message code="label.record.reason"/>
                     </label>
                     <div class="col-md-6">
                             <textarea name="pojo.reason" class="form-control" rows="3" id="textareaAutosize"
@@ -99,10 +99,10 @@
 
                 <div class="form-group text-center">
                     <button type="submit" class="mb-xs mt-xs mr-xs btn btn-primary" id="submitButton" ${empty command.pojo.id ? 'disabled' : ''}>
-                        <fmt:message key="label.${empty command.pojo.id ? 'insert' : 'update'}" bundle="${lang}"/>
+                        <spring:message code="label.${empty command.pojo.id ? 'insert' : 'update'}"/>
                     </button>
                     <button type="reset" class="mb-xs mt-xs mr-xs btn btn-default">
-                        <fmt:message key="label.reset" bundle="${lang}"/>
+                        <spring:message code="label.reset"/>
                     </button>
                 </div>
             </form>

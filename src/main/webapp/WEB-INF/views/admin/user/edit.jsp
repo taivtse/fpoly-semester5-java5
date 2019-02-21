@@ -11,7 +11,7 @@
 <html>
 <head>
     <title>
-        <fmt:message key="label.user.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/>
+        <spring:message code="label.user.${empty command.pojo ? 'insert' : 'update'}"/>
     </title>
     <content tag="specific_css">
         <link rel="stylesheet"
@@ -21,7 +21,7 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.user.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/></h2>
+        <h2><spring:message code="label.user.${empty command.pojo ? 'insert' : 'update'}"/></h2>
     </header>
 
     <!-- start: page -->
@@ -29,7 +29,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    <h2 class="panel-title"><fmt:message key="label.user.info" bundle="${lang}"/></h2>
+                    <h2 class="panel-title"><spring:message code="label.user.info"/></h2>
                 </header>
                 <div class="panel-body">
                     <form class="form-horizontal form-bordered" id="command" action="${submitFormUrl}" method="post">
@@ -39,7 +39,7 @@
                         </c:if>
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="code">
-                                <fmt:message key="label.user.username" bundle="${lang}"/>
+                                <spring:message code="label.user.username"/>
                             </label>
                             <div class="col-md-6">
                                 <input type="text" name="pojo.username"
@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="name">
-                                <fmt:message key="label.user.fullName" bundle="${lang}"/>
+                                <spring:message code="label.user.fullName"/>
                             </label>
                             <div class="col-md-6">
                                 <input type="text" name="pojo.fullName" value="${command.pojo.fullName}"
@@ -61,10 +61,10 @@
                         </div>
                         <div class="form-group text-center">
                             <button type="submit" class="mb-xs mt-xs mr-xs btn btn-primary">
-                                <fmt:message key="label.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/>
+                                <spring:message code="label.${empty command.pojo ? 'insert' : 'update'}"/>
                             </button>
                             <button type="reset" class="mb-xs mt-xs mr-xs btn btn-default">
-                                <fmt:message key="label.reset" bundle="${lang}"/>
+                                <spring:message code="label.reset"/>
                             </button>
                         </div>
                     </form>

@@ -9,7 +9,7 @@
 <c:url var="searchUrl" value="/admin/synthesis/search"></c:url>
 <html>
 <head>
-    <title><fmt:message key="label.synthesis.page.title" bundle="${lang}"/></title>
+    <title><spring:message code="label.synthesis.page.title"/></title>
     <content tag="specific_css">
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
@@ -18,13 +18,13 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.synthesis.page.title" bundle="${lang}"/></h2>
+        <h2><spring:message code="label.synthesis.page.title"/></h2>
     </header>
 
     <!-- start: page -->
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title"><fmt:message key="label.synthesis.list" bundle="${lang}"/></h2>
+            <h2 class="panel-title"><spring:message code="label.synthesis.list"/></h2>
         </header>
         <div class="panel-body">
             <div class="row">
@@ -47,11 +47,11 @@
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
                 <thead>
                 <tr>
-                    <th><fmt:message key="label.numerical.order" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.staff.code" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.synthesis.total.reward" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.synthesis.total.punishment" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.synthesis.total.result" bundle="${lang}"/></th>
+                    <th><spring:message code="label.numerical.order"/></th>
+                    <th><spring:message code="label.staff.code"/></th>
+                    <th><spring:message code="label.synthesis.total.reward"/></th>
+                    <th><spring:message code="label.synthesis.total.punishment"/></th>
+                    <th><spring:message code="label.synthesis.total.result"/></th>
                 </tr>
                 </thead>
                 <tbody>

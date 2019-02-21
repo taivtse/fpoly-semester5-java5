@@ -7,7 +7,7 @@
 <c:url var="infoUrl" value="/admin/record/info/"></c:url>
 <html>
 <head>
-    <title><fmt:message key="label.record.page.title" bundle="${lang}"/></title>
+    <title><spring:message code="label.record.page.title"/></title>
     <content tag="specific_css">
         <link rel="stylesheet"
               href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
@@ -16,20 +16,20 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.record.page.title" bundle="${lang}"/></h2>
+        <h2><spring:message code="label.record.page.title"/></h2>
     </header>
 
     <!-- start: page -->
     <section class="panel">
         <header class="panel-heading">
-            <h2 class="panel-title"><fmt:message key="label.record.list" bundle="${lang}"/></h2>
+            <h2 class="panel-title"><spring:message code="label.record.list"/></h2>
         </header>
         <div class="panel-body">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-md">
                         <a href="${infoUrl}" id="addToTable" class="btn btn-primary">
-                            <fmt:message key="label.insert" bundle="${lang}"/>
+                            <spring:message code="label.insert"/>
                             <i class="fa fa-plus"></i></a>
                     </div>
                 </div>
@@ -37,12 +37,12 @@
             <table class="table table-bordered table-striped mb-none" id="datatable-default">
                 <thead>
                 <tr>
-                    <th><fmt:message key="label.numerical.order" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.staff.code" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.staff.name" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.record.date" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.record.type" bundle="${lang}"/></th>
-                    <th><fmt:message key="label.action" bundle="${lang}"/></th>
+                    <th><spring:message code="label.numerical.order"/></th>
+                    <th><spring:message code="label.staff.code"/></th>
+                    <th><spring:message code="label.staff.name"/></th>
+                    <th><spring:message code="label.record.date"/></th>
+                    <th><spring:message code="label.record.type"/></th>
+                    <th><spring:message code="label.action"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,7 +61,7 @@
                                     <i class="fa fa-thumbs-down mr-xs" style="color: #da4545;"></i>
                                 </c:otherwise>
                             </c:choose>
-                            <fmt:message key="label.record.${recordDto.type}" bundle="${lang}"/>
+                            <spring:message code="label.record.${recordDto.type}"/>
                         </td>
                         <td class="actions">
                             <a href="<c:url value='${infoUrl}${recordDto.id}'/>" class="on-default edit-row"><i
@@ -82,14 +82,14 @@
         <section class="panel">
             <header class="panel-heading">
                 <h2 class="panel-title">
-                    <fmt:message key="label.delete.ask.title" bundle="${lang}"></fmt:message>
+                    <spring:message code="label.delete.ask.title"/>
                 </h2>
             </header>
             <div class="panel-body">
                 <div class="modal-wrapper">
                     <div class="modal-text">
                         <p>
-                            <fmt:message key="label.delete.ask.text" bundle="${lang}"></fmt:message>
+                            <spring:message code="label.delete.ask.text"/>
                         </p>
                     </div>
                 </div>
@@ -98,10 +98,10 @@
                 <div class="row">
                     <div class="col-md-12 text-right">
                         <button id="dialogConfirm" class="btn btn-primary">
-                            <fmt:message key="label.confirm" bundle="${lang}"></fmt:message>
+                            <spring:message code="label.confirm"/>
                         </button>
                         <button id="dialogCancel" class="btn btn-default">
-                            <fmt:message key="label.cancel" bundle="${lang}"></fmt:message>
+                            <spring:message code="label.cancel"/>
                         </button>
                     </div>
                 </div>
@@ -170,11 +170,11 @@
                 type: "DELETE",
                 url: "/admin/record/{0}".format($row.data("id")),
                 success: function (msg) {
-                    var alertType = '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>';
-                    var alertTitle = '<fmt:message key="label.delete.success" bundle="${lang}"></fmt:message>';
-                    var alertText = '<fmt:message key="label.record.delete.success" bundle="${lang}"></fmt:message>'.format($row.data("code"), $row.find("td").eq(2).text().trim(), $row.find("td").eq(4).text().trim());
+                    var alertType = '<spring:message code="label.response.success"/>';
+                    var alertTitle = '<spring:message code="label.delete.success"/>';
+                    var alertText = '<spring:message code="label.record.delete.success"/>'.format($row.data("code"), $row.find("td").eq(2).text().trim(), $row.find("td").eq(4).text().trim());
 
-                    if (msg === '<fmt:message key="label.response.success" bundle="${lang}"></fmt:message>') {
+                    if (msg === '<spring:message code="label.response.success"/>') {
                         $('#datatable-default').DataTable().row($row).remove().draw();
 
                         var index = 1;
@@ -186,15 +186,15 @@
                             });
                         }
                     } else {
-                        alertType = '<fmt:message key="label.response.error" bundle="${lang}"></fmt:message>';
-                        alertTitle = '<fmt:message key="label.delete.error" bundle="${lang}"></fmt:message>';
+                        alertType = '<spring:message code="label.response.error"/>';
+                        alertTitle = '<spring:message code="label.delete.error"/>';
 
                         switch (msg) {
-                            case '<fmt:message key="label.response.primary_key" bundle="${lang}"></fmt:message>':
-                                alertText = '<fmt:message key="label.record.error.primary_key" bundle="${lang}"></fmt:message>'.format($row.data("id"));
+                            case '<spring:message code="label.response.primary_key"/>':
+                                alertText = '<spring:message code="label.record.error.primary_key"/>'.format($row.data("id"));
                                 break;
                             default:
-                                alertText = '<fmt:message key="label.error" bundle="${lang}"></fmt:message>';
+                                alertText = '<spring:message code="label.error"/>';
                         }
                     }
 

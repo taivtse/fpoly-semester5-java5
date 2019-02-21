@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>
-        <fmt:message key="label.staff.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/>
+        <spring:message code="label.staff.${empty command.pojo ? 'insert' : 'update'}"/>
     </title>
     <content tag="specific_css">
         <link rel="stylesheet"
@@ -44,7 +44,6 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><fmt:message key="label.staff.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/></h2>
         <h2><spring:message code="label.staff.${empty command.pojo ? 'insert' : 'update'}"/></h2>
     </header>
 
@@ -53,7 +52,7 @@
         <div class="col-lg-12">
             <section class="panel">
                 <header class="panel-heading">
-                    <h2 class="panel-title"><fmt:message key="label.staff.info" bundle="${lang}"/></h2>
+                    <h2 class="panel-title"><spring:message code="label.staff.info"/></h2>
                 </header>
                 <div class="panel-body">
                     <form class="form-horizontal form-bordered" id="command" action="${submitFormUrl}" method="post"
@@ -74,7 +73,7 @@
                             <div class="row">
                                 <div class="col-xs-12">
                                     <label class="col-md-3 control-label">
-                                        <fmt:message key="label.staff.photo" bundle="${lang}"/>
+                                        <spring:message code="label.staff.photo"/>
                                     </label>
                                     <div class="col-md-6">
                                         <div class="input-group">
@@ -93,7 +92,7 @@
                             <input type="hidden" name="pojo.code" value="${command.pojo.code}">
                             <div class="form-group">
                                 <label class="col-md-3 control-label" for="code">
-                                    <fmt:message key="label.staff.code" bundle="${lang}"/>
+                                    <spring:message code="label.staff.code"/>
                                 </label>
                                 <div class="col-md-6">
                                     <input type="text" readonly disabled value="${command.pojo.code}"
@@ -104,7 +103,7 @@
                         </c:if>
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="name">
-                                <fmt:message key="label.staff.name" bundle="${lang}"/>
+                                <spring:message code="label.staff.name"/>
                             </label>
                             <div class="col-md-6">
                                 <input type="text" name="pojo.name" value="${command.pojo.name}" class="form-control"
@@ -114,14 +113,14 @@
 
                         <div class="form-group">
                             <label class="col-md-3 text-right">
-                                <fmt:message key="label.staff.gender" bundle="${lang}"/>
+                                <spring:message code="label.staff.gender"/>
                             </label>
                             <div class="col-md-6">
                                 <div class="radio-custom pr-xl" style="display: inline-block;">
                                     <input type="radio" value="male" ${command.pojo.gender eq 'male' ? 'checked' : ''}
                                            id="rdo-male" name="pojo.gender" checked>
                                     <label for="rdo-male">
-                                        <fmt:message key="label.staff.gender.male" bundle="${lang}"/>
+                                        <spring:message code="label.staff.gender.male"/>
                                     </label>
                                 </div>
                                 <div class="radio-custom pr-xl" style="display: inline-block;">
@@ -129,21 +128,21 @@
                                            value="female" ${command.pojo.gender eq 'female' ? 'checked' : ''}
                                            id="rdo-female" name="pojo.gender">
                                     <label for="rdo-female">
-                                        <fmt:message key="label.staff.gender.female" bundle="${lang}"/>
+                                        <spring:message code="label.staff.gender.female"/>
                                     </label>
                                 </div>
                                 <div class="radio-custom" style="display: inline-block;">
                                     <input type="radio" value="other" ${command.pojo.gender eq 'other' ? 'checked' : ''}
                                            id="rdo-other" name="pojo.gender">
                                     <label for="rdo-other">
-                                        <fmt:message key="label.other" bundle="${lang}"/>
+                                        <spring:message code="label.other"/>
                                     </label>
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-3 control-label">
-                                <fmt:message key="label.staff.birthday" bundle="${lang}"/>
+                                <spring:message code="label.staff.birthday"/>
                             </label>
                             <div class="col-md-6">
                                 <div class="input-group">
@@ -159,7 +158,7 @@
 
                         <div class="form-group">
                             <label class="col-md-3 control-label">
-                                <fmt:message key="label.staff.level" bundle="${lang}"/>
+                                <spring:message code="label.staff.level"/>
                             </label>
                             <div class="col-md-6">
                                 <div data-plugin-spinner data-plugin-options='{ "value":1, "min": 1, "max": 10 }'>
@@ -182,7 +181,7 @@
 
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="salary">
-                                <fmt:message key="label.staff.salary" bundle="${lang}"/>
+                                <spring:message code="label.staff.salary"/>
                             </label>
                             <div class="col-md-6">
                                 <input type="number" name="pojo.salary" value="${command.pojo.salary}" min="0"
@@ -193,7 +192,7 @@
 
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="email">
-                                <fmt:message key="label.staff.email" bundle="${lang}"/>
+                                <spring:message code="label.staff.email"/>
                             </label>
                             <div class="col-md-6">
                                 <input type="email" name="pojo.email" value="${command.pojo.email}" class="form-control"
@@ -203,7 +202,7 @@
 
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="phone">
-                                <fmt:message key="label.staff.phone" bundle="${lang}"/>
+                                <spring:message code="label.staff.phone"/>
                             </label>
                             <div class="col-md-6">
                                 <input type="tel" name="pojo.phone" value="${command.pojo.phone}" class="form-control"
@@ -213,7 +212,7 @@
 
                         <div class="form-group">
                             <label class="col-md-3 control-label" for="textareaAutosize">
-                                <fmt:message key="label.staff.notes" bundle="${lang}"/>
+                                <spring:message code="label.staff.notes"/>
                             </label>
                             <div class="col-md-6">
                                 <textarea name="pojo.notes" class="form-control" rows="3" id="textareaAutosize"
@@ -223,7 +222,7 @@
 
                         <div class="form-group">
                             <label class="col-md-3 control-label">
-                                <fmt:message key="label.depart" bundle="${lang}"/>
+                                <spring:message code="label.depart"/>
                             </label>
                             <div class="col-md-6">
                                 <select data-plugin-selectTwo name="departId" class="form-control populate">
@@ -236,10 +235,10 @@
 
                         <div class="form-group text-center">
                             <button type="submit" class="mb-xs mt-xs mr-xs btn btn-primary">
-                                <fmt:message key="label.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/>
+                                <spring:message code="label.${empty command.pojo ? 'insert' : 'update'}"/>
                             </button>
                             <button type="reset" class="mb-xs mt-xs mr-xs btn btn-default">
-                                <fmt:message key="label.reset" bundle="${lang}"/>
+                                <spring:message code="label.reset"/>
                             </button>
                         </div>
                     </form>
