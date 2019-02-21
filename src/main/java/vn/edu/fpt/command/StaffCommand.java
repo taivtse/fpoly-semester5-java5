@@ -1,27 +1,19 @@
 package vn.edu.fpt.command;
 
+import org.springframework.web.multipart.MultipartFile;
 import vn.edu.fpt.dto.DepartDto;
 import vn.edu.fpt.dto.StaffDto;
 
-import javax.servlet.http.Part;
 import java.util.List;
 
 public class StaffCommand extends AbstractCommand<StaffDto> {
 
-    private Part photo;
+    private MultipartFile staffPhoto;
     private String departId;
     private List<DepartDto> departDtoList;
 
     public StaffCommand() {
         this.pojo = new StaffDto();
-    }
-
-    public Part getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(Part photo) {
-        this.photo = photo;
     }
 
     public String getDepartId() {
@@ -38,5 +30,13 @@ public class StaffCommand extends AbstractCommand<StaffDto> {
 
     public void setDepartDtoList(List<DepartDto> departDtoList) {
         this.departDtoList = departDtoList;
+    }
+
+    public MultipartFile getStaffPhoto() {
+        return staffPhoto;
+    }
+
+    public void setStaffPhoto(MultipartFile staffPhoto) {
+        this.staffPhoto = staffPhoto;
     }
 }

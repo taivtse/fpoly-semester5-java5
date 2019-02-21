@@ -4,6 +4,7 @@ import org.hibernate.StaleStateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.command.StaffCommand;
 import vn.edu.fpt.constant.SystemConstant;
@@ -18,6 +19,7 @@ import vn.edu.fpt.util.MessageBundleUtil;
 import vn.edu.fpt.util.SessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 
 @Controller
@@ -31,7 +33,8 @@ public class StaffController {
     private DepartService departService;
 
     @GetMapping({"", "search"})
-    public ModelAndView list(@RequestParam(value = "name", required = false) String searchName, HttpServletRequest request) {
+    public ModelAndView list(@RequestParam(value = "name", required = false) String searchName,
+                             HttpServletRequest request) {
         StaffCommand command = new StaffCommand();
 
         if (searchName != null) {
@@ -59,6 +62,10 @@ public class StaffController {
         if (code != null) {
             StaffDto staffDto = staffService.findOneActiveByCode(code);
             if (staffDto != null) {
+                String staffPhoto = staffDto.getPhoto();
+                staffPhoto = staffPhoto.substring(staffPhoto.indexOf(File.separator) + 1);
+                staffDto.setPhoto(staffPhoto);
+
                 command.setPojo(staffDto);
             } else {
                 return new ModelAndView(SystemConstant.REDIRECT_URL.concat(prefixPath));
@@ -72,7 +79,6 @@ public class StaffController {
 
         ModelAndView modelAndView = new ModelAndView(prefixPath.concat("edit"));
         modelAndView.addObject(SystemConstant.COMMAND, command);
-
         return modelAndView;
     }
 
@@ -90,21 +96,19 @@ public class StaffController {
     }
 
     @PostMapping
-    public ModelAndView insertOrUpdate(HttpServletRequest request) {
+    public ModelAndView insertOrUpdate(HttpServletRequest request,
+                                       @RequestParam(value = "pojo.photo", required = false) MultipartFile staffPhoto) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
         PNotifyDto pNotifyDto = new PNotifyDto();
         StaffDto staffDto;
         try {
-            DepartDto departDto = new DepartDto();
-            departDto.setId(command.getDepartId().trim());
-            command.getPojo().setDepartDto(departDto);
-
+            command.setStaffPhoto(staffPhoto);
             if (command.getPojo().getId() == null) {
-                staffDto = staffService.saveWithActiveStatus(command.getPojo());
+                staffDto = staffService.saveWithActiveStatus(command);
                 pNotifyDto.setTitle(MessageBundleUtil.get("label.insert.success"));
                 pNotifyDto.setText(MessageBundleUtil.get("label.staff.insert.success"));
             } else {
-                staffDto = staffService.updateWithActiveStatus(command.getPojo());
+                staffDto = staffService.updateWithActiveStatus(command);
                 pNotifyDto.setTitle(MessageBundleUtil.get("label.update.success"));
                 pNotifyDto.setText(MessageBundleUtil.get("label.staff.update.success"));
             }

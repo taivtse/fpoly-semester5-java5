@@ -22,6 +22,7 @@
         <sitemesgh.version>2.4.2</sitemesgh.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <gson.version>2.8.5</gson.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
 
         <java-version>1.8</java-version>
     </properties>
@@ -125,6 +126,14 @@
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>${commons-fileupload.version}</version>
+        </dependency>
+
 
 
     </dependencies>

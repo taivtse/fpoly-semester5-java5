@@ -4,10 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import vn.edu.fpt.command.StaffCommand;
 import vn.edu.fpt.common.paging.PageRequest;
 import vn.edu.fpt.common.paging.Pageable;
+import vn.edu.fpt.constant.SystemConstant;
 import vn.edu.fpt.dao.generic.extend.StaffDao;
 import vn.edu.fpt.dao.generic.ActiveEntityDao;
+import vn.edu.fpt.dto.DepartDto;
 import vn.edu.fpt.dto.StaffDto;
 import vn.edu.fpt.dto.StaffLiveSearchDto;
 import vn.edu.fpt.entity.StaffEntity;
@@ -15,6 +18,7 @@ import vn.edu.fpt.mapper.AbstractMapper;
 import vn.edu.fpt.mapper.StaffMapper;
 import vn.edu.fpt.service.generic.extend.StaffService;
 import vn.edu.fpt.service.generic.impl.ActiveEntityServiceImpl;
+import vn.edu.fpt.util.FileUploadUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,5 +80,49 @@ public class StaffServiceImpl extends ActiveEntityServiceImpl<Integer, StaffDto>
             staffLiveSearchDto.setDepartName(entity.getDepartEntity().getName());
         }
         return staffLiveSearchDto;
+    }
+
+    @Override
+    public StaffDto saveWithActiveStatus(StaffCommand command) throws Exception {
+        StaffDto dto = command.getPojo();
+
+        DepartDto departDto = new DepartDto();
+        departDto.setId(command.getDepartId().trim());
+        dto.setDepartDto(departDto);
+
+        dto = super.saveWithActiveStatus(dto);
+
+        if (command.getStaffPhoto().getSize() > 0) {
+//        upload file
+            String uploadedFileName = FileUploadUtil.getInstance().setUploadFileIsImage()
+                    .write(command.getStaffPhoto(), SystemConstant.STAFF_UPLOAD_PATH, dto.getCode());
+
+            dto.setPhoto(uploadedFileName);
+        }
+
+        return super.updateWithActiveStatus(dto);
+    }
+
+    @Override
+    public StaffDto updateWithActiveStatus(StaffCommand command) throws Exception {
+        StaffDto dto = command.getPojo();
+
+        DepartDto departDto = new DepartDto();
+        departDto.setId(command.getDepartId().trim());
+        dto.setDepartDto(departDto);
+
+        if (command.getStaffPhoto().getSize() > 0) {
+//        upload file
+            String uploadedFileName = FileUploadUtil.getInstance().setUploadFileIsImage()
+                    .write(command.getStaffPhoto(), SystemConstant.STAFF_UPLOAD_PATH, dto.getCode());
+
+            dto.setPhoto(uploadedFileName);
+        } else {
+//            set old photo before update
+            StaffDto oldDto = this.findOneById(dto.getId());
+            dto.setPhoto(oldDto.getPhoto());
+        }
+
+        return super.updateWithActiveStatus(dto);
     }
 }

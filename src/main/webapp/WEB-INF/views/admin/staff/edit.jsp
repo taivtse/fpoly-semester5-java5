@@ -20,6 +20,27 @@
               href="<c:url value='/template/admin/vendor/bootstrap-fileupload/bootstrap-fileupload.min.css'/>"/>
         <link rel="stylesheet" href="<c:url value='/template/admin/vendor/bootstrap-datepicker/css/datepicker3.css'/>"/>
     </content>
+    <style>
+        #staffPhoto {
+            display: none;
+        }
+
+        .imagePreviewWrapper {
+            width: 150px;
+            height: 150px;
+            background: url(<c:url value="/template/admin/images/avatar-default.png"></c:url>) center;
+            background-size: cover;
+            background-color: #efefef;
+            border: 2px dashed #909090;
+            cursor: pointer;
+        }
+
+        #imagePreview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
 <body>
 <section role="main" class="content-body">
@@ -35,7 +56,38 @@
                     <h2 class="panel-title"><fmt:message key="label.staff.info" bundle="${lang}"/></h2>
                 </header>
                 <div class="panel-body">
-                    <form class="form-horizontal form-bordered" id="command" action="${submitFormUrl}" method="post">
+                    <form class="form-horizontal form-bordered" id="command" action="${submitFormUrl}" method="post"
+                          enctype="multipart/form-data">
+                        <div class="form-group">
+                            <div class="row mb-lg">
+                                <div class="col-xs-12" style="display: flex; justify-content: center">
+                                    <input type="file" id="staffPhoto" name="pojo.photo">
+                                    <div class="imagePreviewWrapper">
+                                        <c:if test="${not empty command.pojo.photo}">
+                                            <c:url value="/repository/${command.pojo.photo}"
+                                                   var="imageUrl"></c:url>
+                                        </c:if>
+                                        <img src="${imageUrl}" alt="" id="imagePreview">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <label class="col-md-3 control-label">
+                                        <fmt:message key="label.staff.photo" bundle="${lang}"/>
+                                    </label>
+                                    <div class="col-md-6">
+                                        <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="fa fa-file-image-o"></i>
+                                    </span>
+                                            <input type="text" value="${command.pojo.photo}" readonly disabled
+                                                   class="form-control" id="staffPhotoName">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <c:if test="${not empty command.pojo}">
                             <input type="hidden" name="pojo.id" value="${command.pojo.id}">
                             <input type="hidden" name="pojo.code" value="${command.pojo.code}">
@@ -89,34 +141,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">
-                                <fmt:message key="label.staff.photo" bundle="${lang}"/>
-                            </label>
-                            <div class="col-md-6">
-                                <div class="fileupload fileupload-new" data-provides="fileupload">
-                                    <div class="input-append">
-                                        <div class="uneditable-input" style="width: 64%;">
-                                            <i class="fa fa-file fileupload-exists"></i>
-                                            <span class="fileupload-preview"></span>
-                                        </div>
-                                        <span class="btn btn-default btn-file">
-                                            <span class="fileupload-exists">
-                                                <fmt:message key="label.change" bundle="${lang}"/>
-                                            </span>
-                                            <span class="fileupload-new">
-                                                <fmt:message key="label.photo.select" bundle="${lang}"/>
-                                            </span>
-                                            <input type="file" name="pojo.photo">
-                                        </span>
-                                        <a href="#" class="btn btn-default fileupload-exists" data-dismiss="fileupload">
-                                            <fmt:message key="label.cancel" bundle="${lang}"/>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-group">
                             <label class="col-md-3 control-label">
                                 <fmt:message key="label.staff.birthday" bundle="${lang}"/>
@@ -232,6 +256,34 @@
 </content>
 
 <content tag="local_script">
+    <script type="application/javascript">
+        $(document).ready(function () {
+            getImagePreview();
+        })
+
+        function getImagePreview() {
+            $(".imagePreviewWrapper").click(function () {
+                $("#staffPhoto").trigger('click');
+            })
+
+            $("#staffPhoto").change(function () {
+                readURL(this);
+                $("#staffPhotoName").val(this.files[0].name);
+            })
+        }
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#imagePreview').attr('src', reader.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 </content>
 </body>
 </html>

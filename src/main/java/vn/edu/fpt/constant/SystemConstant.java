@@ -1,6 +1,11 @@
 package vn.edu.fpt.constant;
 
+import java.io.File;
+
 public class SystemConstant {
+    public static final String BASE_UPLOAD_PATH = "/Users/vothanhtai/Documents/WorkSpace/Java/FPT-Polytechnic/Java5-SpringMVC-Assignment/resource".replace("/", File.separator);
+    public static final String STAFF_UPLOAD_PATH = "staff";
+
     public static final String REDIRECT_URL = "redirect:/";
     public static final String COMMAND = "command";
     public static final String SORT_ASC = "1";
