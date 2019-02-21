@@ -45,6 +45,7 @@
 <section role="main" class="content-body">
     <header class="page-header">
         <h2><fmt:message key="label.staff.${empty command.pojo ? 'insert' : 'update'}" bundle="${lang}"/></h2>
+        <h2><spring:message code="label.staff.${empty command.pojo ? 'insert' : 'update'}"/></h2>
     </header>
 
     <!-- start: page -->
