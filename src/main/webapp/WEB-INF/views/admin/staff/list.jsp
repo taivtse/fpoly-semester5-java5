@@ -84,7 +84,7 @@
         <section class="panel">
             <header class="panel-heading">
                 <h2 class="panel-title">
-                    <spring:message code="label.delete.ask.title">
+                    <spring:message code="label.delete.ask.title"/>
                 </h2>
             </header>
             <div class="panel-body">

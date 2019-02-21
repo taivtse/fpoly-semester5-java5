@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.edu.fpt.command.DepartCommand;
 import vn.edu.fpt.dto.DepartDto;
 import vn.edu.fpt.service.generic.extend.DepartService;
-import vn.edu.fpt.util.MessageBundleUtil;
+import vn.edu.fpt.util.ResourceBundleUtil;
 
 import java.util.List;
 
@@ -38,15 +38,15 @@ public class DepartController {
     public String insert(DepartDto departDto) {
         try {
             departService.saveWithActiveStatus(departDto);
-            return MessageBundleUtil.get("label.response.success");
+            return ResourceBundleUtil.getCommonBundle().get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();
-            if (e.getCause() instanceof ConstraintViolationException) {
-                return MessageBundleUtil.get("label.response.duplicate");
+            if (e instanceof ConstraintViolationException) {
+                return ResourceBundleUtil.getCommonBundle().get("label.response.duplicate");
             } else if (e.getCause() instanceof DataException) {
-                return MessageBundleUtil.get("label.response.too_long");
+                return ResourceBundleUtil.getCommonBundle().get("label.response.too_long");
             }
-            return MessageBundleUtil.get("label.response.error");
+            return ResourceBundleUtil.getCommonBundle().get("label.response.error");
         }
     }
 
@@ -55,15 +55,15 @@ public class DepartController {
     public String update(DepartDto departDto) {
         try {
             departService.updateWithActiveStatus(departDto);
-            return MessageBundleUtil.get("label.response.success");
+            return ResourceBundleUtil.getCommonBundle().get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();
             if (e.getCause() instanceof StaleStateException) {
-                return MessageBundleUtil.get("label.response.primary_key");
+                return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
             } else if (e.getCause() instanceof DataException) {
-                return MessageBundleUtil.get("label.response.too_long");
+                return ResourceBundleUtil.getCommonBundle().get("label.response.too_long");
             }
-            return MessageBundleUtil.get("label.response.error");
+            return ResourceBundleUtil.getCommonBundle().get("label.response.error");
         }
     }
 
@@ -72,13 +72,13 @@ public class DepartController {
     public String delete(@PathVariable("departId") String departId) {
         try {
             departService.updateToUnActiveById(departId);
-            return MessageBundleUtil.get("label.response.success");
+            return ResourceBundleUtil.getCommonBundle().get("label.response.success");
         } catch (Exception e) {
             e.printStackTrace();
             if (e.getCause() instanceof StaleStateException) {
-                return MessageBundleUtil.get("label.response.primary_key");
+                return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
             }
-            return MessageBundleUtil.get("label.response.error");
+            return ResourceBundleUtil.getCommonBundle().get("label.response.error");
         }
     }
 }

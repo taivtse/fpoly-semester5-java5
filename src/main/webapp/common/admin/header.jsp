@@ -192,10 +192,11 @@
             </li>
         </ul>
         <span class="separator"></span>
+
         <div class="userbox">
             <a href="#" data-toggle="dropdown">
                 <figure class="profile-picture">
-                    <img src="<c:url value='/template/admin/images/flag/flag_${cookie.AppLocale.value}.png'/>"/>
+                    <img src="<c:url value='/template/admin/images/flag/flag_${empty cookie.AppLocale ? "vi" : cookie.AppLocale.value}.png'/>"/>
                 </figure>
                 <div class="profile-info">
                     <span class="name"><spring:message code="label.language"/></span>
@@ -207,13 +208,17 @@
                 <ul class="list-unstyled">
                     <li class="divider"></li>
                     <li>
-                        <a class="language-change" data-language="en" href="#"role="menuitem" tabindex="-1" style="display: flex; align-items: center;">
-                            <img class="mr-xs" height="20px" src="<c:url value='/template/admin/images/flag/flag_en.png'/>"/>
+                        <a class="language-change" data-language="en" href="#" role="menuitem" tabindex="-1"
+                           style="display: flex; align-items: center;">
+                            <img class="mr-xs" height="20px"
+                                 src="<c:url value='/template/admin/images/flag/flag_en.png'/>"/>
                             <spring:message code="label.language.en"/></a>
                     </li>
                     <li>
-                        <a class="language-change" data-language="vi" href="#"role="menuitem" tabindex="-1" style="display: flex; align-items: center;">
-                            <img class="mr-xs" height="20px" src="<c:url value='/template/admin/images/flag/flag_vi.png'/>"/>
+                        <a class="language-change" data-language="vi" href="#" role="menuitem" tabindex="-1"
+                           style="display: flex; align-items: center;">
+                            <img class="mr-xs" height="20px"
+                                 src="<c:url value='/template/admin/images/flag/flag_vi.png'/>"/>
                             <spring:message code="label.language.vi"/></a>
                     </li>
                 </ul>
