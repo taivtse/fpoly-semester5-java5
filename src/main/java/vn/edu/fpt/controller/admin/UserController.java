@@ -2,7 +2,6 @@ package vn.edu.fpt.controller.admin;
 
 import org.hibernate.StaleStateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -12,11 +11,10 @@ import vn.edu.fpt.dto.PNotifyDto;
 import vn.edu.fpt.dto.UserDto;
 import vn.edu.fpt.service.generic.extend.UserService;
 import vn.edu.fpt.util.FormUtil;
-import vn.edu.fpt.util.ResourceBundleUtil;
+import vn.edu.fpt.util.MessageSourceUtil;
 import vn.edu.fpt.util.SessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
 @Controller
 @RequestMapping(value = {"/admin/user"})
@@ -25,9 +23,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private MessageSource messageSource;
 
     @GetMapping({"", "search"})
     public ModelAndView list(@RequestParam(value = "name", required = false) String searchName, HttpServletRequest request) {
@@ -72,27 +67,27 @@ public class UserController {
     }
 
     @PostMapping
-    public ModelAndView insertOrUpdate(HttpServletRequest request, Locale locale) {
+    public ModelAndView insertOrUpdate(HttpServletRequest request) {
         UserCommand command = FormUtil.populate(UserCommand.class, request);
         PNotifyDto pNotifyDto = new PNotifyDto();
         UserDto userDto;
         try {
             if (command.getPojo().getId() == null) {
                 userDto = userService.save(command.getPojo());
-                pNotifyDto.setTitle(messageSource.getMessage("label.insert.success", null, locale));
-                pNotifyDto.setText(messageSource.getMessage("label.user.insert.success", null, locale));
+                pNotifyDto.setTitle(MessageSourceUtil.get("label.insert.success", command.getLocale()));
+                pNotifyDto.setText(MessageSourceUtil.get("label.user.insert.success", command.getLocale()));
             } else {
                 userDto = userService.update(command.getPojo());
-                pNotifyDto.setTitle(messageSource.getMessage("label.update.success", null, locale));
-                pNotifyDto.setText(messageSource.getMessage("label.user.update.success", null, locale));
+                pNotifyDto.setTitle(MessageSourceUtil.get("label.update.success", command.getLocale()));
+                pNotifyDto.setText(MessageSourceUtil.get("label.user.update.success", command.getLocale()));
             }
 
             pNotifyDto.setType(SystemConstant.SUCCESS);
             pNotifyDto.setText(String.format(pNotifyDto.getText(), userDto.getUsername(), userDto.getFullName()));
         } catch (Exception e) {
             e.printStackTrace();
-            pNotifyDto.setTitle(messageSource.getMessage("label.error", null, locale));
-            pNotifyDto.setText(messageSource.getMessage("label.error.fail", null, locale));
+            pNotifyDto.setTitle(MessageSourceUtil.get("label.error", command.getLocale()));
+            pNotifyDto.setText(MessageSourceUtil.get("label.error.fail", command.getLocale()));
             pNotifyDto.setType(SystemConstant.ERROR);
         }
         SessionUtil.getInstance().put(request, SystemConstant.PNOTIFY, pNotifyDto);
@@ -106,13 +101,13 @@ public class UserController {
     public String delete(@PathVariable("userId") Integer userId) {
         try {
             userService.deleteById(userId);
-            return ResourceBundleUtil.getCommonBundle().get("label.response.success");
+            return MessageSourceUtil.get("label.response.success", null);
         } catch (StaleStateException e) {
             e.printStackTrace();
-            return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
+            return MessageSourceUtil.get("label.response.primary_key", null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResourceBundleUtil.getCommonBundle().get("label.response.error");
+            return MessageSourceUtil.get("label.response.error", null);
         }
     }
 }

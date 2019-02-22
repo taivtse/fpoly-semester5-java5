@@ -2,7 +2,6 @@ package vn.edu.fpt.controller.admin;
 
 import org.hibernate.StaleStateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,12 +15,11 @@ import vn.edu.fpt.dto.StaffLiveSearchDto;
 import vn.edu.fpt.service.generic.extend.DepartService;
 import vn.edu.fpt.service.generic.extend.StaffService;
 import vn.edu.fpt.util.FormUtil;
-import vn.edu.fpt.util.ResourceBundleUtil;
+import vn.edu.fpt.util.MessageSourceUtil;
 import vn.edu.fpt.util.SessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping(value = {"/admin/staff"})
@@ -32,9 +30,6 @@ public class StaffController {
 
     @Autowired
     private DepartService departService;
-
-    @Autowired
-    private MessageSource messageSource;
 
     @GetMapping({"", "search"})
     public ModelAndView list(@RequestParam(value = "name", required = false) String searchName,
@@ -97,30 +92,28 @@ public class StaffController {
 
     @PostMapping
     public ModelAndView insertOrUpdate(HttpServletRequest request,
-                                       @RequestParam(value = "pojo.photo", required = false) MultipartFile staffPhoto,
-                                       Locale locale) {
+                                       @RequestParam(value = "pojo.photo", required = false) MultipartFile staffPhoto) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
-        command.setLocale(locale);
         PNotifyDto pNotifyDto = new PNotifyDto();
         StaffDto staffDto;
         try {
             command.setStaffPhoto(staffPhoto);
             if (command.getPojo().getId() == null) {
                 staffDto = staffService.saveWithActiveStatus(command);
-                pNotifyDto.setTitle(messageSource.getMessage("label.insert.success", null, command.getLocale()));
-                pNotifyDto.setText(messageSource.getMessage("label.staff.insert.success", null, command.getLocale()));
+                pNotifyDto.setTitle(MessageSourceUtil.get("label.insert.success", command.getLocale()));
+                pNotifyDto.setText(MessageSourceUtil.get("label.staff.insert.success", command.getLocale()));
             } else {
                 staffDto = staffService.updateWithActiveStatus(command);
-                pNotifyDto.setTitle(messageSource.getMessage("label.update.success", null, command.getLocale()));
-                pNotifyDto.setText(messageSource.getMessage("label.staff.update.success", null, command.getLocale()));
+                pNotifyDto.setTitle(MessageSourceUtil.get("label.update.success", command.getLocale()));
+                pNotifyDto.setText(MessageSourceUtil.get("label.staff.update.success", command.getLocale()));
             }
 
             pNotifyDto.setType(SystemConstant.SUCCESS);
             pNotifyDto.setText(String.format(pNotifyDto.getText(), staffDto.getCode(), staffDto.getName()));
         } catch (Exception e) {
             e.printStackTrace();
-            pNotifyDto.setTitle(messageSource.getMessage("label.error", null, command.getLocale()));
-            pNotifyDto.setText(messageSource.getMessage("label.error.fail", null, command.getLocale()));
+            pNotifyDto.setTitle(MessageSourceUtil.get("label.error", command.getLocale()));
+            pNotifyDto.setText(MessageSourceUtil.get("label.error.fail", command.getLocale()));
             pNotifyDto.setType(SystemConstant.ERROR);
         }
         SessionUtil.getInstance().put(request, SystemConstant.PNOTIFY, pNotifyDto);
@@ -134,13 +127,13 @@ public class StaffController {
     public String delete(@PathVariable("staffId") Integer staffId) {
         try {
             staffService.updateToUnActiveById(staffId);
-            return ResourceBundleUtil.getCommonBundle().get("label.response.success");
+            return MessageSourceUtil.get("label.response.success", null);
         } catch (StaleStateException e) {
             e.printStackTrace();
-            return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
+            return MessageSourceUtil.get("label.response.primary_key", null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResourceBundleUtil.getCommonBundle().get("label.response.error");
+            return MessageSourceUtil.get("label.response.error", null);
         }
     }
 }

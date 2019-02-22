@@ -3,6 +3,7 @@ package vn.edu.fpt.command;
 import vn.edu.fpt.dto.PNotifyDto;
 
 import java.util.List;
+import java.util.Locale;
 
 public class AbstractCommand<T> {
     protected T pojo;
@@ -16,6 +17,7 @@ public class AbstractCommand<T> {
     private String sortDirection;
     private String[] checkList;
     private PNotifyDto pNotifyDto;
+    private Locale locale;
 
     public T getPojo() {
         return pojo;
@@ -103,5 +105,13 @@ public class AbstractCommand<T> {
 
     public void setpNotifyDto(PNotifyDto pNotifyDto) {
         this.pNotifyDto = pNotifyDto;
+    }
+
+    public Locale getLocale() {
+        return locale;
+    }
+
+    public void setLocale(Locale locale) {
+        this.locale = locale;
     }
 }

@@ -2,7 +2,6 @@ package vn.edu.fpt.controller.admin;
 
 import org.hibernate.StaleStateException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -13,11 +12,10 @@ import vn.edu.fpt.dto.RecordDto;
 import vn.edu.fpt.dto.StaffDto;
 import vn.edu.fpt.service.generic.extend.RecordService;
 import vn.edu.fpt.util.FormUtil;
-import vn.edu.fpt.util.ResourceBundleUtil;
+import vn.edu.fpt.util.MessageSourceUtil;
 import vn.edu.fpt.util.SessionUtil;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/admin/record")
@@ -26,9 +24,6 @@ public class RecordController {
 
     @Autowired
     private RecordService recordService;
-
-    @Autowired
-    private MessageSource messageSource;
 
     @GetMapping
     public ModelAndView list(HttpServletRequest request) {
@@ -66,7 +61,7 @@ public class RecordController {
     }
 
     @PostMapping
-    public ModelAndView insertOrUpdate(HttpServletRequest request, Locale locale) {
+    public ModelAndView insertOrUpdate(HttpServletRequest request) {
         RecordCommand command = FormUtil.populate(RecordCommand.class, request);
         PNotifyDto pNotifyDto = new PNotifyDto();
         RecordDto recordDto;
@@ -76,24 +71,24 @@ public class RecordController {
             command.getPojo().setStaffDto(staffDto);
 
             if (command.getPojo().getId() == null) {
-                recordDto = recordService.save(command.getPojo());
-                pNotifyDto.setTitle(messageSource.getMessage("label.insert.success", null, locale));
-                pNotifyDto.setText(messageSource.getMessage("label.record.insert.success", null, locale));
+                recordDto = recordService.save(command);
+                pNotifyDto.setTitle(MessageSourceUtil.get("label.insert.success", command.getLocale()));
+                pNotifyDto.setText(MessageSourceUtil.get("label.record.insert.success", command.getLocale()));
             } else {
-                recordDto = recordService.update(command.getPojo());
-                pNotifyDto.setTitle(messageSource.getMessage("label.update.success", null, locale));
-                pNotifyDto.setText(messageSource.getMessage("label.record.insert.success", null, locale));
+                recordDto = recordService.update(command);
+                pNotifyDto.setTitle(MessageSourceUtil.get("label.update.success", command.getLocale()));
+                pNotifyDto.setText(MessageSourceUtil.get("label.record.insert.success", command.getLocale()));
             }
 
             pNotifyDto.setType(SystemConstant.SUCCESS);
             pNotifyDto.setText(String.format(pNotifyDto.getText(),
                     recordDto.getStaffDto().getCode(),
                     recordDto.getStaffDto().getName(),
-                    messageSource.getMessage("label.record." + recordDto.getType(), null, locale)));
+                    MessageSourceUtil.get("label.record." + recordDto.getType(), command.getLocale())));
         } catch (Exception e) {
             e.printStackTrace();
-            pNotifyDto.setTitle(messageSource.getMessage("label.error", null, locale));
-            pNotifyDto.setText(messageSource.getMessage("label.error.fail", null, locale));
+            pNotifyDto.setTitle(MessageSourceUtil.get("label.error", command.getLocale()));
+            pNotifyDto.setText(MessageSourceUtil.get("label.error.fail", command.getLocale()));
             pNotifyDto.setType(SystemConstant.ERROR);
         }
         SessionUtil.getInstance().put(request, SystemConstant.PNOTIFY, pNotifyDto);
@@ -107,13 +102,13 @@ public class RecordController {
     public String delete(@PathVariable("recordId") Integer recordId) {
         try {
             recordService.deleteById(recordId);
-            return ResourceBundleUtil.getCommonBundle().get("label.response.success");
+            return MessageSourceUtil.get("label.response.success", null);
         } catch (StaleStateException e) {
             e.printStackTrace();
-            return ResourceBundleUtil.getCommonBundle().get("label.response.primary_key");
+            return MessageSourceUtil.get("label.response.primary_key", null);
         } catch (Exception e) {
             e.printStackTrace();
-            return ResourceBundleUtil.getCommonBundle().get("label.response.error");
+            return MessageSourceUtil.get("label.response.error", null);
         }
     }
 }

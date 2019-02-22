@@ -5,9 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
-import vn.edu.fpt.command.AbstractCommand;
 
 import javax.annotation.PostConstruct;
+import java.util.Locale;
 
 @Component
 public class MessageSourceUtil {
@@ -22,9 +22,7 @@ public class MessageSourceUtil {
         messageSource = injectedMessageSource;
     }
 
-    public static String get(String key, AbstractCommand command) {
-        if (command == null)
-            return messageSource.getMessage(key, null, null);
-        return messageSource.getMessage(key, null, command.getLocale());
+    public static String get(String key, Locale locale) {
+        return messageSource.getMessage(key, null, locale);
     }
 }
