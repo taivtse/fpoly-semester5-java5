@@ -124,7 +124,7 @@
                         response($.map(result, function (value, key) {
                             return {
                                 label: value.code + ' - ' + value.name,
-                                value: value.id
+                                value: value.code
                             }
                         }));
                     });
