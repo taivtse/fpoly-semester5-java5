@@ -14,7 +14,7 @@ public interface StaffService extends ActiveEntityService<Integer, StaffDto> {
 
     List<StaffLiveSearchDto> findAllActiveByCodeInLiveSearch(String staffCode);
 
-    StaffLiveSearchDto findOneActiveByIdInLiveSearch(Integer id);
+    StaffLiveSearchDto findOneActiveByCodeInLiveSearch(String staffCode);
 
     StaffDto saveWithActiveStatus(StaffCommand command) throws Exception;
     StaffDto updateWithActiveStatus(StaffCommand command) throws Exception;

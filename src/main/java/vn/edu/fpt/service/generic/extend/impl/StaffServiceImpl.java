@@ -69,8 +69,8 @@ public class StaffServiceImpl extends ActiveEntityServiceImpl<Integer, StaffDto>
     }
 
     @Override
-    public StaffLiveSearchDto findOneActiveByIdInLiveSearch(Integer id) {
-        StaffEntity entity = staffDao.findOneById(id);
+    public StaffLiveSearchDto findOneActiveByCodeInLiveSearch(String staffCode) {
+        StaffEntity entity = staffDao.findOneActiveByCode(staffCode);
         StaffLiveSearchDto staffLiveSearchDto = null;
         if (entity != null) {
             staffLiveSearchDto = new StaffLiveSearchDto();

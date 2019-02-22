@@ -82,15 +82,15 @@ public class StaffController {
         return modelAndView;
     }
 
-    @GetMapping("live-search/info/{id}")
+    @GetMapping("live-search/info/{staffCode}")
     @ResponseBody
-    public StaffLiveSearchDto info(@PathVariable("id") Integer id) {
-        return staffService.findOneActiveByIdInLiveSearch(id);
+    public StaffLiveSearchDto getStaffInfoInLiveSearch(@PathVariable("staffCode") String staffCode) {
+        return staffService.findOneActiveByCodeInLiveSearch(staffCode);
     }
 
     @GetMapping("live-search")
     @ResponseBody
-    public List<StaffLiveSearchDto> getStaffByCodeInLiveSearch(@RequestParam("staffCode") String staffCode) {
+    public List<StaffLiveSearchDto> getStaffsByCodeInLiveSearch(@RequestParam("staffCode") String staffCode) {
         List<StaffLiveSearchDto> liveSearchNameList = staffService.findAllActiveByCodeInLiveSearch(staffCode);
         return liveSearchNameList;
     }
@@ -100,26 +100,27 @@ public class StaffController {
                                        @RequestParam(value = "pojo.photo", required = false) MultipartFile staffPhoto,
                                        Locale locale) {
         StaffCommand command = FormUtil.populate(StaffCommand.class, request);
+        command.setLocale(locale);
         PNotifyDto pNotifyDto = new PNotifyDto();
         StaffDto staffDto;
         try {
             command.setStaffPhoto(staffPhoto);
             if (command.getPojo().getId() == null) {
                 staffDto = staffService.saveWithActiveStatus(command);
-                pNotifyDto.setTitle(messageSource.getMessage("label.insert.success", null, locale));
-                pNotifyDto.setText(messageSource.getMessage("label.staff.insert.success", null, locale));
+                pNotifyDto.setTitle(messageSource.getMessage("label.insert.success", null, command.getLocale()));
+                pNotifyDto.setText(messageSource.getMessage("label.staff.insert.success", null, command.getLocale()));
             } else {
                 staffDto = staffService.updateWithActiveStatus(command);
-                pNotifyDto.setTitle(messageSource.getMessage("label.update.success", null, locale));
-                pNotifyDto.setText(messageSource.getMessage("label.staff.update.success", null, locale));
+                pNotifyDto.setTitle(messageSource.getMessage("label.update.success", null, command.getLocale()));
+                pNotifyDto.setText(messageSource.getMessage("label.staff.update.success", null, command.getLocale()));
             }
 
             pNotifyDto.setType(SystemConstant.SUCCESS);
             pNotifyDto.setText(String.format(pNotifyDto.getText(), staffDto.getCode(), staffDto.getName()));
         } catch (Exception e) {
             e.printStackTrace();
-            pNotifyDto.setTitle(messageSource.getMessage("label.error", null, locale));
-            pNotifyDto.setText(messageSource.getMessage("label.error.fail", null, locale));
+            pNotifyDto.setTitle(messageSource.getMessage("label.error", null, command.getLocale()));
+            pNotifyDto.setText(messageSource.getMessage("label.error.fail", null, command.getLocale()));
             pNotifyDto.setType(SystemConstant.ERROR);
         }
         SessionUtil.getInstance().put(request, SystemConstant.PNOTIFY, pNotifyDto);
