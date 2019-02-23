@@ -50,19 +50,21 @@
                 <tr>
                     <th><spring:message code="label.numerical.order"/></th>
                     <th><spring:message code="label.staff.code"/></th>
+                    <th><spring:message code="label.staff.name"/></th>
                     <th><spring:message code="label.synthesis.total.reward"/></th>
                     <th><spring:message code="label.synthesis.total.punishment"/></th>
                     <th><spring:message code="label.synthesis.total.result"/></th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="synthesisDto" items="${command.listResult}" varStatus="loop">
+                <c:forEach var="staffSynthesisDto" items="${command.staffSynthesisDtoList}" varStatus="loop">
                     <tr>
                         <td>${loop.index + 1}</td>
-                        <td>${synthesisDto.staffCode}</td>
-                        <td>${synthesisDto.totalReward}</td>
-                        <td>${synthesisDto.totalPunishment}</td>
-                        <td>${synthesisDto.totalResult}</td>
+                        <td>${staffSynthesisDto.staffCode}</td>
+                        <td>${staffSynthesisDto.staffName}</td>
+                        <td>${staffSynthesisDto.totalReward}</td>
+                        <td>${staffSynthesisDto.totalPunishment}</td>
+                        <td>${staffSynthesisDto.totalResult}</td>
                     </tr>
                 </c:forEach>
                 </tbody>

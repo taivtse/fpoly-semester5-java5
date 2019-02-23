@@ -12,7 +12,8 @@
 
     <link rel="shortcut icon" href="">
 
-    <link rel="shortcut icon" type="image/png" href="<c:url value='/template/admin/images/apple-touch-icon-precomposed.png'/>"/>
+    <link rel="shortcut icon" type="image/png"
+          href="<c:url value='/template/admin/images/apple-touch-icon-precomposed.png'/>"/>
 
     <!-- Mobile Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
@@ -85,13 +86,15 @@
 
     <%-- change language script --%>
     <script type="application/javascript">
-        $(".language-change").click(function (e) {
-            e.preventDefault();
+        $(document).ready(function () {
+            $(".language-change").click(function (e) {
+                e.preventDefault();
 
-            $.get("?language=" + $(this).data("language"), function () {
-                location.reload();
+                $.get("?language=" + $(this).data("language"), function () {
+                    location.reload();
+                })
             })
-        })
+        });
     </script>
 </section>
 </body>

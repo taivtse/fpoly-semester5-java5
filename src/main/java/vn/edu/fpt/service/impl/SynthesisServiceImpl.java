@@ -4,7 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import vn.edu.fpt.dao.SynthesisDao;
-import vn.edu.fpt.dto.SynthesisDto;
+import vn.edu.fpt.dto.DepartSynthesisDto;
+import vn.edu.fpt.dto.StaffSynthesisDto;
 import vn.edu.fpt.service.SynthesisService;
 
 import java.util.ArrayList;
@@ -17,32 +18,53 @@ public class SynthesisServiceImpl implements SynthesisService {
     private SynthesisDao synthesisDao;
 
     @Override
-    public List<SynthesisDto> getStaffSynthesis() {
-        List<SynthesisDto> synthesisDtoList = new ArrayList<>();
-        List<Object[]> staffSynthesis = synthesisDao.getStaffSynthesis();
-        staffSynthesis.forEach(synthesis -> {
-            SynthesisDto synthesisDto = new SynthesisDto();
-            synthesisDto.setStaffCode(String.valueOf(synthesis[0]));
-            synthesisDto.setTotalReward((Long) synthesis[1]);
-            synthesisDto.setTotalPunishment((Long) synthesis[2]);
-            synthesisDto.setTotalResult(synthesisDto.getTotalReward() - synthesisDto.getTotalPunishment());
-
-            synthesisDtoList.add(synthesisDto);
-        });
-        return synthesisDtoList;
-    }
-
-    @Override
-    public SynthesisDto getStaffSynthesisByCode(String staffCode) {
+    public StaffSynthesisDto getStaffSynthesisByCode(String staffCode) {
         Object[] staffSynthesis = synthesisDao.getStaffSynthesisByCode(staffCode);
         if (staffSynthesis == null) {
             return null;
         }
-        SynthesisDto synthesisDto = new SynthesisDto();
-        synthesisDto.setStaffCode(String.valueOf(staffSynthesis[0]));
-        synthesisDto.setTotalReward((Long) staffSynthesis[1]);
-        synthesisDto.setTotalPunishment((Long) staffSynthesis[2]);
-        synthesisDto.setTotalResult(synthesisDto.getTotalReward() - synthesisDto.getTotalPunishment());
-        return synthesisDto;
+        StaffSynthesisDto staffSynthesisDto = new StaffSynthesisDto();
+        staffSynthesisDto.setStaffCode(String.valueOf(staffSynthesis[0]));
+        staffSynthesisDto.setStaffName(String.valueOf(staffSynthesis[1]));
+        staffSynthesisDto.setStaffPhoto(String.valueOf(staffSynthesis[2]));
+        staffSynthesisDto.setTotalReward((Long) staffSynthesis[3]);
+        staffSynthesisDto.setTotalPunishment((Long) staffSynthesis[4]);
+        staffSynthesisDto.setTotalResult(staffSynthesisDto.getTotalReward() - staffSynthesisDto.getTotalPunishment());
+        return staffSynthesisDto;
+    }
+
+    @Override
+    public List<StaffSynthesisDto> getTopStaffSynthesis(Integer limit) {
+        List<StaffSynthesisDto> staffSynthesisDtoList = new ArrayList<>();
+        List<Object[]> staffSynthesis = synthesisDao.getTopStaffSynthesis(limit);
+        staffSynthesis.forEach(synthesis -> {
+            StaffSynthesisDto staffSynthesisDto = new StaffSynthesisDto();
+            staffSynthesisDto.setStaffCode(String.valueOf(synthesis[0]));
+            staffSynthesisDto.setStaffName(String.valueOf(synthesis[1]));
+            staffSynthesisDto.setStaffPhoto(String.valueOf(synthesis[2]));
+            staffSynthesisDto.setTotalReward((Long) synthesis[3]);
+            staffSynthesisDto.setTotalPunishment((Long) synthesis[4]);
+            staffSynthesisDto.setTotalResult(staffSynthesisDto.getTotalReward() - staffSynthesisDto.getTotalPunishment());
+
+            staffSynthesisDtoList.add(staffSynthesisDto);
+        });
+        return staffSynthesisDtoList;
+    }
+
+    @Override
+    public List<DepartSynthesisDto> getDepartSynthesis() {
+        List<DepartSynthesisDto> departSynthesisDtoList = new ArrayList<>();
+        List<Object[]> departSynthesis = synthesisDao.getDepartSynthesis();
+        departSynthesis.forEach(synthesis -> {
+            DepartSynthesisDto departSynthesisDto = new DepartSynthesisDto();
+            departSynthesisDto.setDepartId(String.valueOf(synthesis[0]));
+            departSynthesisDto.setDepartName(String.valueOf(synthesis[1]));
+            departSynthesisDto.setTotalReward((Long) synthesis[2]);
+            departSynthesisDto.setTotalPunishment((Long) synthesis[3]);
+            departSynthesisDto.setTotalResult(departSynthesisDto.getTotalReward() - departSynthesisDto.getTotalPunishment());
+
+            departSynthesisDtoList.add(departSynthesisDto);
+        });
+        return departSynthesisDtoList;
     }
 }

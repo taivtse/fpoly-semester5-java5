@@ -18,7 +18,7 @@
                     <li ${pageContext.request.requestURI eq '/admin' ? 'class="nav-expanded nav-active"':''}>
                         <a href="/">
                             <i class="fa fa-home" aria-hidden="true"></i>
-                            <span>Dashboard</span>
+                            <span><spring:message code="label.reward"/></span>
                         </a>
                     </li>
                     <li ${fn:startsWith(pageContext.request.requestURI, '/admin/depart') ? 'class="nav-expanded nav-active"':''}>

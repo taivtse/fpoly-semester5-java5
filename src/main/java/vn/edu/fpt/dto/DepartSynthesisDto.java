@@ -1,17 +1,26 @@
 package vn.edu.fpt.dto;
 
-public class SynthesisDto {
-    private String staffCode;
+public class DepartSynthesisDto {
+    private String departId;
+    private String departName;
     private Long totalReward;
     private Long totalPunishment;
     private Long totalResult;
 
-    public String getStaffCode() {
-        return staffCode;
+    public String getDepartId() {
+        return departId;
     }
 
-    public void setStaffCode(String staffCode) {
-        this.staffCode = staffCode;
+    public void setDepartId(String departId) {
+        this.departId = departId;
+    }
+
+    public String getDepartName() {
+        return departName;
+    }
+
+    public void setDepartName(String departName) {
+        this.departName = departName;
     }
 
     public Long getTotalReward() {
