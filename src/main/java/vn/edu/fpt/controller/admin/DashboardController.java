@@ -20,6 +20,7 @@ public class DashboardController {
     public ModelAndView index(){
         SynthesisCommand command = new SynthesisCommand();
         command.setStaffSynthesisDtoList(synthesisService.getTopStaffSynthesis(10));
+        command.setDepartSynthesisDtoList(synthesisService.getDepartSynthesis());
 
         ModelAndView modelAndView = new ModelAndView(prefixPath.concat("dashboard"));
         modelAndView.addObject(SystemConstant.COMMAND, command);

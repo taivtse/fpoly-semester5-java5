@@ -50,7 +50,7 @@
     <!-- start: page -->
     <div class="row">
         <div class="col-lg-12">
-            <section class="panel">
+            <section class="panel panel-featured">
                 <header class="panel-heading">
                     <h2 class="panel-title"><spring:message code="label.staff.info"/></h2>
                 </header>

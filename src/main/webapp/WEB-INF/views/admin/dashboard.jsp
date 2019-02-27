@@ -8,6 +8,11 @@
 <html>
 <head>
     <title><spring:message code="label.index.title"/></title>
+    <content tag="specific_css">
+        <link rel="stylesheet"
+              href="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/css/datatables.css'/>"/>
+        <link rel="stylesheet" href="<c:url value='/template/admin/vendor/morris/morris.css'/>"/>
+    </content>
     <style>
         .top-image h3 {
             position: absolute;
@@ -17,7 +22,7 @@
             transform: translate(-50%, 0);
         }
 
-        .profile-stats{
+        .profile-stats {
             display: flex;
             justify-content: space-around;
         }
@@ -27,46 +32,46 @@
         }
 
         .level1 .stat,
-        .level2 .stat{
-            font-size: 13px!important;
+        .level2 .stat {
+            font-size: 13px !important;
         }
 
         .level3 .top-image h3 {
             font-size: 22px;
         }
 
-        .level3 .profile-info h3.name{
+        .level3 .profile-info h3.name {
             font-size: 19px;
             margin-top: 29px;
             margin-bottom: 0;
         }
 
-        .level3 .profile-info h4.name{
+        .level3 .profile-info h4.name {
             margin-top: 5px;
             font-size: 17px;
         }
 
-        .level3 .stat{
-            font-size: 11px!important;
+        .level3 .stat {
+            font-size: 11px !important;
         }
 
         .level4 .top-image h3 {
             font-size: 20px;
         }
 
-        .level4 .profile-info h3.name{
+        .level4 .profile-info h3.name {
             font-size: 17px;
             margin-top: 29px;
             margin-bottom: 0;
         }
 
-        .level4 .profile-info h4.name{
+        .level4 .profile-info h4.name {
             margin-top: 3px;
             font-size: 15px;
         }
 
-        .level4 .profile-stats li{
-            padding: 0!important;
+        .level4 .profile-stats li {
+            padding: 0 !important;
         }
 
     </style>
@@ -74,13 +79,15 @@
 <body>
 <section role="main" class="content-body">
     <header class="page-header">
-        <h2><spring:message code="label.index.title"/></h2>
+        <h2><spring:message code="label.board"/></h2>
     </header>
 
     <!-- start: page -->
-    <div class="panel">
+    <section class="panel panel-featured">
         <header class="panel-heading">
-            <h2 class="panel-title">Thành tích cá nhân</h2>
+            <h2 class="panel-title">
+                <spring:message code="label.board.personal"/>
+            </h2>
         </header>
         <div class="panel-body">
             <div class="row">
@@ -258,7 +265,8 @@
                                              style="display: flex;flex-direction: column">
                                             <div class="profile-picture"
                                                  style="display: flex; justify-content: center; margin-right:0px">
-                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[3].staffPhoto}'/>" alt="" style="border-radius: 50%;
+                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[3].staffPhoto}'/>"
+                                                     alt="" style="border-radius: 50%;
                                              object-fit: contain;
                                              width: 130px;
                                              height: 130px;
@@ -309,7 +317,8 @@
                                              style="display: flex;flex-direction: column">
                                             <div class="profile-picture"
                                                  style="display: flex; justify-content: center; margin-right:0px">
-                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[4].staffPhoto}'/>" alt="" style="border-radius: 50%;
+                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[4].staffPhoto}'/>"
+                                                     alt="" style="border-radius: 50%;
                                              object-fit: contain;
                                              width: 130px;
                                              height: 130px;
@@ -361,7 +370,8 @@
                                              style="display: flex;flex-direction: column">
                                             <div class="profile-picture"
                                                  style="display: flex; justify-content: center; margin-right:0px">
-                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[5].staffPhoto}'/>" alt="" style="border-radius: 50%;
+                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[5].staffPhoto}'/>"
+                                                     alt="" style="border-radius: 50%;
                                              object-fit: contain;
                                              width: 130px;
                                              height: 130px;
@@ -416,7 +426,8 @@
                                              style="display: flex;flex-direction: column">
                                             <div class="profile-picture"
                                                  style="display: flex; justify-content: center; margin-right:0px">
-                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[6].staffPhoto}'/>" alt="" style="border-radius: 50%;
+                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[6].staffPhoto}'/>"
+                                                     alt="" style="border-radius: 50%;
                                              object-fit: contain;
                                              width: 110px;
                                              height: 110px;
@@ -469,7 +480,8 @@
                                              style="display: flex;flex-direction: column">
                                             <div class="profile-picture"
                                                  style="display: flex; justify-content: center; margin-right:0px">
-                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[7].staffPhoto}'/>" alt="" style="border-radius: 50%;
+                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[7].staffPhoto}'/>"
+                                                     alt="" style="border-radius: 50%;
                                              object-fit: contain;
                                              width: 110px;
                                              height: 110px;
@@ -522,7 +534,8 @@
                                              style="display: flex;flex-direction: column">
                                             <div class="profile-picture"
                                                  style="display: flex; justify-content: center; margin-right:0px">
-                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[8].staffPhoto}'/>" alt="" style="border-radius: 50%;
+                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[8].staffPhoto}'/>"
+                                                     alt="" style="border-radius: 50%;
                                              object-fit: contain;
                                              width: 110px;
                                              height: 110px;
@@ -575,7 +588,8 @@
                                              style="display: flex;flex-direction: column">
                                             <div class="profile-picture"
                                                  style="display: flex; justify-content: center; margin-right:0px">
-                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[9].staffPhoto}'/>" alt="" style="border-radius: 50%;
+                                                <img src="<c:url value='/resource/${command.staffSynthesisDtoList[9].staffPhoto}'/>"
+                                                     alt="" style="border-radius: 50%;
                                              object-fit: contain;
                                              width: 110px;
                                              height: 110px;
@@ -615,8 +629,94 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <section class="panel panel-featured">
+        <header class="panel-heading">
+            <h2 class="panel-title">
+                <spring:message code="label.board.depart"/>
+            </h2>
+        </header>
+        <div class="panel-body">
+            <!-- Morris: Bar -->
+            <div class="chart chart-md" id="morrisBar"></div>
+            <div class="row pt-xlg">
+                <div class="col-xs-12">
+                    <table class="table table-bordered table-striped mb-none" id="datatable-default">
+                        <thead>
+                        <tr>
+                            <th><spring:message code="label.numerical.order"/></th>
+                            <th><spring:message code="label.depart.name"/></th>
+                            <th><spring:message code="label.synthesis.total.reward"/></th>
+                            <th><spring:message code="label.synthesis.total.punishment"/></th>
+                            <th><spring:message code="label.synthesis.total.result"/></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="departSynthesisDto" items="${command.departSynthesisDtoList}" varStatus="loop">
+                            <tr>
+                                <td>${loop.index + 1}</td>
+                                <td>${departSynthesisDto.departName}</td>
+                                <td>${departSynthesisDto.totalReward}</td>
+                                <td>${departSynthesisDto.totalPunishment}</td>
+                                <td>${departSynthesisDto.totalResult}</td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
     <!-- end: page -->
 </section>
+<content tag="specific_script">
+    <script src="<c:url value='/template/admin/vendor/jquery-datatables/jquery.dataTables.min.js'/>"></script>
+    <script src="<c:url value='/template/admin/vendor/jquery-datatables-bs3/assets/js/datatables.js'/>"></script>
+    <script src="<c:url value='/template/admin/vendor/raphael/raphael.js'/>"></script>
+    <script src="<c:url value='/template/admin/vendor/morris/morris.min.js'/>"></script>
+</content>
+
+<content tag="local_script">
+    <script type="application/javascript">
+        $(document).ready(function () {
+            var morrisBarData = [];
+
+            <c:forEach var="depart" items="${command.departSynthesisDtoList}">
+            morrisBarData.push({
+                departName: '${depart.departName}',
+                totalReward: ${depart.totalReward},
+                totalPunishment: ${depart.totalPunishment},
+                totalResult: ${depart.totalResult}
+            });
+            </c:forEach>
+
+            /*
+            Morris: Bar
+            */
+            Morris.Bar({
+                resize: true,
+                element: 'morrisBar',
+                data: morrisBarData,
+                xkey: 'departName',
+                ykeys: ['totalResult'],
+                labels: ['<spring:message code="label.board.depart"/>', 'Series B'],
+                hideHover: true,
+                barColors: ['#016BA1'],
+                horizontal: true,
+                hoverCallback: function(index, options, content) {
+                    var data = options.data[index];
+                    var htmlContent = "<div class='morris-hover-row-label' style='color: #e63b35;'>" + data.departName + "</div>" +
+                        "<div class='morris-hover-point' style='color: #016BA1;'>" +
+                        "<spring:message code='label.synthesis.total.reward'/>: " + data.totalReward + "</div>" +
+                        "<div class='morris-hover-point' style='color: #016BA1;'>" +
+                        "<spring:message code='label.synthesis.total.punishment'/>: " + data.totalPunishment + "</div>" +
+                        "<div class='morris-hover-point' style='color: #016BA1;'>" +
+                        "<spring:message code='label.synthesis.total.result'/>: " + data.totalResult + "</div>";
+                    return(htmlContent);
+                },
+            });
+        })
+    </script>
+</content>
 </body>
 </html>

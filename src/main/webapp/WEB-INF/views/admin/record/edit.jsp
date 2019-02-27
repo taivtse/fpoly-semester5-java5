@@ -21,7 +21,7 @@
     </header>
 
     <!-- start: page -->
-    <section class="panel">
+    <section class="panel panel-featured">
         <header class="panel-heading">
             <h2 class="panel-title"><spring:message code="label.record.${empty command.pojo.id ? 'insert' : 'update'}"/></h2>
         </header>
