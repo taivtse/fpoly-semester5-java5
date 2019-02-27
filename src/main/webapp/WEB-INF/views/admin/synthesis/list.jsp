@@ -22,7 +22,7 @@
     </header>
 
     <!-- start: page -->
-    <section class="panel">
+    <section class="panel panel-featured">
         <header class="panel-heading">
             <h2 class="panel-title"><spring:message code="label.synthesis.list"/></h2>
         </header>
@@ -53,7 +53,7 @@
                     <th><spring:message code="label.staff.name"/></th>
                     <th><spring:message code="label.synthesis.total.reward"/></th>
                     <th><spring:message code="label.synthesis.total.punishment"/></th>
-                    <th><spring:message code="label.synthesis.total.result"/></th>
+                    <th><spring:message code="label.synthesis.total"/></th>
                 </tr>
                 </thead>
                 <tbody>

@@ -23,7 +23,7 @@
     </header>
 
     <!-- start: page -->
-    <section class="panel">
+    <section class="panel panel-featured">
         <header class="panel-heading">
             <h2 class="panel-title"><spring:message code="label.staff.list"/></h2>
         </header>
@@ -81,7 +81,7 @@
 
 <content tag="specific_html">
     <div id="dialog" class="modal-block mfp-hide">
-        <section class="panel">
+        <section class="panel panel-featured">
             <header class="panel-heading">
                 <h2 class="panel-title">
                     <spring:message code="label.delete.ask.title"/>
