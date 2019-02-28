@@ -18,8 +18,11 @@ public class UserEntity implements Serializable {
     @Column(name = "password", nullable = false, length = 50)
     private String password;
 
-    @Column(name = "fullname", nullable = false, length = 50)
+    @Column(name = "full_name", nullable = false, length = 50)
     private String fullName;
+    
+    @Column(name = "role_name", nullable = false, length = 20)
+    private String roleName;
 
     public UserEntity() {
     }
@@ -60,5 +63,13 @@ public class UserEntity implements Serializable {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }

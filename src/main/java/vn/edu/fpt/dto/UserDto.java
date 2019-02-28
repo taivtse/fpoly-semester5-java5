@@ -7,6 +7,7 @@ public class UserDto implements Serializable, DtoMarker<Integer> {
     private String username;
     private String password;
     private String fullName;
+    private String roleName;
 
     @Override
     public Integer getId() {
@@ -39,5 +40,13 @@ public class UserDto implements Serializable, DtoMarker<Integer> {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }
