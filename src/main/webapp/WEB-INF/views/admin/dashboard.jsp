@@ -310,7 +310,7 @@
                                         left: 50%;
                                         color: white;
                                         margin-top: 5px;
-                                        transform: translate(-50%, 0);">4th</h3>
+                                        transform: translate(-50%, 0);">5th</h3>
                                             <img src="/template/admin/images/widget-twitter-profile.jpg" alt="">
                                         </div>
                                         <div class="profile-info"
@@ -363,7 +363,7 @@
                                         left: 50%;
                                         color: white;
                                         margin-top: 5px;
-                                        transform: translate(-50%, 0);">4th</h3>
+                                        transform: translate(-50%, 0);">6th</h3>
                                             <img src="/template/admin/images/widget-twitter-profile.jpg" alt="">
                                         </div>
                                         <div class="profile-info"
@@ -472,7 +472,7 @@
                                         left: 50%;
                                         color: white;
                                         margin-top: 5px;
-                                        transform: translate(-50%, 0);">7th</h3>
+                                        transform: translate(-50%, 0);">8th</h3>
                                             <img src="/template/admin/images/widget-twitter-profile.jpg" alt=""
                                                  style="height: 37px;">
                                         </div>
@@ -526,7 +526,7 @@
                                         left: 50%;
                                         color: white;
                                         margin-top: 5px;
-                                        transform: translate(-50%, 0);">7th</h3>
+                                        transform: translate(-50%, 0);">9th</h3>
                                             <img src="/template/admin/images/widget-twitter-profile.jpg" alt=""
                                                  style="height: 37px;">
                                         </div>
@@ -580,7 +580,7 @@
                                         left: 50%;
                                         color: white;
                                         margin-top: 5px;
-                                        transform: translate(-50%, 0);">7th</h3>
+                                        transform: translate(-50%, 0);">10th</h3>
                                             <img src="/template/admin/images/widget-twitter-profile.jpg" alt=""
                                                  style="height: 37px;">
                                         </div>
