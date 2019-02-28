@@ -3,7 +3,9 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xmlns:beans="http://www.springframework.org/schema/beans"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-    http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+            http://www.springframework.org/schema/security
+            http://www.springframework.org/schema/security/spring-security.xsd
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <http auto-config="true">
         <csrf disabled="true"/>
@@ -12,10 +14,13 @@
         <intercept-url pattern="/admin/login" access="permitAll()"/>
         <intercept-url pattern="/admin/logout" access="permitAll()"/>
 
-        <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+        <intercept-url pattern="/admin**" access="hasRole('ROLE_ADMIN')"/>
 
         <access-denied-handler error-page="/403"/>
 
+
+        <!--default-target-url="/admin"
+                    always-use-default-target="true"-->
         <form-login login-page='/admin/login'
                     login-processing-url="/j_spring_security_login"
                     default-target-url="/admin"
@@ -29,23 +34,26 @@
 
     </http>
 
+    <beans:bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <beans:property name="location" value="classpath:database.properties"/>
+    </beans:bean>
+
+    <beans:bean id="dataSource"
+                class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <beans:property name="driverClassName" value="${database.driverClassName}"/>
+        <beans:property name="url" value="${database.url}"/>
+        <beans:property name="username" value="${database.username}"/>
+        <beans:property name="password" value="${database.password}"/>
+    </beans:bean>
+
     <authentication-manager>
+        <!-- authentication from database -->
         <authentication-provider>
-            <user-service>
-                <user name="admin" password="827ccb0eea8a706c4c34a16891f84e7b" authorities="ROLE_ADMIN"/>
-            </user-service>
+            <jdbc-user-service data-source-ref="dataSource"
+                               users-by-username-query="SELECT username,password,enabled FROM user WHERE username=?"
+                               authorities-by-username-query="SELECT username, authority AS role FROM user WHERE username=?"/>
             <password-encoder hash="md5"/>
         </authentication-provider>
-
-
-        <!-- authentication from database -->
-        <!--<authentication-provider>-->
-            <!--<jdbc-user-service data-source-ref="dataSource"-->
-                               <!--users-by-username-query="SELECT username,password FROM user WHERE username=?"-->
-                               <!--authorities-by-username-query="SELECT username, role_name user_role FROM user WHERE username=?"/>-->
-            <!--<password-encoder hash="md5"/>-->
-        <!--</authentication-provider>-->
-
     </authentication-manager>
 
 </beans:beans>
