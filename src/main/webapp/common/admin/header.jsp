@@ -248,11 +248,7 @@
                             Profile</a>
                     </li>
                     <li>
-                        <a role="menuitem" tabindex="-1" href="#" data-lock-screen="true"><i class="fa fa-lock"></i>
-                            Lock Screen</a>
-                    </li>
-                    <li>
-                        <a role="menuitem" tabindex="-1" href="pages-signin.html"><i class="fa fa-power-off"></i> Logout</a>
+                        <a role="menuitem" tabindex="-1" href="/j_spring_security_logout"><i class="fa fa-power-off"></i> Logout</a>
                     </li>
                 </ul>
             </div>

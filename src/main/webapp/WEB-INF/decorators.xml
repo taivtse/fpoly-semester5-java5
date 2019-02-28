@@ -11,7 +11,7 @@
     </decorator>
 
     <decorator name="login" page="login.jsp">
-        <pattern>/login*</pattern>
+        <pattern>/admin/login*</pattern>
     </decorator>
 
     <decorator name="web" page="web.jsp">

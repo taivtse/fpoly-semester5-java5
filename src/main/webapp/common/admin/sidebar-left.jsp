@@ -46,7 +46,7 @@
                         </a>
                     </li>
                     <li ${fn:startsWith(pageContext.request.requestURI, '/admin/synthesis') ? 'class="nav-expanded nav-active"':''}>
-                        <a href="<c:url value='/admin/synthesis'/>">
+                        <a href="<c:url value='/admin/synthesis/'/>">
                             <i class="fa fa-bar-chart-o" aria-hidden="true"></i>
                             <span><spring:message code="label.synthesis.page.title"/></span>
                         </a>

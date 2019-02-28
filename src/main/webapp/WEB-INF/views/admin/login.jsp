@@ -10,11 +10,19 @@
         <h2 class="title text-uppercase text-bold m-none"><i class="fa fa-user mr-xs"></i> Sign In</h2>
     </div>
     <div class="panel-body">
-        <form action="/j_spring_security_check" method="post">
+        <c:if test="${not empty param.status}">
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <strong><spring:message code="label.login.failed"/></strong>
+                <br/>
+                <spring:message code="label.login.wrong"/>
+            </div>
+        </c:if>
+        <form action="<c:url value='/j_spring_security_login'/>" method="post">
             <div class="form-group mb-lg">
                 <label>Username</label>
                 <div class="input-group input-group-icon">
-                    <input name="username" type="text" class="form-control input-lg"/>
+                    <input name="username" type="text" class="form-control input-lg" autofocus tabindex="1"/>
                     <span class="input-group-addon">
 										<span class="icon icon-lg" style="display: inline-flex;align-items: center;">
 											<i class="fa fa-user"></i>
@@ -24,12 +32,12 @@
             </div>
 
             <div class="form-group mb-lg">
-                <div class="clearfix">
+                <div class="clearfix">s
                     <label class="pull-left">Password</label>
                     <a href="pages-recover-password.html" class="pull-right">Lost Password?</a>
                 </div>
                 <div class="input-group input-group-icon">
-                    <input name="password" type="password" class="form-control input-lg"/>
+                    <input name="password" type="password" class="form-control input-lg" tabindex="2"/>
                     <span class="input-group-addon">
 										<span class="icon icon-lg" style="display: inline-flex;align-items: center;">
 											<i class="fa fa-lock"></i>

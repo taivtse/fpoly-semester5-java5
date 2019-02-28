@@ -92,8 +92,8 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="row level1" style="border-bottom: 1px solid #dddfe4;">
-                        <div class="col-xs-6 col-xs-push-3" style="padding: 0 40px">
+                    <div class="row level1" style="border-bottom: 1px solid #dddfe4; display: flex; justify-content: center">
+                        <div class="col-xs-5" style="padding: 0 40px">
                             <c:if test="${not empty command.staffSynthesisDtoList[0]}">
                                 <section class="panel-group mb-sm">
                                     <div class="widget-twitter-profile">
