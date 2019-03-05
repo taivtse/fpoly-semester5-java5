@@ -20,9 +20,6 @@ public class UserEntity implements Serializable {
 
     @Column(name = "full_name", nullable = false, length = 50)
     private String fullName;
-    
-    @Column(name = "role_name", nullable = false, length = 20)
-    private String roleName;
 
     public UserEntity() {
     }
@@ -63,13 +60,5 @@ public class UserEntity implements Serializable {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
     }
 }
