@@ -14,6 +14,7 @@
 8. Tổng hợp kết quả nhân viên
 9. Đa ngôn ngữ
 10. Gửi email
+11. Tìm kiếm
 
 ---
 
@@ -30,6 +31,13 @@
 3. Jquery autocomplete
 4. Morris chart
 5. Ajax
+6. Magnific popup
+7. Pnotify
+8. S
+elect2
+9. N
+anoscroller
+10. Modernizr
 
 ---
 
@@ -92,3 +100,4 @@
 
 ### Đa ngôn ngữ:
 ![image](https://user-images.githubusercontent.com/41563586/53817322-c2a95680-3f97-11e9-8814-214a43834b45.png)
+
