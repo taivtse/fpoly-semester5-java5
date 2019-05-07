@@ -2,6 +2,8 @@
 
 # Đề tài: Website ghi nhận thành tích nhân viên
 
+# Thời gian thực hiện: 2 tháng
+
 
 ## Các chức năng chính
 1. Đăng nhập, đăng xuất, bảo mật
@@ -24,6 +26,7 @@
 2. Hibernate
 3. Sitemesh decorator
 4. Spring security
+5. Mô hình 3 layer
 
 * Front end:
 1. Bootstrap
@@ -33,10 +36,8 @@
 5. Ajax
 6. Magnific popup
 7. Pnotify
-8. S
-elect2
-9. N
-anoscroller
+8. Select2
+9. Nanoscroller
 10. Modernizr
 
 ---
