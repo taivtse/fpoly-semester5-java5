@@ -2,7 +2,7 @@
 
 # Đề tài: Website ghi nhận thành tích nhân viên
 
-# Thời gian thực hiện: 2 tháng
+# Thời gian thực hiện: 1 tháng 12 ngày
 
 
 ## Các chức năng chính
